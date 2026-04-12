@@ -1,0 +1,235 @@
+.page {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 40px);
+  padding-top: calc(var(--bc-h) + var(--nav-gap) + var(--nav-h) + clamp(36px, 5vw, 56px));
+  padding-bottom: clamp(40px, 8vw, 96px);
+}
+
+.header {
+  margin-bottom: clamp(32px, 5vw, 52px);
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--neb);
+}
+
+.title {
+  margin-bottom: 14px;
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+}
+
+.desc {
+  max-width: 520px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--t2);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--nav-total) + 24px);
+}
+
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebarGroup {
+  margin-bottom: 20px;
+}
+
+.sidebarLabel {
+  padding: 4px 10px;
+  margin-bottom: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+.sidebarLink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--r-md);
+  background: none;
+  color: var(--t2);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  transition: color .15s ease, background .15s ease;
+}
+
+.sidebarLink:hover {
+  color: var(--t1);
+  background: var(--bd-f);
+}
+
+.sidebarLinkActive {
+  color: var(--t1);
+  background: var(--cyan-dim);
+  font-weight: 600;
+}
+
+.sidebarDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--t3);
+  flex-shrink: 0;
+  transition: background .15s ease, box-shadow .15s ease;
+}
+
+.sidebarLinkActive .sidebarDot {
+  background: var(--cyan);
+  box-shadow: 0 0 5px var(--cyan);
+}
+
+.content {
+  min-width: 0;
+}
+
+.group {
+  margin-bottom: clamp(32px, 5vw, 48px);
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bd-f);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--t2);
+}
+
+.groupDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.dotNeb {
+  background: var(--neb);
+}
+
+.dotCyan {
+  background: var(--cyan);
+}
+
+.dotPurple {
+  background: var(--purple);
+}
+
+.cta {
+  margin-top: clamp(32px, 5vw, 52px);
+  padding: clamp(28px, 4vw, 40px);
+  background: var(--panel);
+  border: 1px solid var(--bd-m);
+  border-radius: var(--r-card);
+  text-align: center;
+}
+
+.ctaEyebrow {
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--neb);
+}
+
+.ctaTitle {
+  margin-bottom: 10px;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+}
+
+.ctaDesc {
+  max-width: 480px;
+  margin: 0 auto 20px;
+  font-size: 14px;
+  color: var(--t2);
+}
+
+:global(.nebim-seal-inline) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 3px;
+  padding: 2px 8px 2px 5px;
+  border: 1px solid rgba(26,95,180,.3);
+  border-radius: 20px;
+  background: linear-gradient(90deg, rgba(26,95,180,.12), rgba(0,184,212,.07));
+  color: var(--neb);
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+:global(.seal-dot-sm) {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--neb);
+  box-shadow: 0 0 4px var(--neb);
+  flex-shrink: 0;
+  animation: seal-pulse 2s ease-in-out infinite;
+}
+
+@keyframes seal-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .4;
+    transform: scale(.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .page {
+    padding-top: calc(var(--nav-h) + 20px + clamp(20px, 3vw, 32px));
+  }
+}

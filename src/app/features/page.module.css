@@ -1,0 +1,595 @@
+.page {
+  padding-top: calc(var(--bc-h) + var(--nav-gap) + var(--nav-h));
+}
+
+.header {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(36px, 5vw, 56px) 0 clamp(20px, 3vw, 28px);
+  background: var(--black);
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 780px;
+  height: 680px;
+  background:
+    radial-gradient(ellipse 60% 70% at 70% 50%, rgba(53,132,228,.32) 0%, rgba(26,95,180,.18) 35%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 90% 30%, rgba(0,184,212,.22) 0%, transparent 60%);
+  pointer-events: none;
+  filter: blur(8px);
+}
+
+.headerInner {
+  position: relative;
+  z-index: 1;
+}
+
+.headerTitle {
+  max-width: 920px;
+  margin-bottom: 12px;
+  color: var(--t1);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 32px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -.02em;
+}
+
+.layout {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 40px);
+  padding-top: clamp(24px, 3vw, 40px);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--bc-h) + var(--nav-gap) + var(--nav-h) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 6px 0;
+}
+
+.tab {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid transparent;
+  color: var(--t2);
+  text-align: left;
+  transition: color .2s ease;
+}
+
+.tab + .tab {
+  border-top-color: var(--bd-f);
+}
+
+.tab:hover,
+.tabActive {
+  color: var(--t1);
+}
+
+.tabIcon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--bd-f);
+  background: rgba(255,255,255,.03);
+}
+
+.tabIcon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tabLabel {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.content {
+  min-width: 0;
+  padding-bottom: clamp(56px, 7vw, 96px);
+}
+
+.section {
+  scroll-margin-top: calc(var(--nav-total) + 30px);
+}
+
+.section + .section {
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.sectionIcon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+}
+
+.sectionIcon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sectionTitle {
+  margin-bottom: 6px;
+}
+
+.sectionDesc {
+  color: var(--t2);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.accordionGroup {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--bd-f);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.accordionGroup::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 0% 50%, rgba(0,184,212,.12) 0%, transparent 38%),
+    radial-gradient(circle at 100% 50%, rgba(53,132,228,.14) 0%, transparent 40%);
+  pointer-events: none;
+  opacity: .8;
+}
+
+.accordionGroup > * {
+  position: relative;
+  z-index: 1;
+}
+
+.accordionGroup + .accordionGroup {
+  margin-top: 12px;
+}
+
+.accordionGroup:hover,
+.accordionOpen {
+  border-color: var(--bd-m);
+}
+
+.accordionButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px;
+  text-align: left;
+}
+
+.accordionButton:hover,
+.accordionOpen .accordionButton {
+  background: rgba(255,255,255,.03);
+}
+
+.accordionButtonLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.accordionIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid var(--bd-f);
+  background: rgba(255,255,255,.03);
+  color: var(--t1);
+}
+
+.accordionIcon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.accordionTitle {
+  color: var(--t1);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.accordionTitleWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.soonBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0,184,212,.12);
+  color: var(--cyan);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.accordionArrow {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--bd-m);
+  border-radius: 999px;
+  color: var(--t2);
+  transition: transform .25s var(--ease), color .2s ease, border-color .2s ease;
+}
+
+.accordionArrow svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.accordionOpen .accordionArrow {
+  transform: rotate(180deg);
+  color: var(--cyan);
+  border-color: var(--bd-s);
+}
+
+.accordionBody {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s var(--ease);
+}
+
+.accordionOpen .accordionBody {
+  grid-template-rows: 1fr;
+}
+
+.accordionInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.accordionContent {
+  padding: 0 22px 22px;
+  border-top: 1px solid var(--bd-f);
+}
+
+.miniAccordion {
+  overflow: hidden;
+  border: 1px solid var(--bd-f);
+  border-radius: 16px;
+  background: rgba(255,255,255,.02);
+}
+
+.miniAccordion + .miniAccordion {
+  margin-top: 12px;
+}
+
+.miniAccordion:hover,
+.miniOpen {
+  border-color: var(--bd-m);
+}
+
+.miniButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.miniButton:hover,
+.miniOpen .miniButton {
+  background: rgba(255,255,255,.03);
+}
+
+.miniButtonLeft {
+  position: relative;
+  padding-left: 14px;
+  color: var(--t1);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.miniButtonLeft::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cyan);
+}
+
+.miniArrow {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--bd-m);
+  border-radius: 999px;
+  color: var(--t2);
+  transition: transform .25s var(--ease), color .2s ease;
+}
+
+.miniArrow svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.miniOpen .miniArrow {
+  transform: rotate(180deg);
+  color: var(--cyan);
+}
+
+.miniBody {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s var(--ease);
+}
+
+.miniOpen .miniBody {
+  grid-template-rows: 1fr;
+}
+
+.miniInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.miniContent {
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--bd-f);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--bd-f);
+  background: rgba(255,255,255,.02);
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.card:hover {
+  border-color: var(--bd-m);
+  background: rgba(255,255,255,.03);
+}
+
+.cardIcon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: var(--t1);
+}
+
+.cardIcon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cardBody {
+  min-width: 0;
+}
+
+.cardTitle {
+  margin-bottom: 8px;
+  color: var(--t1);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.cardDescWrap {
+  position: relative;
+}
+
+.cardDesc {
+  color: var(--t2);
+  font-size: 14px;
+  line-height: 1.75;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardOpen .cardDesc {
+  display: block;
+}
+
+.cardFade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(14,21,35,0), rgba(14,21,35,.96));
+  pointer-events: none;
+}
+
+:global([data-theme="light"]) .cardFade {
+  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.98));
+}
+
+.cardOpen .cardFade {
+  display: none;
+}
+
+.cardToggle {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--t2);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cardToggle:hover {
+  color: var(--t1);
+}
+
+.cardToggle svg {
+  width: 11px;
+  height: 11px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .35s var(--ease);
+}
+
+.cardOpen .cardToggle svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .tab,
+  .tab + .tab {
+    border-top: none;
+  }
+
+  .tab {
+    width: auto;
+    min-width: max-content;
+    padding: 12px 14px;
+    border: 1px solid var(--bd-f);
+    border-radius: 999px;
+    background: rgba(255,255,255,.02);
+  }
+
+  .tabIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+  }
+}
+
+@media (max-width: 767px) {
+  .page {
+    padding-top: calc(var(--nav-h) + 22px);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeader {
+    gap: 12px;
+  }
+
+  .sectionIcon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .accordionButton,
+  .accordionContent {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
