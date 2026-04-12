@@ -253,6 +253,15 @@ export function FeaturesPageClient() {
     <main className={styles.page}>
       <section className={styles.header}>
         <div className={`wrap ${styles.headerInner}`}>
+          <nav className={styles.breadcrumb} aria-label="Sayfa yolu">
+            <a href="/" className={styles.bcLink}>Nebim ERA</a>
+            <span className={styles.bcSep} aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+            <span className={styles.bcCurrent}>Tüm Özellikler</span>
+          </nav>
           <h1 className={styles.headerTitle}>
             <span className="grad-text">160&apos;tan Fazla Özellik ile</span> Fiziksel Mağaza, E-Ticaret ve Pazaryeri Süreçlerinizi Eksiksiz Yönetin.
           </h1>
@@ -271,7 +280,7 @@ export function FeaturesPageClient() {
                 className={`${styles.tab} ${activeSectionId === section.id ? styles.tabActive : ''}`}
                 onClick={() => handleTabClick(section.id)}
               >
-                <span className={styles.tabIcon} style={{ background: meta.iconBg, color: meta.iconColor }}>
+                <span className={styles.tabIcon} style={{ color: meta.iconColor }}>
                   {meta.icon}
                 </span>
                 <span className={styles.tabLabel}>{meta.shortLabel}</span>
@@ -294,7 +303,7 @@ export function FeaturesPageClient() {
                 }}
               >
                 <div className={styles.sectionHeader}>
-                  <div className={styles.sectionIcon} style={{ background: meta.iconBg, color: meta.iconColor }}>
+                  <div className={styles.sectionIcon} style={{ color: meta.iconColor }}>
                     {meta.icon}
                   </div>
                   <div>
@@ -318,7 +327,7 @@ export function FeaturesPageClient() {
                         type="button"
                         className={styles.accordionButton}
                         onClick={() => toggleAccordion(section.id, accordionIndex)}
-                        aria-expanded={isAccordionOpen}
+                        aria-expanded={isAccordionOpen ? "true" : "false"}
                       >
                         <div className={styles.accordionButtonLeft}>
                           <div className={styles.accordionIcon}>{meta.icon}</div>
@@ -346,7 +355,7 @@ export function FeaturesPageClient() {
 
                                   return (
                                     <div key={card.title} className={`${styles.card} ${isCardOpen ? styles.cardOpen : ''}`}>
-                                      <div className={styles.cardIcon} style={{ background: meta.iconBg, color: meta.iconColor }}>
+                                      <div className={styles.cardIcon} style={{ color: meta.iconColor }}>
                                         {getCardIcon(cardIndex)}
                                       </div>
 
@@ -384,7 +393,7 @@ export function FeaturesPageClient() {
                                       type="button"
                                       className={styles.miniButton}
                                       onClick={() => toggleMiniAccordion(section.id, accordionIndex, miniIndex)}
-                                      aria-expanded={isMiniOpen}
+                                      aria-expanded={isMiniOpen ? "true" : "false"}
                                     >
                                       <div className={styles.miniButtonLeft}>{mini.title}</div>
                                       <div className={styles.miniArrow}>
@@ -404,7 +413,7 @@ export function FeaturesPageClient() {
 
                                               return (
                                                 <div key={card.title} className={`${styles.card} ${isCardOpen ? styles.cardOpen : ''}`}>
-                                                  <div className={styles.cardIcon} style={{ background: meta.iconBg, color: meta.iconColor }}>
+                                                  <div className={styles.cardIcon} style={{ color: meta.iconColor }}>
                                                     {getCardIcon(cardIndex)}
                                                   </div>
 

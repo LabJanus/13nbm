@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 const typewriterText =
@@ -159,9 +159,41 @@ const segmentOptions = [
 ] as const;
 
 const heroMetrics = [
-  { value: 'Tek platform', label: 'Mağaza, e-ticaret ve pazaryeri akışı' },
-  { value: 'Gerçek zamanlı', label: 'Tek müşteri, tek sipariş, tek stok görünümü' },
-  { value: 'PaaS hazır', label: 'MACH mimarisi ve geliştirici ekosistemi' },
+  {
+    value: 'Tek platform',
+    label: 'Mağaza, e-ticaret ve pazaryeri akışı',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+        <path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4" />
+      </svg>
+    ),
+  },
+  {
+    value: 'Gerçek zamanlı',
+    label: 'Tek müşteri, tek sipariş, tek stok görünümü',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15.5 14" />
+        <path d="M3.5 12H5M19 12h1.5M12 3.5V5M12 19v1.5" />
+      </svg>
+    ),
+  },
+  {
+    value: 'PaaS hazır',
+    label: 'MACH mimarisi ve geliştirici ekosistemi',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 17l6-6 4 4 6-6" />
+        <path d="M15 9h5v5" />
+        <rect x="2" y="3" width="20" height="18" rx="2" />
+      </svg>
+    ),
+  },
 ] as const;
 
 function ChevronIcon() {
@@ -188,6 +220,8 @@ export function HomePageClient() {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [typewriterStarted, setTypewriterStarted] = useState(false);
+  const [waveCards, setWaveCards] = useState<boolean[]>([false, false, false]);
+  const metricsRef = React.useRef<HTMLDivElement>(null);
   const [typedLength, setTypedLength] = useState(0);
   const [businessOpen, setBusinessOpen] = useState<Record<number, boolean>>({ 0: true });
   const [customerOpen, setCustomerOpen] = useState<Record<number, boolean>>({ 0: true });
@@ -216,8 +250,37 @@ export function HomePageClient() {
 
   const typedText = typewriterText.slice(0, typedLength);
 
+  // Meksika dalgası — scroll'da kartlar soldan sağa light olup dark'a döner
+  useEffect(() => {
+    const el = metricsRef.current;
+    if (!el) return;
+    let triggered = false;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !triggered) {
+        triggered = true;
+        // Soldan sağa sırayla wave — yavaş
+        [0, 1, 2].forEach((i) => {
+          setTimeout(() => setWaveCards(prev => { const n = [...prev]; n[i] = true; return n; }), i * 400);
+          setTimeout(() => setWaveCards(prev => { const n = [...prev]; n[i] = false; return n; }), i * 400 + 1200);
+        });
+        obs.disconnect();
+      }
+    }, { threshold: 0.5 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <main className={styles.page}>
+      {/* SVG gradient tanımı — ikonlar için */}
+      <svg width="0" height="0" className={styles.svgDefs}>
+        <defs>
+          <linearGradient id="era-icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1A5FB4" />
+            <stop offset="100%" stopColor="#00B8D4" />
+          </linearGradient>
+        </defs>
+      </svg>
       <section className={styles.hero} id="s1">
         <div className={styles.heroNoise}></div>
         <video
@@ -239,11 +302,14 @@ export function HomePageClient() {
               Perakendede <span className={styles.heroMuted}>&ldquo;Çok Kanallı&rdquo;</span> dönem bitti,
               <span className="grad-text"> &ldquo;Bütünleşik&rdquo;</span> dönem başladı.
             </p>
-            <p className="t-body">
-              Günümüz tüketicisi için online veya fiziksel mağaza ayrımı yoktur; sadece
-              &ldquo;alışveriş deneyimi&rdquo; vardır. Nebim ERA ile fiziksel mağaza, online mağaza ve
-              pazaryeri süreçlerinizi tek bir platformdan, gerçek zamanlı ve kesintisiz yönetin.
+            <p className={styles.heroBody}>
+              Günümüz tüketicisi için online veya fiziksel mağaza
+              ayrımı yoktur; sadece &ldquo;alışveriş deneyimi&rdquo; vardır.
             </p>
+
+            <Link href="/#s3" className={styles.heroReadMore}>
+              Devamını okuyun &rarr;
+            </Link>
 
             <div className={styles.heroActions}>
               <Link href="#s7" className="btn btn-grad btn-lg">
@@ -254,40 +320,79 @@ export function HomePageClient() {
               </Link>
             </div>
 
-            <div className={styles.heroMetrics}>
-              {heroMetrics.map((item) => (
-                <div key={item.label} className={styles.metricCard}>
-                  <div className={styles.metricValue}>{item.value}</div>
-                  <div className={styles.metricLabel}>{item.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className={styles.heroStage}>
-            <div className={styles.stageShell}>
-              <div className={styles.stageBadge}>Retail Execution Engine</div>
-              <div className={styles.stageTitle}>Tek ürün, tek müşteri, tek indirim, tek sipariş.</div>
+            <div className={styles.stageList}>
+              <div className={styles.stageItem}>
+                <div className={styles.stageIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" />
+                    <path d="M3 9l2.5-4h13L21 9" />
+                    <path d="M12 9v12" />
+                  </svg>
+                </div>
+                <span className={styles.stageKicker}>Mağaza</span>
+                <strong>Kasa, mobil satış, self checkout</strong>
+              </div>
 
-              <div className={styles.stageGrid}>
-                <div className={styles.stageCard}>
-                  <span className={styles.stageKicker}>Mağaza</span>
-                  <strong>Kasa, mobil satış, self checkout</strong>
+              <div className={styles.stageDivider} />
+
+              <div className={styles.stageItem}>
+                <div className={styles.stageIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <path d="M8 21h8M12 17v4" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
                 </div>
-                <div className={styles.stageCard}>
-                  <span className={styles.stageKicker}>Dijital</span>
-                  <strong>E-ticaret, marketplace, AI destekli temas noktaları</strong>
+                <span className={styles.stageKicker}>Dijital</span>
+                <strong>E-ticaret, marketplace, AI destekli temas noktaları</strong>
+              </div>
+
+              <div className={styles.stageDivider} />
+
+              <div className={styles.stageItem}>
+                <div className={styles.stageIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
                 </div>
-                <div className={styles.stageCard}>
-                  <span className={styles.stageKicker}>Operasyon</span>
-                  <strong>Gerçek zamanlı stok, fiyat ve müşteri verisi</strong>
+                <span className={styles.stageKicker}>Operasyon</span>
+                <strong>Gerçek zamanlı stok, fiyat ve müşteri verisi</strong>
+              </div>
+
+              <div className={styles.stageDivider} />
+
+              <div className={styles.stageItem}>
+                <div className={styles.stageIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                    <path d="M14 4l-4 16" />
+                  </svg>
                 </div>
-                <div className={styles.stageCard}>
-                  <span className={styles.stageKicker}>Geliştirme</span>
-                  <strong>PaaS servisleri, API ve genişleme ekosistemi</strong>
-                </div>
+                <span className={styles.stageKicker}>Geliştirme</span>
+                <strong>PaaS servisleri, API ve genişleme ekosistemi</strong>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={`sec ${styles.metricsSection}`}>
+        <div className="wrap">
+          <div className={styles.heroMetrics} ref={metricsRef}>
+            {heroMetrics.map((item, index) => (
+              <React.Fragment key={item.label}>
+                {index > 0 && <div className={styles.metricDivider} />}
+                <div className={`${styles.metricCard} ${waveCards[index] ? styles.metricWave : ''}`}>
+                  <div className={styles.metricIcon}>{item.icon}</div>
+                  <div className={styles.metricValue}>{item.value}</div>
+                  <div className={styles.metricLabel}>{item.label}</div>
+                </div>
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </section>
@@ -316,8 +421,8 @@ export function HomePageClient() {
             </div>
           </div>
 
-          <div className={styles.bentoGrid}>
-            <article className={`${styles.bentoCard} ${styles.bentoWide}`}>
+          <div className={`${styles.bentoGrid} era-card-group`}>
+            <article className={`${styles.bentoCard} ${styles.bentoWide} era-card`}>
               <div className={styles.cardTop}>
                 <span className={styles.cardPill}>Kanallar</span>
                 <div className={styles.cardIcon}>01</div>
@@ -346,7 +451,7 @@ export function HomePageClient() {
               </button>
             </article>
 
-            <article className={styles.bentoCard}>
+            <article className={`${styles.bentoCard} era-card`}>
               <div className={styles.cardTop}>
                 <span className={styles.cardPillAlt}>Müşteri</span>
                 <div className={styles.cardIcon}>02</div>
@@ -366,7 +471,7 @@ export function HomePageClient() {
               </button>
             </article>
 
-            <article className={`${styles.bentoCard} ${styles.flipCard} ${isProductFlipped ? styles.flipped : ''}`}>
+            <article className={`${styles.bentoCard} ${styles.flipCard} era-card ${isProductFlipped ? styles.flipped : ''}`}>
               <div className={styles.flipInner}>
                 <div className={styles.flipFace}>
                   <div className={styles.cardTop}>
@@ -407,7 +512,7 @@ export function HomePageClient() {
               </div>
             </article>
 
-            <article className={`${styles.bentoCard} ${isInventoryOpen ? styles.drawerOpen : ''}`}>
+            <article className={`${styles.bentoCard} era-card ${isInventoryOpen ? styles.drawerOpen : ''}`}>
               <div className={styles.cardTop}>
                 <span className={styles.cardPillWarm}>Envanter</span>
                 <div className={styles.cardIcon}>04</div>
@@ -433,7 +538,7 @@ export function HomePageClient() {
               </div>
             </article>
 
-            <article className={styles.bentoCard}>
+            <article className={`${styles.bentoCard} era-card`}>
               <div className={styles.cardTop}>
                 <span className={styles.cardPillAlt}>Kampanya</span>
                 <div className={styles.cardIcon}>05</div>
@@ -459,7 +564,7 @@ export function HomePageClient() {
               </div>
             </article>
 
-            <article className={`${styles.bentoCard} ${styles.bentoFull}`}>
+            <article className={`${styles.bentoCard} ${styles.bentoFull} era-card`}>
               <div className={styles.cardTop}>
                 <span className={styles.cardPill}>Sepet</span>
                 <div className={styles.cardIcon}>06</div>
@@ -585,7 +690,7 @@ export function HomePageClient() {
             </p>
           </div>
 
-          <div className={styles.erpTabs}>
+          <div className={`${styles.erpTabs} era-card-group`}>
             {erpTabs.map((tab, index) => {
               const isActive = activeErpTab === index;
 
@@ -593,7 +698,7 @@ export function HomePageClient() {
                 <button
                   key={tab.title}
                   type="button"
-                  className={`${styles.erpTab} ${isActive ? styles.erpTabActive : ''}`}
+                  className={`${styles.erpTab} ${isActive ? styles.erpTabActive : ''} era-card`}
                   onClick={() => setActiveErpTab((current) => (current === index ? null : index))}
                 >
                   <span>{tab.title}</span>
@@ -643,9 +748,9 @@ export function HomePageClient() {
 
           <div className={styles.paasStrip}>MACH • API-first • Cloud-native • Headless • Embedded AI</div>
 
-          <div className={styles.paasGrid}>
+          <div className={`${styles.paasGrid} era-card-group`}>
             {paasCards.map((card, index) => (
-              <article key={card.title} className={styles.paasCard}>
+              <article key={card.title} className={`${styles.paasCard} era-card`}>
                 <span className={styles.paasIndex}>0{index + 1}</span>
                 <h3 className={styles.paasTitle}>{card.title}</h3>
                 <p className={styles.paasText}>{card.description}</p>
@@ -686,14 +791,14 @@ export function HomePageClient() {
             </div>
           </div>
 
-          <div className={styles.hardwareGrid}>
+          <div className={`${styles.hardwareGrid} era-card-group`}>
             {hardwareCards.map((card, index) => {
               const isOpen = Boolean(openHardwareCards[index]);
 
               return (
                 <article
                   key={card.title}
-                  className={`${styles.hardwareCard} ${styles[`hardware${card.tone[0].toUpperCase()}${card.tone.slice(1)}`]} ${isOpen ? styles.hardwareOpen : ''}`}
+                  className={`${styles.hardwareCard} ${styles[`hardware${card.tone[0].toUpperCase()}${card.tone.slice(1)}`]} ${isOpen ? styles.hardwareOpen : ''} era-card`}
                 >
                   <div className={styles.hardwareImageWrap}>
                     <Image src={card.image} alt={card.alt} width={600} height={420} className={styles.hardwareImage} />

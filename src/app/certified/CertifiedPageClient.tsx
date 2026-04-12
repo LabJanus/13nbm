@@ -402,7 +402,7 @@ export function CertifiedPageClient() {
                   type="button"
                   className={styles.detailsButton}
                   onClick={() => toggleCard(section.id)}
-                  aria-expanded={openCards[section.id]}
+                  aria-expanded={openCards[section.id] ? "true" : "false"}
                   aria-controls={`${section.id}-content`}
                 >
                   <div style={{ minWidth: 0 }}>

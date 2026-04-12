@@ -1,23 +1,27 @@
 /* ── NAV — Glass Pill ── */
 .nav {
   position: fixed;
-  top: calc(var(--bc-h) + var(--nav-gap));
+  top: calc(var(--bc-top) + var(--bc-h) + var(--nav-gap));
   left: var(--nav-side);
   right: var(--nav-side);
   z-index: 1000;
-  background: rgba(11,13,22,.42);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--glass-radius);
+  box-shadow: var(--glass-shadow);
   display: flex;
   align-items: center;
   overflow: visible;
   transition: background .3s, box-shadow .3s, border-color .3s, transform .4s var(--ease), opacity .4s var(--ease), top .3s var(--ease);
 }
 
-.navTop { top: var(--nav-gap); }
+/* TopBar açıkken: Nav her zaman TopBar'ın altında — scroll state'i etkilemez */
+:global([data-topbar="visible"]) .nav,
+:global([data-topbar="visible"]) .navTop { top: calc(var(--bc-top) + var(--bc-h) + var(--nav-gap)); }
+/* TopBar kapalıyken: Nav üste kayar */
+:global([data-topbar="hidden"]) .nav { top: var(--nav-gap); }
 
 .nav::after {
   content: '';
@@ -36,8 +40,8 @@
 }
 
 .sc {
-  background: rgba(11,13,22,.72);
-  box-shadow: 0 16px 48px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.07);
+  background: var(--glass-bg-strong);
+  box-shadow: var(--glass-shadow-lg);
   border-color: rgba(255,255,255,.11);
 }
 
@@ -122,22 +126,34 @@
 .lnk:hover { color: var(--t1); }
 .lnk:hover::after { transform: scaleX(1); }
 
-/* ── Dropdown ── */
+/* ── Dropdown — ERA Glass ── */
 .dd {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(8px) scale(.97);
-  min-width: 180px;
-  padding: 10px 6px;
-  background: var(--panel-2);
-  border: 1px solid var(--bd-m);
-  border-radius: 14px;
-  box-shadow: 0 16px 48px rgba(0,0,0,.32), 0 0 0 1px var(--bd-f);
+  transform: translateX(-50%) translateY(6px) scale(.96);
+  min-width: 200px;
+  padding: 8px;
+  background: rgba(11,13,22,.92);
+  -webkit-backdrop-filter: var(--era-blur, blur(40px) saturate(180%));
+  backdrop-filter: var(--era-blur, blur(40px) saturate(180%));
+  border: var(--era-edge, 1px solid rgba(255,255,255,.08));
+  border-radius: var(--era-curve, 16px);
+  box-shadow:
+    var(--era-depth-lg, 0 16px 48px rgba(0,0,0,.38)),
+    0 0 0 1px rgba(255,255,255,.04);
   opacity: 0;
   visibility: hidden;
-  transition: all .2s var(--ease);
+  transition: opacity .25s var(--ease), visibility .25s, transform .25s var(--ease);
   z-index: 100;
+}
+.dd::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--era-curve, 16px);
+  background: radial-gradient(circle at 30% 20%, var(--era-accent-dim, rgba(0,184,212,.06)), transparent 50%);
+  pointer-events: none;
 }
 .item:hover .dd {
   opacity: 1;
@@ -147,34 +163,39 @@
 .ddItem {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
+  gap: 10px;
+  padding: 10px 14px;
   font-size: 12px;
   font-weight: 600;
   color: var(--t2);
-  border-radius: 8px;
-  transition: color .12s, background .12s;
+  border-radius: 10px;
+  transition: color .15s, background .15s, transform .15s;
+  position: relative;
+  z-index: 1;
 }
 .ddItem:hover {
   color: var(--t1);
-  background: var(--bd-f);
+  background: var(--era-glass-card-hover, rgba(255,255,255,.06));
+  transform: translateX(2px);
 }
 .ddDot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--bd-m);
+  background: var(--era-glass-card, rgba(255,255,255,.1));
   flex-shrink: 0;
-  transition: background .12s;
+  transition: background .15s, box-shadow .15s, transform .15s;
 }
 .ddItem:hover .ddDot {
-  background: var(--cyan);
-  box-shadow: 0 0 6px var(--cyan);
+  background: var(--era-accent, #00B8D4);
+  box-shadow: 0 0 8px var(--era-accent-glow, rgba(0,184,212,.3));
+  transform: scale(1.2);
 }
 .ddDiv {
   height: 1px;
-  background: var(--bd-f);
-  margin: 4px 0;
+  background: rgba(255,255,255,.06);
+  margin: 4px 12px;
+  border-radius: 1px;
 }
 
 /* ── Travel Border ── */
@@ -221,25 +242,181 @@
 
 /* ── Light Mode ── */
 :global([data-theme="light"]) .nav {
-  background: rgba(255,255,255,.62);
-  border-color: rgba(15,23,42,.08);
-  box-shadow: 0 8px 32px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.8);
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 :global([data-theme="light"]) .sc {
-  background: rgba(255,255,255,.85);
-  box-shadow: 0 16px 48px rgba(15,23,42,.12), inset 0 1px 0 rgba(255,255,255,.9);
+  background: var(--glass-bg-strong);
+  box-shadow: var(--glass-shadow-lg);
 }
 :global([data-theme="light"]) .nav::after {
   background: radial-gradient(circle at 92% 50%, rgba(0,151,167,.10) 0%, rgba(13,59,130,.05) 40%, transparent 75%);
 }
 :global([data-theme="light"]) .travel { display: none; }
+:global([data-theme="light"]) .dd {
+  background: rgba(255,255,255,.94);
+  border: var(--era-edge);
+  box-shadow: var(--era-depth-lg), 0 0 0 1px rgba(15,23,42,.04);
+}
+:global([data-theme="light"]) .dd::before {
+  background: radial-gradient(circle at 30% 20%, rgba(0,151,167,.05), transparent 50%);
+}
+:global([data-theme="light"]) .ddItem:hover {
+  background: var(--era-glass-card-hover);
+}
+:global([data-theme="light"]) .ddDiv {
+  background: rgba(15,23,42,.06);
+}
+
+/* ── Mobile Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0,0,0,.5);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s var(--ease), visibility .3s;
+}
+.overlayOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Mobile Drawer — sağdan sola ── */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1002;
+  width: min(340px, 85vw);
+  background: var(--era-glass-dense, rgba(11,13,22,.88));
+  -webkit-backdrop-filter: var(--era-blur, blur(40px) saturate(180%));
+  backdrop-filter: var(--era-blur, blur(40px) saturate(180%));
+  border-left: var(--era-edge, 1px solid rgba(255,255,255,.08));
+  box-shadow: -16px 0 48px rgba(0,0,0,.3);
+  transform: translateX(100%);
+  transition: transform .35s var(--ease);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.drawerOpen {
+  transform: translateX(0);
+}
+
+.drawerInner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: calc(var(--nav-h) + var(--nav-gap) + 24px) 24px 24px;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.drawerLink {
+  display: block;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--t2);
+  border-radius: 12px;
+  transition: color .15s, background .15s;
+}
+.drawerLink:hover {
+  color: var(--t1);
+  background: var(--era-glass-card-hover, rgba(255,255,255,.06));
+}
+
+.drawerGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.drawerLabel {
+  display: block;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--era-accent, var(--cyan));
+}
+
+.drawerSubLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+  border-radius: 10px;
+  transition: color .15s, background .15s;
+}
+.drawerSubLink:hover {
+  color: var(--t1);
+  background: var(--era-glass-card-hover, rgba(255,255,255,.06));
+}
+
+.drawerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--era-glass-card, rgba(255,255,255,.1));
+  flex-shrink: 0;
+  transition: background .15s, box-shadow .15s;
+}
+.drawerSubLink:hover .drawerDot {
+  background: var(--era-accent, #00B8D4);
+  box-shadow: 0 0 8px var(--era-accent-glow, rgba(0,184,212,.3));
+}
+
+.drawerFooter {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  margin-top: 16px;
+}
+
+/* ── Light mode drawer ── */
+:global([data-theme="light"]) .overlay {
+  background: rgba(15,23,42,.3);
+}
+:global([data-theme="light"]) .drawer {
+  background: rgba(255,255,255,.92);
+  border-left-color: rgba(15,23,42,.08);
+  box-shadow: -16px 0 48px rgba(15,23,42,.12);
+}
+:global([data-theme="light"]) .drawerGroup {
+  border-top-color: rgba(15,23,42,.06);
+}
+:global([data-theme="light"]) .drawerFooter {
+  border-top-color: rgba(15,23,42,.06);
+}
+:global([data-theme="light"]) .drawerDot {
+  background: rgba(15,23,42,.12);
+}
 
 /* ── Responsive ── */
 @media (max-width: 1023px) {
   .menu { display: none; }
+  .mob { display: flex; }
 }
 @media (max-width: 767px) {
   .inner { height: 56px; gap: 6px; padding-inline: 14px !important; }
-  .mob { display: flex; }
   .ctrls { margin-left: 0; }
 }

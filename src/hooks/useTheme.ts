@@ -1,30 +1,38 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback, useSyncExternalStore } from 'react';
 
 type Theme = 'dark' | 'light';
 
-function getStoredTheme(): Theme {
-  if (typeof window === 'undefined') {
-    return 'dark';
-  }
-
+function getThemeSnapshot(): Theme {
+  if (typeof window === 'undefined') return 'dark';
   const stored = localStorage.getItem('era-theme');
-  return stored === 'light' || stored === 'dark' ? stored : 'dark';
+  return stored === 'light' ? 'light' : 'dark';
+}
+
+function getServerSnapshot(): Theme {
+  return 'dark';
+}
+
+function subscribe(callback: () => void) {
+  window.addEventListener('storage', callback);
+  return () => window.removeEventListener('storage', callback);
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(getStoredTheme);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+  const theme = useSyncExternalStore(subscribe, getThemeSnapshot, getServerSnapshot);
+  const [, forceUpdate] = useState(0);
 
   const toggleTheme = useCallback(() => {
-    const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    document.documentElement.setAttribute('data-theme', next);
+    const next: Theme = getThemeSnapshot() === 'dark' ? 'light' : 'dark';
     localStorage.setItem('era-theme', next);
-  }, [theme]);
+    document.documentElement.setAttribute('data-theme', next);
+    forceUpdate(n => n + 1);
+  }, []);
 
-  return { theme, toggleTheme };
+  // Sync DOM attribute
+  if (typeof window !== 'undefined') {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  return { theme, toggleTheme, mounted: typeof window !== 'undefined' };
 }

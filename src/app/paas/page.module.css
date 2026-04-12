@@ -5,8 +5,18 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: calc(var(--bc-h) + var(--nav-gap) + var(--nav-h) + 28px) 0 clamp(56px, 7vw, 96px);
-  background: var(--black);
+  padding: clamp(40px, 5vw, 64px) clamp(24px, 3vw, 40px);
+  margin: calc(var(--bc-top) + var(--bc-h) + var(--nav-h) + var(--nav-gap) * 2 + 12px) var(--glass-inset) 12px;
+  border-radius: var(--glass-radius);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: margin-top .3s var(--ease);
+}
+:global([data-topbar="hidden"]) .hero {
+  margin-top: calc(var(--nav-h) + var(--nav-gap) * 2 + 12px);
 }
 
 .videoWrap {
@@ -659,4 +669,24 @@
     flex-direction: column;
     align-items: stretch;
   }
+}
+
+/* ── Light Mode ── */
+:global([data-theme="light"]) .stageCard,
+:global([data-theme="light"]) .patternCard,
+:global([data-theme="light"]) .featureCard,
+:global([data-theme="light"]) .slideCard,
+:global([data-theme="light"]) .dataCard,
+:global([data-theme="light"]) .ecosystemCard {
+  background: rgba(255,255,255,.5);
+  border-color: rgba(15,23,42,.08);
+}
+:global([data-theme="light"]) .timeline div {
+  background: rgba(255,255,255,.5);
+  border-color: rgba(15,23,42,.08);
+}
+:global([data-theme="light"]) .sharePanel,
+:global([data-theme="light"]) .qrPanel {
+  background: rgba(15,23,42,.03);
+  border-color: rgba(15,23,42,.06);
 }
