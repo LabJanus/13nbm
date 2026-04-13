@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sıkça Sorulan Sorular — Nebim ERA PaaS</title>
+<meta name="description" content="Nebim ERA PaaS hakkında sıkça sorulan sorular."/>
+<link rel="preconnect" href="https://fonts.bunny.net"/>
+<link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&family=jetbrains-mono:400,500,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="design-tokens.css"/>
+<style>
+:root{
+  --black:#0B0D16;--panel:#0E1523;--panel-2:#141F33;--panel-3:#1C2A46;
+  --cyan:#00B8D4;--cyan-dim:rgba(0,184,212,.10);--cyan-glow:rgba(0,184,212,.18);
+  --purple:#3584E4;--purple-dim:rgba(53,132,228,.10);
+  --neb:#1A5FB4;--neb-dk:#0D3B82;--neb-dim:rgba(26,95,180,.10);
+  --grad:linear-gradient(90deg,#1A5FB4 0%,#00B8D4 100%);
+  --t1:#EEF2FF;--t2:#7B8FAF;--t3:#3E506B;
+  --bd-f:rgba(0,140,200,.07);--bd-m:rgba(0,140,200,.18);--bd-s:rgba(0,184,212,.32);
+  --font-display:'Inter',system-ui,-apple-system,'Helvetica Neue',Helvetica,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,'Helvetica Neue',Helvetica,sans-serif;
+  --font-code:'JetBrains Mono','Courier New',monospace;
+  --font:var(--font-body);
+  --nav-h:84px;--bc-h:36px;--nav-gap:12px;--nav-side:20px;
+  --ease:cubic-bezier(0.16,1,0.3,1);--dur:0.28s;
+  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-card:18px;
+  --sidebar-w:220px;
+  --nav-total:calc(var(--bc-h) + var(--nav-gap) + var(--nav-h));
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--black);color:var(--t1);font-size:14px;line-height:1.6;overflow-x:clip;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;border:none;background:none;font:inherit;}
+
+/* NAV */
+.nav{
+  position:fixed;top:calc(var(--bc-h) + 25px);left:var(--nav-side);right:var(--nav-side);
+  z-index:1000;
+  background:rgba(11,13,22,.42);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+  display:flex;flex-direction:column;overflow:visible;
+  transition:background .3s,box-shadow .3s,border-color .3s,top .3s var(--ease),transform .4s var(--ease),opacity .4s var(--ease);
+  will-change:transform,opacity;-webkit-transform:translateZ(0);transform:translateZ(0);
+}
+.bc{display:flex;align-items:center;list-style:none;}
+.bc-item{display:flex;align-items:center;}
+.bc-link{font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--t3);text-transform:uppercase;padding:0 4px;transition:color .15s;}
+.bc-link:hover{color:var(--t2);}
+.bc-sep{color:var(--t3);opacity:.5;display:flex;align-items:center;}
+.bc-item.active .bc-link{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;}
+.bc-dot{width:4px;height:4px;border-radius:50%;background:var(--cyan);box-shadow:0 0 5px var(--cyan);animation:sp 2s ease-in-out infinite;margin-right:5px;}
+@keyframes sp{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.bc-act{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.nav-i{display:flex;align-items:center;height:var(--nav-h);gap:8px;width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,3vw,40px);position:relative;}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:8px;}
+.nav-sep-v{width:1px;height:14px;background:var(--bd-m);flex-shrink:0;}
+.nav-tag{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--neb);padding:3px 8px;border-radius:var(--r-sm);background:var(--neb-dim);border:1px solid rgba(26,95,180,.2);}
+/* nav menu */
+.nav-menu{display:flex;align-items:center;gap:0;flex:1;list-style:none;justify-content:center;}
+.nav-item{position:relative;display:flex;align-items:center;}
+.nav-item + .nav-item::before{
+  content:'';width:1px;height:14px;background:var(--bd-m);
+  margin:0 4px;flex-shrink:0;
+}
+.nav-lnk{
+  position:relative;
+  display:inline-flex;align-items:center;gap:3px;
+  padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:var(--t2);
+  background:none;border:none;font-family:var(--font);cursor:pointer;
+  transition:color .2s;
+}
+.nav-lnk::after{
+  content:'';position:absolute;left:16px;right:16px;bottom:2px;height:1.5px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+.nav-lnk:hover{color:var(--t1);}
+.nav-lnk:hover::after{transform:scaleX(1);}
+/* dropdown */
+.nav-dd{
+  position:absolute;top:calc(100% + 8px);left:0;min-width:220px;
+  background:var(--panel-2);border:1px solid var(--bd-m);
+  border-radius:var(--r-lg);padding:6px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45),0 0 0 1px var(--bd-f);
+  opacity:0;visibility:hidden;
+  transform:translateY(-8px) scale(.98);
+  transition:all .2s var(--ease);z-index:1100;
+  transform-origin:top left;
+}
+[data-theme="light"] .nav-dd{box-shadow:0 16px 48px rgba(15,23,42,.12),0 0 0 1px var(--bd-f);}
+.nav-item:hover .nav-dd{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+.nav-dd-i{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;font-size:13px;font-weight:500;color:var(--t2);
+  border-radius:var(--r-md);transition:all .12s;
+}
+.nav-dd-i:hover{color:var(--t1);background:var(--bd-f);}
+.nav-dd-i .dd-dot{width:5px;height:5px;border-radius:50%;background:var(--bd-m);flex-shrink:0;transition:background .12s;}
+.nav-dd-i:hover .dd-dot{background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+.nav-dd-div{height:1px;background:var(--bd-f);margin:4px 0;}
+/* sağ CTA alanı */
+.nav-act{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0;}
+.nav-act .lang-sw{padding:3px;border-radius:8px;}
+.nav-act .lang-btn{padding:4px 10px;font-size:12px;border-radius:6px;}
+.nav-act .theme-ico{display:flex!important;padding:8px;border-radius:10px;}
+.nav-act .theme-ico svg{width:22px;height:22px;}
+.nav-act .theme-sw{width:38px;height:22px;border-radius:11px;}
+.nav-act .theme-sw::after{top:3px;left:3px;width:14px;height:14px;}
+[data-theme="light"] .nav-act .theme-sw::after{transform:translateX(16px);}
+.nav-sep{width:1px;height:24px;background:var(--bd-m);flex-shrink:0;}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:var(--r-md);font-size:13px;font-weight:700;line-height:1;white-space:nowrap;transition:all var(--dur) var(--ease);cursor:pointer;}
+.btn-sm{padding:7px 14px;font-size:12px;}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 2px 16px rgba(0,184,212,.22);}
+.btn-grad:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{border:1px solid var(--bd-m);color:var(--t2);background:transparent;}
+.btn-ghost:hover{border-color:var(--bd-s);color:var(--cyan);background:var(--cyan-dim);}
+.lang-sw{display:flex;align-items:center;gap:1px;padding:2px;background:var(--bd-f);border:1px solid var(--bd-m);border-radius:6px;}
+.lang-btn{padding:2px 7px;font-size:10px;font-weight:800;letter-spacing:.05em;border-radius:4px;color:var(--t3);transition:all .15s;cursor:pointer;background:none;border:none;font-family:var(--font);}
+.lang-btn.active{background:var(--panel-2);color:var(--t1);}
+.theme-sw{width:32px;height:18px;border-radius:9px;background:var(--bd-m);border:1px solid var(--bd-m);position:relative;cursor:pointer;flex-shrink:0;}
+.theme-sw::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--t3);}
+.theme-ico{display:flex;align-items:center;gap:5px;cursor:pointer;color:var(--t2);background:none;border:none;}
+.nav.nav-top{top:var(--nav-gap);}
+.nav.hide{transform:translateY(-120%);opacity:0;pointer-events:none;}
+.nav::after{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(circle at 92% 50%,rgba(0,184,212,.15) 0%,rgba(26,95,180,.08) 40%,transparent 75%);
+  pointer-events:none;z-index:0;
+}
+.nav > *{position:relative;z-index:1;}
+.nav-travel{
+  position:absolute;inset:-1px;border-radius:calc(16px + 1px);padding:3px;
+  background:conic-gradient(from var(--angle,0deg) at 0% 0%,rgba(0,184,212,.95) 0deg,rgba(26,95,180,.75) 45deg,transparent 120deg,transparent 300deg,rgba(0,184,212,.95) 360deg);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;z-index:3;
+  animation:border-travel 3s linear infinite;
+  opacity:0;transition:opacity .4s;
+}
+.nav:has(.nav-tag:hover) .nav-travel{opacity:1;}
+.nav-tag{cursor:default;}
+.nav-tag:hover{color:var(--cyan);background:var(--cyan-dim);border-color:var(--cyan);}
+.nav-wordmark{height:28px;width:auto;transition:color .2s;}.ft-era-logo{height:26px;width:auto;opacity:.85;}
+.nav-logo:hover .nav-wordmark{color:var(--neb);}
+.top-bar{
+  position:relative;z-index:1001;width:100%;
+  display:flex;align-items:center;
+  margin-top:5px;
+  padding:8px clamp(16px,3vw,40px);
+  background:transparent;border-bottom:none;
+}
+@property --angle{syntax:'<angle>';initial-value:0deg;inherits:false;}
+@keyframes border-travel{to{--angle:360deg;}}
+
+/* PAGE LAYOUT */
+.page-wrap{
+  max-width:1100px;
+  margin-inline:auto;
+  padding-inline:clamp(16px,3vw,40px);
+  padding-top:calc(var(--bc-h) + var(--nav-gap) + var(--nav-h) + clamp(36px,5vw,56px));
+  padding-bottom:clamp(40px,8vw,96px);
+}
+
+/* PAGE HEADER */
+.sss-header{margin-bottom:clamp(32px,5vw,52px);}
+.sss-eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--neb);margin-bottom:10px;}
+.sss-title{font-family:var(--font-display);font-size:clamp(26px,3.5vw,38px);font-weight:700;line-height:1.12;letter-spacing:-.02em;margin-bottom:14px;}
+.sss-desc{font-size:15px;font-weight:500;line-height:1.7;color:var(--t2);max-width:520px;}
+
+/* DOCS LAYOUT — sidebar + content */
+.docs-layout{
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  gap:clamp(24px,4vw,56px);
+  align-items:start;
+}
+
+/* SIDEBAR */
+.sss-sidebar{
+  position:sticky;
+  top:calc(var(--nav-total) + 24px);
+}
+.sss-sidebar-inner{
+  display:flex;flex-direction:column;gap:2px;
+}
+.sidebar-group{margin-bottom:20px;}
+.sidebar-group-label{
+  font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--t3);padding:4px 10px;margin-bottom:4px;
+}
+.sidebar-link{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 10px;
+  border-radius:var(--r-md);
+  font-size:13px;font-weight:500;color:var(--t2);
+  transition:all .15s;cursor:pointer;
+  border:none;background:none;font-family:var(--font);
+  text-align:left;width:100%;
+}
+.sidebar-link:hover{color:var(--t1);background:var(--bd-f);}
+.sidebar-link.active{
+  color:var(--t1);
+  background:var(--cyan-dim);
+  font-weight:600;
+}
+.sidebar-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--t3);flex-shrink:0;
+  transition:background .15s,box-shadow .15s;
+}
+.sidebar-link.active .sidebar-dot{
+  background:var(--cyan);
+  box-shadow:0 0 5px var(--cyan);
+}
+
+/* SSS CONTENT */
+.sss-content{}
+.sss-group{margin-bottom:clamp(32px,5vw,48px);}
+.sss-group-title{
+  font-size:13px;font-weight:700;letter-spacing:.04em;
+  color:var(--t2);
+  margin-bottom:12px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--bd-f);
+  display:flex;align-items:center;gap:8px;
+}
+.sss-group-title-dot{
+  width:6px;height:6px;border-radius:50%;
+  flex-shrink:0;
+}
+.dot-neb{background:var(--neb);}
+.dot-cyan{background:var(--cyan);}
+.dot-purp{background:var(--purple);}
+
+/* ACCORDION */
+.acc-item{
+  border:1px solid var(--bd-f);
+  border-radius:var(--r-xl);
+  margin-bottom:6px;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.acc-item:hover,.acc-item.open{border-color:var(--bd-m);}
+.acc-item:target{
+  border-color:rgba(26,95,180,.4);
+  box-shadow:0 0 0 2px rgba(26,95,180,.08);
+}
+.acc-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 18px;
+  font-size:14px;font-weight:600;color:var(--t1);
+  text-align:left;background:var(--panel);
+  transition:background .2s;
+}
+.acc-btn:hover,.acc-item.open .acc-btn{background:var(--panel-2);}
+.acc-arrow{
+  width:18px;height:18px;flex-shrink:0;
+  border:1px solid var(--bd-m);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t3);
+  transition:transform .25s var(--ease),border-color .2s,color .2s;
+}
+.acc-item.open .acc-arrow{transform:rotate(180deg);border-color:var(--bd-s);color:var(--cyan);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s var(--ease);background:var(--panel-2);}
+.acc-body-inner{padding:16px 18px 18px;font-size:14px;font-weight:500;line-height:1.75;color:var(--t2);border-top:1px solid var(--bd-f);}
+.acc-body-inner strong{color:var(--t1);font-weight:700;}
+.acc-body-inner ul{padding-left:16px;display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+.acc-body-inner a{color:var(--neb);text-decoration:underline;text-underline-offset:3px;}
+
+/* seal inline */
+.nebim-seal-inline{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 8px 2px 5px;
+  background:linear-gradient(90deg,rgba(26,95,180,.12),rgba(0,184,212,.07));
+  border:1px solid rgba(26,95,180,.3);
+  border-radius:20px;
+  font-size:11px;font-weight:700;color:var(--neb);
+  vertical-align:middle;margin:0 3px;
+}
+.seal-dot-sm{width:5px;height:5px;border-radius:50%;background:var(--neb);box-shadow:0 0 4px var(--neb);flex-shrink:0;animation:sp 2s ease-in-out infinite;}
+
+/* CTA */
+.sss-cta{
+  margin-top:clamp(32px,5vw,52px);
+  padding:clamp(28px,4vw,40px);
+  background:var(--panel);
+  border:1px solid var(--bd-m);
+  border-radius:var(--r-card);
+  text-align:center;
+}
+
+/* mobile */
+@media(max-width:768px){
+  .docs-layout{grid-template-columns:1fr;}
+  .sss-sidebar{display:none;}
+}
+
+/* utility */
+.t-xs{font-size:12px;}
+.t2{color:var(--t2);}.t3{color:var(--t3);}
+
+/* FOOTER */
+.site-footer{
+  margin:0 var(--nav-side) clamp(16px,2vw,24px);
+  background:rgba(11,13,22,.42);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+  padding:clamp(32px,4vw,48px) clamp(24px,3vw,40px) clamp(20px,2vw,28px);
+  position:relative;overflow:hidden;
+}
+.site-footer::after{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(ellipse at 85% 20%,rgba(0,184,212,.14) 0%,rgba(26,95,180,.08) 35%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.site-footer > *{position:relative;z-index:1;}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(24px,4vw,48px);margin-bottom:clamp(24px,3vw,36px);}
+.ft-col-title{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t1);margin-bottom:14px;}
+.ft-links{display:flex;flex-direction:column;gap:10px;}
+.ft-link{position:relative;display:inline-block;width:fit-content;transition:color .15s;}
+.ft-link::after{content:'';position:absolute;left:0;bottom:-2px;width:100%;height:1.5px;background:var(--grad);transform:scaleX(0);transform-origin:left center;transition:transform .35s var(--ease);}
+.ft-link:hover{color:var(--cyan)!important;text-shadow:0 0 .5px currentColor,0 0 .5px currentColor;}
+.ft-link:hover::after{transform:scaleX(1);}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.03em;}
+.flex{display:flex;}
+.gap4{gap:16px;}
+.ft-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:18px;}
+[data-theme="light"] .ft-divider{background:rgba(15,23,42,.08);}
+.ft-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--t1);}
+.ft-bottom .t-xs{color:var(--t1)!important;}
+.badge-m{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--bd-f);}
+.badge-travel{position:relative;overflow:visible;border-color:transparent;}
+.badge-travel-glow{
+  position:absolute;inset:-1px;
+  border-radius:inherit;padding:2px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 0%,
+    rgba(0,184,212,.8) 0deg,rgba(26,95,180,.6) 45deg,
+    transparent 120deg,transparent 300deg,rgba(0,184,212,.8) 360deg
+  );
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+  animation:border-travel 3s linear infinite;
+}
+.ft-param{height:12px;width:auto;opacity:.5;filter:brightness(0) invert(1);transition:opacity .2s;}
+[data-theme="light"] .ft-param{filter:none;opacity:.4;}
+.ft-param:hover{opacity:.8;}
+.nav-sep{width:1px;height:14px;background:var(--bd-m);flex-shrink:0;}
+
+/* md — tablet */
+@media(max-width:1023px){
+  .nav-menu{display:none;}
+}
+
+@media(max-width:767px){
+  .top-bar{display:none;}
+  .nav-menu{display:none;}
+  .nav-dd{max-width:calc(100vw - 40px);}
+  .ft-grid{grid-template-columns:1fr 1fr;}
+  .site-footer{margin-inline:12px;}
+  /* Page padding -- bc-h hidden, reduce top space */
+  .page-wrap{padding-top:calc(var(--nav-h) + 20px + clamp(20px,3vw,32px))!important;}
+  /* Nav — mobile sadeleştir */
+  .nav-act{gap:4px;}
+  .nav-act .lang-sw,.nav-act .theme-ico,.nav-act .nav-sep{display:none;}
+  .nav-act .btn{font-size:11px;padding:6px 10px;}
+  .nav-i{height:52px;gap:6px;padding-inline:14px!important;}
+  .nav-wordmark{height:22px!important;}
+  .nav-tag{font-size:9px;padding:2px 6px;}
+  .nav-sep{height:10px;}
+  .nav-i > span[style*="SSS"]{display:none!important;}
+}
+@media(max-width:479px){
+  .ft-grid{grid-template-columns:1fr;}
+  .site-footer{margin-inline:8px;border-radius:12px;}
+  /* Title smaller */
+  .sss-title{font-size:clamp(22px,6vw,32px)!important;}
+  .sss-eyebrow{font-size:10px;}
+  .sss-desc{font-size:13px;}
+  /* Nav tighter */
+  :root{--nav-side:10px;--nav-gap:8px;}
+  .nav{left:10px!important;right:10px!important;}
+  /* Accordion tighter */
+  .acc-btn{padding:14px 14px;gap:10px;font-size:13px;}
+  .acc-body-inner{padding:12px 14px 14px;}
+  /* Footer gap */
+  .ft-grid{gap:16px!important;}
+  /* Nav buttons: hide text, show only icons */
+  .nav-act .btn{font-size:0;padding:6px 8px;gap:0;}
+  .nav-act .btn svg{width:14px;height:14px;font-size:initial;}
+}
+
+/* ── ERA Ana Sayfa back link (frameless, hover slide) ── */
+.nav-back{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;color:var(--t1);padding:6px 4px;letter-spacing:.005em;transition:color .25s var(--ease);background:none;border:none;}
+.nav-back .nav-back-arr{transition:transform .4s var(--ease);}
+.nav-back:hover{color:var(--cyan);}
+.nav-back:hover .nav-back-arr{transform:translateX(-5px);}
+</style>
+</head>
+<body>
+
+<!-- ── ÜST ŞERİT: breadcrumb (static) ── -->
+<div class="top-bar">
+  <ol class="bc" aria-label="Sayfa yolu">
+    <li class="bc-item"><a href="https://nebim.com.tr" class="bc-link">nebim.com.tr</a></li>
+    <li class="bc-item"><span class="bc-sep" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2.5l3.5 3.5L4 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+    <li class="bc-item"><a href="index.html" class="bc-link">Nebim ERA</a></li>
+    <li class="bc-item"><span class="bc-sep" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2.5l3.5 3.5L4 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+    <li class="bc-item"><a href="paas.html" class="bc-link">PaaS</a></li>
+    <li class="bc-item"><span class="bc-sep" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2.5l3.5 3.5L4 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+    <li class="bc-item active"><span class="bc-dot"></span><span class="bc-link">SSS</span></li>
+  </ol>
+  <div class="bc-act"></div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="nav-travel"></div>
+  <div class="nav-i">
+    <a href="index.html" class="nav-logo" aria-label="Nebim ERA">
+      <img src="img/era_logo_final.svg" alt="Nebim ERA" class="nav-wordmark">
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-lnk">GENEL BAKIŞ</a></li>
+      <li class="nav-item"><a href="features.html" class="nav-lnk">NEBİM ERA'YI KEŞFEDİN</a></li>
+      <li class="nav-item"><a href="paas.html" class="nav-lnk">PLATFORM (PaaS)</a></li>
+      <li class="nav-item">
+        <a href="#" class="nav-lnk" onclick="return false;">PAKETLER</a>
+        <div class="nav-dd">
+          <a href="paket-1.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 1</a>
+          <a href="paket-2.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 2</a>
+          <a href="paket-3.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 3</a>
+          <div class="nav-dd-div"></div>
+          <a href="paket-custom.html" class="nav-dd-i"><span class="dd-dot"></span>Custom</a>
+        </div>
+      </li>
+      <li class="nav-item"><a href="certified.html" class="nav-lnk">NEBİM CERTIFIED</a></li>
+    </ul>
+
+    <div class="nav-act">
+      <button class="theme-ico" onclick="toggleTheme()" aria-label="Tema">
+        <svg class="ico-moon" width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="ico-sun" width="22" height="22" viewBox="0 0 16 16" fill="none" style="display:none;"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <button class="nav-mob" aria-label="Menü">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5.5h16M3 11h16M3 16.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- Page header -->
+  <div class="sss-header">
+    <div class="sss-eyebrow">Sıkça Sorulan Sorular</div>
+    <h1 class="sss-title">Nebim ERA PaaS hakkında<br>merak ettiğiniz her şey</h1>
+    <p class="sss-desc">Platform, geliştirici deneyimi, güvenlik ve entegrasyon konularında en sık sorulan soruların cevapları.</p>
+  </div>
+
+  <!-- Docs layout -->
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sss-sidebar">
+      <div class="sss-sidebar-inner">
+
+        <div class="sidebar-group">
+          <div class="sidebar-group-label">Platform & Mimari</div>
+          <button class="sidebar-link active" onclick="scrollTo('platform')">
+            <span class="sidebar-dot"></span>Nebim Güvencesi
+          </button>
+          <button class="sidebar-link" onclick="scrollTo('mach-nedir')">
+            <span class="sidebar-dot"></span>MACH Mimarisi
+          </button>
+          <button class="sidebar-link" onclick="scrollTo('saas-paas-fark')">
+            <span class="sidebar-dot"></span>SaaS vs PaaS
+          </button>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-group-label">Geliştirici</div>
+          <button class="sidebar-link" onclick="scrollTo('api-first')">
+            <span class="sidebar-dot"></span>API-First
+          </button>
+          <button class="sidebar-link" onclick="scrollTo('sdk-destegi')">
+            <span class="sidebar-dot"></span>SDK Desteği
+          </button>
+          <button class="sidebar-link" onclick="scrollTo('versiyonlama')">
+            <span class="sidebar-dot"></span>Versiyonlama
+          </button>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-group-label">Veri & Entegrasyon</div>
+          <button class="sidebar-link" onclick="scrollTo('datasync-nedir')">
+            <span class="sidebar-dot"></span>DataSync
+          </button>
+          <button class="sidebar-link" onclick="scrollTo('event-driven')">
+            <span class="sidebar-dot"></span>Event-Driven
+          </button>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-group-label">Güvenlik</div>
+          <button class="sidebar-link" onclick="scrollTo('rbac-nedir')">
+            <span class="sidebar-dot"></span>RBAC & Yetkilendirme
+          </button>
+        </div>
+
+        <div class="sidebar-group">
+          <div class="sidebar-group-label">Fiyatlandırma</div>
+          <button class="sidebar-link" onclick="scrollTo('fiyat-modeli')">
+            <span class="sidebar-dot"></span>Fiyat Modeli
+          </button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="sss-content">
+
+      <!-- Platform & Mimari -->
+      <div class="sss-group" id="platform">
+        <div class="sss-group-title">
+          <span class="sss-group-title-dot dot-neb"></span>Platform &amp; Mimari
+        </div>
+
+        <div class="acc-item" id="nebim-guvencesi">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Nebim Güvencesi nedir?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p style="margin-bottom:12px;"><span class="nebim-seal-inline"><span class="seal-dot-sm"></span>Nebim Güvencesi</span> Nebim ERA PaaS'ın müşterilere verdiği resmi taahhüdü ifade eder.</p>
+              <p style="margin-bottom:10px;">Bu güvence kapsamında Nebim şunları taahhüt eder:</p>
+              <ul>
+                <li><strong>Geriye dönük uyumluluk:</strong> PaaS'a eklenen yeni özellikler ve güncellemeler, mevcut uygulamalarınızı bozmaz.</li>
+                <li><strong>Sürüm devamlılığı:</strong> Aktif olarak kullandığınız API sürümleri, önceden duyurulmadan kaldırılmaz.</li>
+                <li><strong>Güvenli geçiş:</strong> Bir sürümden diğerine geçişte Nebim teknik destek sağlar.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" id="mach-nedir">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>MACH mimarisi nedir ve neden önemli?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p><strong>MACH</strong>: <strong>M</strong>icroservices, <strong>A</strong>PI-first, <strong>C</strong>loud-native, <strong>H</strong>eadless. Nebim ERA PaaS bu ilkeleri esas alır; ihtiyacınız olan servisleri bağımsız olarak seçip ölçeklendirebilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" id="saas-paas-fark">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Nebim ERA SaaS ile PaaS arasındaki fark nedir?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p style="margin-bottom:10px;"><strong>SaaS:</strong> Nebim'in geliştirip yönettiği hazır uygulamalar — siz kullanırsınız.</p>
+              <p><strong>PaaS:</strong> Nebim'in kendi SaaS'larını inşa ettiği servis setini sizin kullanımınıza açmasıdır. Kendi uygulamalarınızı bu temel üzerine inşa edersiniz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Geliştirici -->
+      <div class="sss-group" id="gelistirici">
+        <div class="sss-group-title">
+          <span class="sss-group-title-dot dot-cyan"></span>Geliştirici Deneyimi
+        </div>
+
+        <div class="acc-item" id="api-first">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>API-First geliştirme ne anlama geliyor?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p>Her platform yeteneği net ve tutarlı bir <strong>REST API sözleşmesiyle</strong> sunulur. Ürün, sipariş, müşteri ve ödeme domain'lerine dokümante edilmiş API'lar üzerinden erişerek sıfırdan geliştirme maliyetlerini minimize edebilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" id="sdk-destegi">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Hangi programlama dilleri için SDK desteği var?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p>OpenAPI ve AsyncAPI standartlarına dayalı dokümantasyon sayesinde <strong>C#, Java, Python</strong> ve daha fazlası için API Client'larınızı otomatik oluşturabilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" id="versiyonlama">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Versiyonlama ve geriye dönük uyumluluk nasıl işliyor?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p>Biz PaaS'a yeni özellikler eklerken mevcut uygulamanızın sürekliliğini tehlikeye atmadan kendi teknolojik güncellemelerinizi gerçekleştirebilirsiniz. <span class="nebim-seal-inline"><span class="seal-dot-sm"></span>Nebim Güvencesi</span> bu taahhüdü kapsar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Veri -->
+      <div class="sss-group" id="veri">
+        <div class="sss-group-title">
+          <span class="sss-group-title-dot dot-neb"></span>Veri &amp; Entegrasyon
+        </div>
+
+        <div class="acc-item" id="datasync-nedir">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>DataSync nedir, nasıl çalışır?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p style="margin-bottom:10px;">ERA DataSync, Nebim ERA'da kayıt altına alınan veriyi <strong>anlık olarak dış sistemlerinize aktarmanızı</strong> veya harici veri kaynaklarını ERA'ya bağlamanızı sağlar.</p>
+              <p><strong>Webhook</strong> ve <strong>WebSocket</strong> desteğiyle çalışır; JSON, XML veya Form-encoded formatlarını destekler.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" id="event-driven">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Event-Driven mimarinin avantajı nedir?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p>Sipariş, stok hareketi, müşteri güncellemesi gibi olayları <strong>batch süreçlere gerek kalmadan anlık dinleyebilirsiniz</strong>. Veriye dayalı kararlarınızı gecikme olmaksızın eyleme dönüştürebilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Güvenlik -->
+      <div class="sss-group" id="guvenlik">
+        <div class="sss-group-title">
+          <span class="sss-group-title-dot dot-purp"></span>Güvenlik
+        </div>
+
+        <div class="acc-item" id="rbac-nedir">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>RBAC (Rol Bazlı Erişim Kontrolü) nasıl çalışır?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p>RBAC ile yalnızca yetkili sistemlerin ve iş ortaklarının veriye erişmesini sağlayabilirsiniz. <strong>API Key</strong> ve <strong>Token</strong> tabanlı protokollerle desteklenen çok katmanlı güvenlik modeli, hem kullanıcı hem sistem düzeyinde denetim imkânı sunar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fiyatlandırma -->
+      <div class="sss-group" id="fiyatlandirma">
+        <div class="sss-group-title">
+          <span class="sss-group-title-dot dot-cyan"></span>Fiyatlandırma
+        </div>
+
+        <div class="acc-item" id="fiyat-modeli">
+          <button class="acc-btn" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Nebim ERA PaaS'ın fiyatlandırma modeli nasıl?</span>
+            <span class="acc-arrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5l3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-body-inner">
+              <p>Fiyatlandırma, ihtiyacınıza özel hazırlanır. Kullanmak istediğiniz servisler ve ölçek gereksinimlerinize göre belirlenir. Detaylı bilgi için <a href="#cta">Demo Talep Et</a> üzerinden ekibimize ulaşabilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="sss-cta" id="cta">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--neb);margin-bottom:10px;">Daha Fazla Sorunuz mu Var?</div>
+        <h2 style="font-size:clamp(18px,2.5vw,24px);font-weight:800;line-height:1.2;letter-spacing:-.015em;margin-bottom:10px;">Cevabını bulamadığınız soruları memnuniyetle yanıtlamaya hazırız</h2>
+        <p style="font-size:14px;color:var(--t2);max-width:480px;margin:0 auto 20px;">Nebim ERA PaaS hakkında merak ettiğiniz her konuda ekibimiz size yardımcı olmaktan mutluluk duyacaktır.</p>
+        <a href="paas.html#cta" class="btn btn-grad" style="padding:12px 26px;font-size:14px;border-radius:var(--r-lg);">Demo Talep Et</a>
+      </div>
+
+    </div><!-- /sss-content -->
+  </div><!-- /docs-layout -->
+</div><!-- /page-wrap -->
+
+<script>
+/* Nav scroll */
+const nav = document.getElementById('nav');
+const topBar = document.querySelector('.top-bar');
+let lastY = 0, scrollAcc = 0;
+const hideThreshold = 75;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const bcBottom = topBar ? topBar.offsetTop + topBar.offsetHeight : 0;
+  nav.classList.toggle('sc', y > 10);
+  nav.classList.toggle('nav-top', y > bcBottom);
+  const delta = y - lastY;
+  if (delta > 0) { scrollAcc += delta; } else { scrollAcc = 0; nav.classList.remove('hide'); }
+  if (scrollAcc > hideThreshold) { nav.classList.add('hide'); }
+  lastY = y;
+}, {passive:true});
+
+/* Accordion */
+function toggleAcc(btn){
+  var item = btn.closest('.acc-item');
+  var body = item.querySelector('.acc-body');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.acc-item.open').forEach(function(el){
+    el.classList.remove('open');
+    el.querySelector('.acc-body').style.maxHeight='0';
+    el.querySelector('.acc-btn').setAttribute('aria-expanded','false');
+  });
+  if(!isOpen){
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    btn.setAttribute('aria-expanded','true');
+  }
+}
+
+/* Scroll to section + open accordion */
+function scrollTo(id){
+  var el = document.getElementById(id);
+  if(!el) return;
+  var offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-total')) + 32;
+  var top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({top:top, behavior:'smooth'});
+  /* accordion ise aç */
+  if(el.classList.contains('acc-item')){
+    var btn = el.querySelector('.acc-btn');
+    if(btn && !el.classList.contains('open')) toggleAcc(btn);
+  }
+}
+
+/* URL hash → accordion */
+function openFromHash(){
+  var hash = window.location.hash.slice(1);
+  if(!hash) return;
+  var target = document.getElementById(hash);
+  if(!target) return;
+  setTimeout(function(){
+    scrollTo(hash);
+    updateSidebar(hash);
+  }, 150);
+}
+
+/* Sidebar active state — scroll spy */
+function updateSidebar(activeId){
+  document.querySelectorAll('.sidebar-link').forEach(function(link){
+    var id = link.getAttribute('data-id');
+    link.classList.toggle('active', id === activeId);
+  });
+}
+
+/* sidebar linklere data-id ekle */
+document.querySelectorAll('.sidebar-link').forEach(function(link){
+  var onclick = link.getAttribute('onclick');
+  if(onclick){
+    var match = onclick.match(/scrollTo\('([^']+)'\)/);
+    if(match) link.setAttribute('data-id', match[1]);
+  }
+});
+
+/* scroll spy */
+var allItems = Array.from(document.querySelectorAll('.acc-item[id]'));
+window.addEventListener('scroll', function(){
+  var offset = 120;
+  var active = allItems[0];
+  allItems.forEach(function(el){
+    if(el.getBoundingClientRect().top < offset) active = el;
+  });
+  if(active) updateSidebar(active.id);
+}, {passive:true});
+
+window.addEventListener('DOMContentLoaded', openFromHash);
+window.addEventListener('hashchange', openFromHash);
+</script>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script>
+
+<script>
+/* ── THEME TOGGLE ── */
+var _eraTheme = 'dark';
+applyTheme(_eraTheme);
+function applyTheme(t){
+  _eraTheme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  document.querySelectorAll('.ico-moon').forEach(function(el){ el.style.display = t === 'dark'  ? 'block' : 'none'; });
+  document.querySelectorAll('.ico-sun').forEach(function(el){  el.style.display = t === 'light' ? 'block' : 'none'; });
+}
+function toggleTheme(){
+  applyTheme(_eraTheme === 'dark' ? 'light' : 'dark');
+}
+</script>
+
+<!-- FOOTER -->
+<footer class="site-footer" style="margin-top:clamp(40px,6vw,80px);">
+
+  <div class="ft-grid">
+    <!-- Marka -->
+    <div>
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;">
+        <img src="img/era_logo_final.svg" alt="Nebim ERA" class="ft-era-logo">
+      </div>
+      <p class="t-xs t2" style="max-width:240px;line-height:1.8;">Türkiye'nin ilk yerel bütünleşik perakende platformu. Fiziksel mağaza, e-ticaret ve pazaryeri tek platformda.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="badge badge-m badge-travel">1966'dan Bu Yana<span class="badge-travel-glow"></span></span>
+          <img src="img/nebim_logo.svg" alt="Nebim" class="ft-param">
+          <span style="width:1px;height:14px;background:var(--bd-m);flex-shrink:0;"></span>
+          <a href="https://param.com.tr" target="_blank" rel="noopener" aria-label="Param Grubu"><img src="img/param-logo.svg" alt="Param Grubu" class="ft-param"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEBİM ERA -->
+    <div>
+      <div class="ft-col-title">NEBİM ERA</div>
+      <div class="ft-links">
+        <a href="index.html" class="t-xs t2 ft-link">Genel Bakış</a>
+        <a href="features.html" class="t-xs t2 ft-link">Tüm Özellikler</a>
+        <a href="paas.html" class="t-xs t2 ft-link">Platform (PaaS)</a>
+        <a href="certified.html" class="t-xs t2 ft-link">Certified</a>
+      </div>
+    </div>
+
+    <!-- PAKETLER -->
+    <div>
+      <div class="ft-col-title">PAKETLER</div>
+      <div class="ft-links">
+        <a href="paket-1.html" class="t-xs t2 ft-link">Paket 1</a>
+        <a href="paket-2.html" class="t-xs t2 ft-link">Paket 2</a>
+        <a href="paket-3.html" class="t-xs t2 ft-link">Paket 3</a>
+        <a href="paket-custom.html" class="t-xs t2 ft-link">Custom</a>
+      </div>
+    </div>
+
+    <!-- NEBİM -->
+    <div>
+      <div class="ft-col-title">NEBİM</div>
+      <div class="ft-links">
+        <a href="#" class="t-xs t2 ft-link">Nebim Hakkında</a>
+        <a href="#" class="t-xs t2 ft-link">İş Ortakları</a>
+        <a href="#" class="t-xs t2 ft-link">Kariyer</a>
+        <a href="#" class="t-xs t2 ft-link">İletişim</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-divider"></div>
+  <div class="ft-bottom">
+    <span class="t-xs t3">© 2026 Nebim Neyir Bilgisayar Sanayii ve Hizmetleri A.Ş. Tüm hakları saklıdır.</span>
+    <div class="flex gap4">
+      <a href="gizlilik-politikasi.html" class="t-xs t3 ft-link">Gizlilik Politikası</a>
+      <a href="kvkk-aydinlatma.html" class="t-xs t3 ft-link">KVKK Aydınlatma</a>
+      <a href="cerez-politikasi.html" class="t-xs t3 ft-link">Çerez Politikası</a>
+    </div>
+  </div>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nebim Certified Donanım Ekosistemi — Nebim ERA</title>
+<meta name="description" content="Nebim ERA Perakende Satış ile entegre çalışan PAX Elys, YN ÖKC, EFT-POS ve mağaza mobil cihazları — Nebim-Certified donanım ekosistemi."/>
+<link rel="preconnect" href="https://fonts.bunny.net"/>
+<link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&family=jetbrains-mono:400,500,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="design-tokens.css"/>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   NEBIM ERA — FINAL DESIGN
+   Dayflow Dark Design System
+   Blueprint: Onaylı (04.04.2026)
+═══════════════════════════════════════════════════════════ */
+
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --black:     #0B0D16;
+  --panel:     #0E1523;
+  --panel-2:   #141F33;
+  --panel-3:   #1C2A46;
+  --panel-4:   #0A1020;
+
+  --cyan:      #00B8D4;
+  --cyan-dim:  rgba(0,184,212,.1);
+  --cyan-glow: rgba(0,184,212,.18);
+  --purple:    #3584E4;
+  --purple-dim:rgba(53,132,228,.1);
+  --grad:      linear-gradient(90deg, #1A5FB4 0%, #00B8D4 100%);
+  --grad-d:    linear-gradient(135deg, #1A5FB4 0%, #00B8D4 100%);
+
+  --neb:       #1A5FB4;
+  --neb-dk:    #0D3B82;
+  --neb-dim:   rgba(26,95,180,.1);
+
+  --t1:  #EEF2FF;
+  --t2:  #7B8FAF;
+  --t3:  #3E506B;
+
+  --bd-f: rgba(0,140,200,.07);
+  --bd-m: rgba(0,140,200,.18);
+  --bd-s: rgba(0,184,212,.32);
+  --bd-h: rgba(0,184,212,.5);
+
+  --font-display: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-code: 'JetBrains Mono', 'Courier New', monospace;
+  --font: var(--font-body);
+  --nav-h: 68px;
+  --r-sm: 4px; --r-md: 8px; --r-lg: 12px;
+  --r-xl: 16px; --r-2xl: 20px; --r-card: 18px;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --dur: 0.28s;
+  /* section ritim — dark */
+  --sec-a: var(--black);
+  --sec-b: var(--panel);
+  --sec-c: var(--panel-2);
+  --nav-bg: rgba(11,13,22,.92);
+  --nav-blur: blur(20px);
+}
+
+/* ── LIGHT MODE TOKENS — ERA ────────────────────────────── */
+[data-theme="light"] {
+  /* zemin — cool gray-blue palette */
+  --black:     #F8FAFC;
+  --panel:     #FFFFFF;
+  --panel-2:   #F1F5F9;
+  --panel-3:   #E2E8F0;
+  --panel-4:   #EFF6FF;
+  /* aksanlar — koyu varyant */
+  --cyan:      #0097A7;
+  --cyan-dim:  rgba(0,151,167,.10);
+  --cyan-glow: rgba(0,151,167,.16);
+  --purple:    #0D3B82;
+  --purple-dim:rgba(13,59,130,.10);
+  --neb:       #0D3B82;
+  --neb-dk:    #092A5E;
+  --neb-dim:   rgba(13,59,130,.10);
+  --grad:      linear-gradient(90deg,#0D3B82 0%,#0097A7 100%);
+  --grad-d:    linear-gradient(135deg,#0D3B82 0%,#0097A7 100%);
+  /* metin */
+  --t1: #0F172A;
+  --t2: #475569;
+  --t3: #94A3B8;
+  /* border */
+  --bd-f: rgba(15,23,42,.07);
+  --bd-m: rgba(15,23,42,.14);
+  --bd-s: rgba(2,132,199,.35);
+  --bd-h: rgba(2,132,199,.55);
+  /* nav */
+  --nav-bg: rgba(248,250,252,.92);
+  --nav-blur: blur(20px);
+  /* section ritim — light */
+  --sec-a: #F8FAFC;
+  --sec-b: #FFFFFF;
+  --sec-c: #F1F5F9;
+}
+
+/* ── RESET ──────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:clip;}
+body{font-family:var(--font);background:var(--black);color:var(--t1);font-size:14px;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;border:none;background:none;font:inherit;}
+img,svg{display:block;max-width:100%;}
+
+/* ── CONTAINER ──────────────────────────────────────────── */
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,3vw,40px);}
+
+/* ── SPLIT SYSTEM ───────────────────────────────────────── */
+.split{display:grid;gap:16px;align-items:stretch;}
+.split-57{grid-template-columns:57fr 43fr;}
+.split-60{grid-template-columns:60fr 40fr;}
+.split-rev{grid-template-columns:43fr 57fr;}
+/* split responsive — handled by main breakpoint system below */
+
+/* ── STAGE CARD ─────────────────────────────────────────── */
+.stage{
+  background:var(--panel);border:1px solid var(--bd-m);
+  border-radius:var(--r-card);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.stage::before{
+  content:'';position:absolute;inset:0;border-radius:var(--r-card);padding:1px;
+  background:linear-gradient(135deg,rgba(0,184,212,.3) 0%,rgba(26,95,180,.1) 40%,transparent 70%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.stage-mesh{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,140,200,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,140,200,.03) 1px,transparent 1px);
+  background-size:44px 44px;
+}
+.stage-glow{
+  position:absolute;top:-100px;left:-100px;width:420px;height:420px;
+  background:radial-gradient(circle,rgba(0,184,212,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.stage-glow-right{
+  position:absolute;top:-80px;right:-80px;width:320px;height:320px;
+  background:radial-gradient(circle,rgba(26,95,180,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.stage-inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:28px 32px;}
+/* ── STAGE GLASS — luminous glass identity variant ─────
+   Pairs with .has-travel + <div class="travel-border">.
+   Disables the static gradient ::before so the conic
+   traveling border is the only edge treatment.            */
+.stage-glass{
+  background:rgba(11,13,22,.55);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  backdrop-filter:blur(28px) saturate(180%);
+  border-color:rgba(255,255,255,.06);
+  box-shadow:
+    0 24px 64px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+.stage-glass::before{display:none;}
+.stage-glass .stage-glow{
+  width:520px;height:520px;top:-140px;left:-140px;
+  background:radial-gradient(circle,rgba(0,184,212,.12) 0%,rgba(26,95,180,.05) 45%,transparent 70%);
+}
+[data-theme="light"] .stage-glass{
+  background:rgba(255,255,255,.55);
+  border-color:rgba(15,23,42,.08);
+  box-shadow:
+    0 24px 64px rgba(15,23,42,.10),
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+.stage-footer{margin-top:auto;padding-top:18px;border-top:1px solid var(--bd-f);}
+
+/* ── PANEL ──────────────────────────────────────────────── */
+.panel{display:flex;flex-direction:column;justify-content:center;padding:28px 36px;gap:24px;}
+
+/* ── SECTION ────────────────────────────────────────────── */
+.sec{padding:clamp(56px,7vw,96px) 0;}
+.sec-dark  {background:var(--black);}
+.sec-panel {background:var(--panel);}
+.sec-strip {background:var(--panel-2);border-top:1px solid var(--bd-f);border-bottom:1px solid var(--bd-f);padding:clamp(28px,3vw,44px) 0;}
+
+/* ── NAV ────────────────────────────────────────────────── */
+:root { --nav-h: 84px; --bc-h: 36px; --nav-gap: 12px; --nav-side: 20px; }
+
+/* ── Top Bar: breadcrumb (static — scroll'da kaybolur) ── */
+.top-bar{
+  position:relative;
+  z-index:1001;
+  width:100%;
+  display:flex;align-items:center;
+  margin-top:5px;
+  padding:8px clamp(16px,3vw,40px);
+  background:rgba(11,13,22,.95);
+  border-bottom:1px solid var(--bd-f);
+  transition:background var(--dur);
+}
+[data-theme="light"] .top-bar{
+  background:rgba(241,245,249,.95);
+  border-bottom-color:rgba(15,23,42,.08);
+}
+
+.nav{
+  position:fixed;
+  top:calc(var(--bc-h) + 25px);
+  left:var(--nav-side);
+  right:var(--nav-side);
+  z-index:1000;
+  /* frosted glass */
+  background:rgba(11,13,22,.42);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  display:flex;align-items:center;
+  overflow:visible;
+  transition:background .3s,box-shadow .3s,border-color .3s,transform .4s var(--ease),opacity .4s var(--ease),top .3s var(--ease);
+}
+.nav.nav-top{top:var(--nav-gap);}
+/* ambient glow — sağda yoğun, sola kaybolan */
+.nav::after{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(circle at 92% 50%,rgba(0,184,212,.15) 0%,rgba(26,95,180,.08) 40%,transparent 75%);
+  pointer-events:none;z-index:0;
+}
+[data-theme="light"] .nav::after{
+  background:radial-gradient(circle at 92% 50%,rgba(0,151,167,.10) 0%,rgba(13,59,130,.05) 40%,transparent 75%);
+}
+.nav.hide{
+  transform:translateY(-120%);
+  opacity:0;
+  pointer-events:none;
+}
+.nav.sc{
+  background:rgba(11,13,22,.72);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.11);
+}
+[data-theme="light"] .nav{
+  background:rgba(255,255,255,.62);
+  border-color:rgba(15,23,42,.08);
+  box-shadow:
+    0 8px 32px rgba(15,23,42,.08),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+[data-theme="light"] .nav.sc{
+  background:rgba(255,255,255,.85);
+  box-shadow:0 16px 48px rgba(15,23,42,.12),inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* ── Üst şerit: breadcrumb (artık .top-bar içinde) ── */
+.bc{display:flex;align-items:center;gap:0;list-style:none;}
+.bc-item{display:flex;align-items:center;gap:0;}
+.bc-link{
+  font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--t3);
+  text-transform:uppercase;transition:color .15s;white-space:nowrap;
+  padding:0 4px;
+}
+.bc-link:hover{color:var(--t2);}
+.bc-sep{
+  width:14px;height:14px;flex-shrink:0;
+  color:var(--t3);opacity:.5;
+  display:flex;align-items:center;justify-content:center;
+}
+/* aktif breadcrumb segment — pulse dot + grad text */
+.bc-item.active .bc-link{
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-weight:800;
+}
+.bc-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 5px var(--cyan);
+  animation:sp 2s ease-in-out infinite;
+  margin-right:5px;flex-shrink:0;
+}
+/* sag: TR/EN + tema toggle — breadcrumb bar'da */
+.bc-act{margin-left:auto;display:flex;align-items:center;gap:8px;}
+
+/* ── Alt şerit: logo + menü + CTA ───────────────────── */
+.nav-i{
+  display:flex;align-items:center;height:var(--nav-h);gap:8px;
+  width:100%;max-width:1240px;margin-inline:auto;
+  padding-inline:clamp(16px,3vw,40px);position:relative;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:8px;}
+.nav-wordmark{height:28px;width:auto;transition:color .2s,filter .2s;}.ft-era-logo{height:26px;width:auto;opacity:.85;}
+@media(hover:hover){.nav-logo:hover .nav-wordmark{color:var(--neb);filter:drop-shadow(0 0 6px rgba(26,95,180,.3));}}
+.nav-sep{width:1px;height:14px;background:var(--bd-m);flex-shrink:0;}
+.nav-tag{
+  font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--neb);padding:3px 8px;border-radius:var(--r-sm);
+  background:var(--neb-dim);border:1px solid rgba(26,95,180,.2);
+  cursor:default;transition:color .2s,background .2s,border-color .2s;
+}
+.nav-tag:hover{color:var(--cyan);background:var(--cyan-dim);border-color:var(--cyan);}
+[data-theme="light"] .nav-tag{background:rgba(3,105,161,.08);border-color:rgba(3,105,161,.2);}
+
+/* ── ERA hover → navbar traveling border ────────── */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-travel{to{--angle:360deg;}}
+.nav-travel{
+  position:absolute;inset:-1px;
+  border-radius:calc(16px + 1px);
+  padding:3px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 0%,
+    rgba(0,184,212,.95) 0deg,
+    rgba(26,95,180,.75) 45deg,
+    transparent 120deg,
+    transparent 300deg,
+    rgba(0,184,212,.95) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:3;
+  animation:border-travel 3s linear infinite;
+  opacity:0;
+  transition:opacity .4s;
+}
+.nav:has(.nav-tag:hover) .nav-travel{
+  opacity:1;
+}
+
+/* ── TRAVEL BORDER — reusable luminous identity ─────────
+   Same conic-gradient mechanism as .nav-travel, but as a
+   reusable utility for content cards. Idle: very faint slow
+   rotation. Hover (on parent .has-travel): full brightness.   */
+.travel-border{
+  position:absolute;inset:-1px;
+  border-radius:inherit;
+  padding:2px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 100%,
+    rgba(0,184,212,.95) 0deg,
+    rgba(26,95,180,.75) 60deg,
+    transparent 140deg,
+    transparent 290deg,
+    rgba(0,184,212,.95) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:3;
+  opacity:.18;
+  animation:border-travel 14s linear infinite;
+  transition:opacity .5s var(--ease), animation-duration .5s;
+}
+.has-travel{position:relative;}
+.has-travel:hover .travel-border{
+  opacity:1;
+  animation-duration:3s;
+}
+[data-theme="light"] .travel-border{
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 100%,
+    rgba(0,151,167,.85) 0deg,
+    rgba(13,59,130,.65) 60deg,
+    transparent 140deg,
+    transparent 290deg,
+    rgba(0,151,167,.85) 360deg
+  );
+  opacity:.12;
+}
+[data-theme="light"] .has-travel:hover .travel-border{opacity:.9;}
+
+/* menü */
+.nav-menu{display:flex;align-items:center;gap:0;flex:1;list-style:none;justify-content:center;}
+.nav-item{position:relative;display:flex;align-items:center;}
+.nav-item + .nav-item::before{
+  content:'';width:1px;height:14px;background:var(--bd-m);
+  margin:0 4px;flex-shrink:0;
+}
+.nav-lnk{
+  position:relative;
+  display:inline-flex;align-items:center;gap:3px;
+  padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:var(--t2);
+  background:none;border:none;font-family:var(--font);cursor:pointer;
+  transition:color .2s;
+}
+.nav-lnk::after{
+  content:'';position:absolute;left:16px;right:16px;bottom:2px;height:1.5px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+.nav-lnk:hover{color:var(--t1);}
+.nav-lnk:hover::after{transform:scaleX(1);}
+
+/* dropdown */
+.nav-dd{
+  position:absolute;top:calc(100% + 8px);left:0;min-width:220px;
+  background:var(--panel-2);border:1px solid var(--bd-m);
+  border-radius:var(--r-lg);padding:6px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45),0 0 0 1px var(--bd-f);
+  opacity:0;visibility:hidden;
+  transform:translateY(-8px) scale(.98);
+  transition:all .2s var(--ease);z-index:1100;
+  transform-origin:top left;
+}
+[data-theme="light"] .nav-dd{box-shadow:0 16px 48px rgba(15,23,42,.12),0 0 0 1px var(--bd-f);}
+.nav-item:hover .nav-dd{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+.nav-dd-i{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;font-size:13px;font-weight:500;color:var(--t2);
+  border-radius:var(--r-md);transition:all .12s;
+}
+.nav-dd-i:hover{color:var(--t1);background:var(--bd-f);}
+.nav-dd-i .dd-dot{width:5px;height:5px;border-radius:50%;background:var(--bd-m);flex-shrink:0;transition:background .12s;}
+.nav-dd-i:hover .dd-dot{background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+.nav-dd-div{height:1px;background:var(--bd-f);margin:4px 0;}
+
+/* sağ CTA alanı */
+.nav-act{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0;}
+
+/* ── Nav Controls (bigger, in nav bar) ──────────── */
+.nav-act .lang-sw{padding:3px;border-radius:8px;}
+.nav-act .lang-btn{padding:4px 10px;font-size:12px;border-radius:6px;}
+.nav-act .theme-ico{display:flex!important;padding:8px;border-radius:10px;}
+.nav-act .theme-ico svg{width:22px;height:22px;}
+.nav-act .theme-sw{width:38px;height:22px;border-radius:11px;}
+.nav-act .theme-sw::after{top:3px;left:3px;width:14px;height:14px;}
+[data-theme="light"] .nav-act .theme-sw::after{transform:translateX(16px);}
+.nav-back{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--t2);border:1px solid var(--bd-m);border-radius:8px;background:none;cursor:pointer;transition:color .15s,border-color .15s;text-decoration:none;font-family:var(--font);white-space:nowrap;}
+.nav-back:hover{color:var(--t1);border-color:var(--t3);}
+.nav-back svg{flex-shrink:0;}
+.nav-sep{width:1px;height:24px;background:var(--bd-m);flex-shrink:0;}
+
+/* TR/EN lang toggle */
+.lang-sw{display:flex;align-items:center;gap:1px;padding:2px;background:var(--bd-f);border:1px solid var(--bd-m);border-radius:6px;}
+.lang-btn{padding:2px 7px;font-size:10px;font-weight:800;letter-spacing:.05em;border-radius:4px;color:var(--t3);transition:all .15s;cursor:pointer;background:none;border:none;font-family:var(--font);}
+.lang-btn.active{background:var(--panel-2);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.2);}
+[data-theme="light"] .lang-btn.active{background:rgba(255,255,255,.9);color:var(--t1);}
+
+/* Dark/Light toggle */
+.theme-sw{width:32px;height:18px;border-radius:9px;background:var(--bd-m);border:1px solid var(--bd-m);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.theme-sw::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--t3);transition:transform .2s var(--ease),background .2s;}
+[data-theme="light"] .theme-sw{background:linear-gradient(90deg,#BAE6FD,#BFDBFE);border-color:rgba(0,151,167,.3);}
+[data-theme="light"] .theme-sw::after{transform:translateX(14px);background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.theme-ico{display:flex;align-items:center;gap:5px;cursor:pointer;color:var(--t2);transition:color .15s;background:none;border:none;}
+.theme-ico:hover{color:var(--t1);}
+.theme-ico svg{flex-shrink:0;}
+
+/* mob */
+.nav-mob{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--r-md);color:var(--t1);background:none;border:none;cursor:pointer;position:relative;}
+.nav-mob svg path{transition:all .3s var(--ease);transform-origin:center;}
+.nav-mob.open svg path:nth-child(1){transform:rotate(45deg) translate(3px,-2px);}
+.nav-mob.open svg path:nth-child(2){opacity:0;}
+.nav-mob.open svg path:nth-child(3){transform:rotate(-45deg) translate(-6px,2px);}
+/* nav responsive — handled by main breakpoint system below */
+
+/* ── TYPOGRAPHY — Atomic Scale (Inter) ──────────────────── */
+/*  Atom: t-display  |  60→38px  |  Hero başlık, tek kullanım       */
+/*  Atom: t-hero     |  50→32px  |  Section hero başlık              */
+/*  Atom: t-h1       |  34→24px  |  Section başlık                   */
+/*  Atom: t-h2       |  27→20px  |  Alt bölüm başlık                 */
+/*  Atom: t-h3       |  17px     |  Kart başlık                      */
+/*  Atom: t-h4       |  14px     |  Checklist / küçük başlık         */
+/*  Atom: t-body     |  15px     |  Paragraf gövde                   */
+/*  Atom: t-sm       |  13px     |  Kart açıklama, yardımcı metin    */
+/*  Atom: t-xs       |  12px     |  Dipnot, badge içi metin          */
+/*  Atom: t-lbl      |  10px     |  Eyebrow etiket                   */
+.t-display{font-size:clamp(38px,5vw,60px);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
+.t-hero   {font-size:clamp(32px,4.2vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.025em;}
+.t-h1     {font-size:clamp(24px,3vw,34px);font-weight:700;line-height:1.18;letter-spacing:-.02em;}
+.t-h2     {font-size:clamp(20px,2.5vw,27px);font-weight:700;line-height:1.22;letter-spacing:-.015em;}
+.t-h3     {font-size:17px;font-weight:600;line-height:1.35;}
+.t-h4     {font-size:14px;font-weight:600;line-height:1.4;}
+.t-body   {font-size:15px;font-weight:400;line-height:1.72;color:var(--t2);}
+.t-sm     {font-size:13px;font-weight:400;line-height:1.65;color:var(--t2);}
+.t-xs     {font-size:12px;font-weight:400;line-height:1.55;color:var(--t2);}
+.t-lbl    {font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.neb-text {color:var(--neb);}
+.cyan-text{color:var(--cyan);}
+.t2{color:var(--t2);}.t3{color:var(--t3);}
+
+/* ── WORD REVEAL ANIMATION ──────────────────────────────── */
+/*
+  H1 yapısı:
+  Line 1: "Nebim ERA:"            → beyaz, normal
+  Line 2: "Bütünleşik Perakende"  → gradient, büyük vurgu
+  Line 3: "Ticaretinin Geleceği"  → beyaz, %65 opacity
+
+  Her .wr-word opacity:0, translateY(20px) ile başlar.
+  JS IntersectionObserver tetikler, 80ms stagger.
+*/
+.wr-line{display:block;overflow:hidden;}
+.wr-word{
+  display:inline-block;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.wr-word.in{opacity:1;transform:translateY(0);}
+
+/* ── ERA Hero Slider ── */
+.era-hero-slide{}
+.era-dot.active{width:24px!important;background:var(--cyan)!important;}
+
+/* Hero H1 gradient line — gradient sadece ikinci satırda */
+.hero-line-grad{
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-size:clamp(38px,5.5vw,62px);
+}
+.hero-line-sub{
+  color:rgba(238,242,255,.55);
+  font-size:clamp(26px,3.5vw,42px);
+  font-weight:700;
+}
+
+/* ── BUTTON SYSTEM ──────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:var(--r-md);font-size:13px;font-weight:700;line-height:1;white-space:nowrap;transition:all var(--dur) var(--ease);cursor:pointer;}
+.btn-sm{padding:7px 14px;font-size:12px;}
+.btn-md{padding:11px 22px;}
+.btn-lg{padding:14px 28px;font-size:14px;border-radius:var(--r-lg);}
+.btn-xl{padding:16px 34px;font-size:15px;border-radius:var(--r-lg);}
+
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 2px 16px rgba(26,95,180,.22);}
+.btn-grad:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 24px rgba(26,95,180,.36);}
+
+.btn-ghost{border:1px solid var(--bd-m);color:var(--t2);background:transparent;}
+.btn-ghost:hover{border-color:var(--bd-s);color:var(--cyan);background:var(--cyan-dim);}
+
+.btn-ghost-w{border:1px solid rgba(0,184,212,.22);color:rgba(238,242,255,.8);background:transparent;}
+.btn-ghost-w:hover{border-color:var(--cyan);color:#fff;background:rgba(0,184,212,.08);}
+
+/* ── STAGE TAG ──────────────────────────────────────────── */
+.stag{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:var(--r-sm);
+  background:var(--cyan-dim);border:1px solid rgba(0,184,212,.18);
+  font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--cyan);
+  width:fit-content;margin-bottom:16px;
+}
+.stag-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);flex-shrink:0;animation:stag-pulse 2s ease-in-out infinite;}
+@keyframes stag-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.stag-p{background:var(--purple-dim);border-color:rgba(26,95,180,.2);color:var(--purple);}
+.stag-p .stag-dot{background:var(--purple);box-shadow:0 0 6px var(--purple);}
+.stag-n{background:var(--neb-dim);border-color:rgba(26,95,180,.2);color:var(--neb);}
+.stag-n .stag-dot{background:var(--neb);box-shadow:0 0 6px var(--neb);}
+
+/* ── BADGE ──────────────────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.03em;}
+.badge-c{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,184,212,.18);}
+.badge-p{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(26,95,180,.18);}
+.badge-n{background:var(--neb-dim);color:var(--neb);border:1px solid rgba(26,95,180,.18);}
+.badge-m{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--bd-f);}
+.badge-travel{position:relative;overflow:visible;border-color:transparent;}
+.badge-travel-glow{
+  position:absolute;inset:-1px;
+  border-radius:inherit;padding:2px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 0%,
+    rgba(0,184,212,.8) 0deg,rgba(26,95,180,.6) 45deg,
+    transparent 120deg,transparent 300deg,rgba(0,184,212,.8) 360deg
+  );
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+  animation:border-travel 3s linear infinite;
+}
+
+/* ── FEATURE CARD ───────────────────────────────────────── */
+.fc-card{
+  background:var(--panel);border:1px solid var(--bd-f);
+  border-radius:var(--r-xl);padding:22px;
+  transition:all var(--dur) var(--ease);position:relative;overflow:hidden;
+}
+.fc-card::after{display:none;}
+.fc-card:hover{border-color:var(--bd-s);background:var(--panel-2);}
+/* bold text in fc-card descriptions → white */
+.fc-card .t-xs strong{color:var(--t1);}
+
+.fc-icon{width:36px;height:36px;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:13px;flex-shrink:0;}
+.fc-icon-c{background:var(--cyan-dim);color:var(--cyan);}
+.fc-icon-p{background:var(--purple-dim);color:var(--purple);}
+.fc-icon-n{background:var(--neb-dim);color:var(--neb);}
+
+/* ── CHECK ITEM ─────────────────────────────────────────── */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--panel-2);border:1px solid var(--bd-f);border-radius:var(--r-lg);}
+.chk-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.chk-c{background:var(--cyan-dim);color:var(--cyan);}
+.chk-p{background:var(--purple-dim);color:var(--purple);}
+.chk-n{background:var(--neb-dim);color:var(--neb);}
+
+/* ── STAT CHIP ──────────────────────────────────────────── */
+.stat{background:var(--panel-2);border:1px solid var(--bd-f);border-radius:var(--r-lg);padding:16px;text-align:center;flex:1;}
+.stat-v{font-size:24px;font-weight:800;line-height:1;}
+.stat-l{font-size:10px;font-weight:500;color:var(--t2);margin-top:5px;line-height:1.3;}
+
+/* ── MACH STRIP ─────────────────────────────────────────── */
+.mach{display:flex;border:1px solid var(--bd-m);border-radius:var(--r-xl);overflow:hidden;background:var(--panel);}
+.mach-i{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 10px;border-right:1px solid var(--bd-f);gap:5px;}
+.mach-i:last-child{border-right:none;}
+.mach-l{font-size:28px;font-weight:800;line-height:1;}
+.mach-w{font-size:10px;font-weight:500;color:var(--t2);}
+
+/* ── FLOW DIAGRAM ───────────────────────────────────────── */
+.flow-row{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--panel-2);border:1px solid var(--bd-f);border-radius:11px;}
+.flow-icon{width:30px;height:30px;border-radius:8px;background:var(--panel-3);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.flow-arr{text-align:center;color:var(--t3);font-size:18px;margin:4px 0 4px 10px;}
+
+/* ── SECTION HEADER ─────────────────────────────────────── */
+.sec-eyebrow{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.sec-eyebrow-p{color:var(--purple);}
+.sec-eyebrow-n{color:var(--neb);}
+
+/* ── HW CARD ────────────────────────────────────────────── */
+/* ── HW PRODUCT CARDS ──────────────────────────────────── */
+.hw{
+  background:var(--panel);border:1px solid var(--bd-f);border-radius:var(--r-xl);
+  padding:0;overflow:visible;position:relative;
+  transition:transform .6s var(--ease),border-color .3s;
+  display:flex;flex-direction:column;
+}
+.hw:hover{transform:translateY(-4px);}
+/* traveling border */
+.hw-glow{display:none;}
+/* image area */
+.hw-img{
+  height:220px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;background:#fff;
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+}
+.hw-img img{
+  height:180px;width:auto;object-fit:contain;
+  position:relative;z-index:2;
+  transition:transform .6s var(--ease);
+}
+.hw:hover .hw-img img{transform:scale(1.04);}
+/* body */
+.hw-body{padding:22px 24px;flex:1;display:flex;flex-direction:column;}
+.hw-sub{
+  position:absolute;bottom:8px;left:8px;right:8px;z-index:3;
+  padding:8px 14px;
+  font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:#fff;
+  background:var(--neb-dk);border-radius:8px;
+  margin:0;
+}
+[data-theme="light"] .hw-sub{background:var(--neb-dk);color:#fff;}
+.hw--cyan .hw-sub{}
+.hw--purple .hw-sub{}
+.hw--neb .hw-sub{}
+/* card title boost */
+.hw .t-h3{font-size:20px;font-weight:800;letter-spacing:-.01em;}
+/* bold text in descriptions → white */
+.hw-desc strong{color:var(--t1);}
+/* HW card feat icons → white */
+.hw-feat-ico svg *[stroke]{stroke:var(--t1)!important;}
+.hw-feat-ico svg *[fill]:not([fill="none"]){fill:var(--t1)!important;}
+.hw-desc{font-size:14px;font-weight:400;line-height:1.55;color:var(--t2);margin-bottom:16px;}
+
+/* ── Tab-card & separator (PaaS-style) ──────────────── */
+.cert-tab-card{
+  background:#fff;border:1px solid rgba(15,23,42,.10);
+  border-radius:16px;padding:28px 32px;
+  position:relative;overflow:visible;
+  cursor:pointer;
+  margin-top:clamp(28px,4vw,44px);
+  transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease);
+}
+/* ── collapsed (white) state ── */
+.cert-tab-card .cert-tab-title{color:#0F172A;}
+.cert-tab-card .cert-tab-desc{color:#475569;}
+.cert-tab-card svg{transition:opacity .4s var(--ease);}
+/* ── expanded (lacivert) state ── */
+.cert-tab-card:hover,
+.cert-tab-card.cert-open{
+  background:var(--panel);border-color:var(--bd-f);
+}
+.cert-tab-card:hover .cert-tab-title,
+.cert-tab-card.cert-open .cert-tab-title{color:var(--t1);}
+.cert-tab-card:hover .cert-tab-desc,
+.cert-tab-card.cert-open .cert-tab-desc{color:var(--t2);}
+.cert-tab-card:hover svg,
+.cert-tab-card.cert-open svg{opacity:.7;color:var(--t2);}
+/* "Devamını Oku" hint — collapsed only */
+.cert-tab-card::after{
+  content:'Devamını oku  ∨';
+  display:block;margin-top:14px;
+  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:#94A3B8;
+  opacity:1;
+  transition:opacity .3s var(--ease),margin .3s var(--ease);
+}
+.cert-tab-card:hover::after,
+.cert-tab-card.cert-open::after{
+  opacity:0;margin-top:0;
+}
+.cert-tab-glow{
+  display:none;
+}
+.cert-tab-title{
+  font-size:clamp(18px,2.5vw,24px);font-weight:800;
+  margin-bottom:8px;
+  transition:color .4s var(--ease);
+}
+.cert-tab-desc{
+  font-size:14px;font-weight:400;line-height:1.6;
+  transition:color .4s var(--ease);
+}
+/* collapsible body */
+.cert-tab-body{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .9s cubic-bezier(0.16,1,0.3,1),opacity .7s ease,margin .6s var(--ease),padding .6s var(--ease);
+  margin-top:0;padding:0;
+}
+.cert-tab-card:hover .cert-tab-body{
+  max-height:2000px;opacity:1;margin-top:24px;padding:4px;overflow:visible;
+}
+.cert-tab-card.cert-open .cert-tab-body{
+  max-height:2000px;opacity:1;margin-top:24px;padding:4px;overflow:visible;
+}
+/* fc-card icons — frameless, large, white */
+.cert-tab-card .fc-icon{
+  width:auto;height:auto;border-radius:0;
+  background:none!important;border:none;
+  margin-bottom:18px;
+}
+.cert-tab-card .fc-icon svg{
+  width:36px;height:36px;
+}
+.cert-tab-card .fc-icon svg *[stroke]{stroke:var(--t1)!important;}
+.cert-tab-card .fc-icon svg *[fill]:not([fill="none"]){fill:var(--t1)!important;}
+/* fc-card strong text → white */
+.cert-tab-card .fc-card strong{color:var(--t1);}
+/* fc-card sub-header badge at bottom */
+.fc-card-sub{
+  display:inline-block;
+  margin-top:14px;padding-top:10px;
+  border-top:1px solid var(--bd-f);
+  font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--cyan);width:100%;
+}
+.cert-tab-sep{
+  height:2px;margin:0;border:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(0,184,212,.3) 20%,rgba(26,95,180,.3) 80%,transparent 100%);
+  position:relative;overflow:visible;
+}
+.cert-tab-sep::after{
+  content:'';position:absolute;top:-1px;
+  width:60px;height:4px;border-radius:2px;
+  background:var(--grad);
+  animation:cert-sep-glow 3s ease-in-out infinite;
+  filter:blur(1px);
+}
+@keyframes cert-sep-glow{
+  0%,100%{left:10%;opacity:.6;}
+  50%{left:calc(90% - 60px);opacity:1;}
+}
+/* feature list */
+.hw-feat{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.hw-feat:last-child{margin-bottom:0;}
+.hw-feat-ico{
+  width:24px;height:24px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:.55;
+}
+.hw-feat-txt{font-size:13px;font-weight:400;color:var(--t2);line-height:1.45;}
+
+/* ── HW CTA — parallax text section ────────────────────── */
+.hw-cta{
+  text-align:center;
+  padding:clamp(40px,6vw,80px) 0;
+}
+.hw-cta-text{
+  font-size:clamp(22px,3vw,32px);
+  font-weight:600;line-height:1.35;
+  color:var(--t1);
+  max-width:640px;margin-inline:auto;
+  margin-bottom:28px;
+  overflow:hidden;
+}
+.hw-cta-text .wr-word{
+  display:inline-block;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.hw-cta-text .wr-word.in{opacity:1;transform:translateY(0);}
+
+/* ── CTA link ── */
+.btn-arrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 0;
+  font-size:15px;font-weight:700;
+  color:var(--t1);
+  border:none;background:none;
+  position:relative;
+  transition:all .3s var(--ease);
+  cursor:pointer;
+}
+/* KEŞFET underline — soldan sağa */
+.btn-arrow .kesfet{
+  position:relative;display:inline;
+  text-transform:uppercase;letter-spacing:.06em;font-weight:800;
+}
+.btn-arrow .kesfet::after{
+  content:'';position:absolute;
+  left:0;bottom:-3px;width:100%;height:2px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+.btn-arrow:hover .kesfet::after{transform:scaleX(1);}
+/* ok — soldan sağa fade in */
+.btn-arrow svg{
+  opacity:0;transform:translateX(-8px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.btn-arrow:hover svg{
+  opacity:1;transform:translateX(0);
+}
+
+/* ── FORM ───────────────────────────────────────────────── */
+.df-inp{width:100%;padding:11px 14px;background:var(--panel-2);border:1px solid var(--bd-f);border-radius:var(--r-md);font-size:13px;font-weight:500;color:var(--t1);font-family:var(--font);outline:none;transition:border-color .15s,box-shadow .15s;}
+.df-inp::placeholder{color:var(--t3);}
+.df-inp:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,184,212,.12);}
+.df-lbl{display:block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* form responsive — handled by main breakpoint system below */
+
+/* ── SCROLL REVEAL ──────────────────────────────────────── */
+.sr{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.sr.on{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
+
+/* ── UTILS ──────────────────────────────────────────────── */
+.flex{display:flex;}.fc{display:flex;align-items:center;justify-content:center;}
+.fb{display:flex;align-items:center;justify-content:space-between;}
+.col{flex-direction:column;}.items-c{align-items:center;}.wrap{flex-wrap:wrap;}
+.gap2{gap:8px;}.gap3{gap:12px;}.gap4{gap:16px;}.gap5{gap:20px;}.gap6{gap:24px;}
+.mt2{margin-top:8px;}.mt3{margin-top:12px;}.mt4{margin-top:16px;}.mt5{margin-top:20px;}.mt6{margin-top:24px;}.mt8{margin-top:32px;}.mt10{margin-top:40px;}
+.mb2{margin-bottom:8px;}.mb3{margin-bottom:12px;}.mb4{margin-bottom:16px;}.mb6{margin-bottom:24px;}
+.w-full{width:100%;}.text-c{text-align:center;}.rel{position:relative;}.oh{overflow:hidden;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;}
+/* grid responsive — handled by main breakpoint system below */
+
+/* ── BREAKPOINTS ─────────────────────────────────────────
+   xs  < 480   iPhone SE
+   sm  480-767 iPhone 14/15
+   md  768-1023 iPad / küçük laptop
+   lg  1024-1439 laptop (default tasarım buraya göre)
+   xl  1440+   geniş monitör
+──────────────────────────────────────────────────────── */
+
+/* xl — geniş ekran */
+@media(min-width:1440px){
+  .wrap{max-width:1400px;}
+  .t-display{font-size:72px;}
+  .t-hero{font-size:56px;}
+  .t-h1{font-size:38px;}
+}
+
+/* md — tablet / küçük laptop */
+@media(max-width:1023px){
+  /* nav */
+  .nav-menu{display:none;}
+  .nav-act .lang-sw,.nav-act .theme-ico,.nav-act .nav-back,.nav-act .nav-sep{display:none;}
+  .nav-act .btn:not(:last-child){display:none;}
+  /* section pills görünür */
+  .sec-nav{display:flex;}
+  /* split → tek kolon */
+  .split,.split-57,.split-60,.split-rev,.split-eq{
+    grid-template-columns:1fr;
+  }
+  .split-rev > *:first-child{order:2;}
+  .split-rev > *:last-child{order:1;}
+  /* grids */
+  .g3{grid-template-columns:1fr 1fr;}
+  .g4{grid-template-columns:1fr 1fr;}
+  .g-auto3,.g-auto4{grid-template-columns:1fr 1fr;}
+}
+
+/* sm — büyük telefon */
+@media(max-width:767px){
+  :root{--nav-h:56px;--bc-h:0px;--nav-gap:8px;--nav-side:12px;}
+  .top-bar{display:none;}
+  .wrap{padding-inline:16px;}
+  .sec{padding:clamp(40px,6vw,64px) 0;}
+  /* grids tek kolon */
+  .g2,.g3,.g4,.g-auto3,.g-auto4{grid-template-columns:1fr;}
+  /* split tek kolon */
+  .split,.split-57,.split-60,.split-rev,.split-eq{
+    grid-template-columns:1fr;gap:16px;
+  }
+  .split-rev > *:first-child{order:2;}
+  .split-rev > *:last-child{order:1;}
+  /* typography */
+  .t-display{font-size:clamp(32px,8vw,44px);}
+  .t-hero{font-size:clamp(28px,7vw,38px);}
+  .t-h1{font-size:clamp(22px,5.5vw,28px);}
+  .t-h2{font-size:clamp(18px,4.5vw,22px);}
+  /* stage — min-height kaldır */
+  .stage{min-height:auto!important;}
+  /* form */
+  .form-row{grid-template-columns:1fr!important;}
+  /* flex wrap zorla */
+  .flex{flex-wrap:wrap;}
+  /* banner expand kart — split kaldır */
+  .banner-split{grid-template-columns:1fr!important;}
+  .banner-right{display:none;}
+  /* footer */
+  [class*="ft-"] > div[style*="grid"]{grid-template-columns:1fr 1fr!important;}
+  /* Hero slider auto height */
+  #era-hero-slider{height:auto!important;}
+  .era-hero-slide{position:relative!important;inset:auto!important;}
+  .era-hero-slide:not(.active-slide){display:none;}
+  /* Nav — mobile sadeleştir */
+  .nav-mob{display:flex;}
+  .nav-menu{display:none;}
+  .nav-act .btn:not(:last-child){display:none;}
+  .nav-i{height:48px;gap:6px;padding-inline:12px!important;}
+  .nav-wordmark{height:22px!important;}
+  .nav-tag{font-size:9px;padding:2px 6px;}
+  .nav-sep{height:10px;}
+  .nav-act .lang-sw,.nav-act .theme-ico,.nav-act .nav-back,.nav-act .nav-sep{display:none;}
+  .nav{border-radius:12px;top:var(--nav-gap)!important;}
+  /* HW image */
+  .hw-img{height:180px;}
+  /* Split reverse order — stage below text */
+  .split-57 > *:first-child{order:2;}
+  .split-57 > *:last-child{order:1;}
+  /* Hero Teams — mobile fix */
+  .hero-teams{padding-top:calc(var(--nav-gap) + 52px + 48px)!important;padding-bottom:40px!important;}
+  .hero-teams h1{font-size:clamp(26px,7vw,38px)!important;}
+  .hero-teams p{font-size:15px!important;}
+  .hero-teams .btn-xl{padding:12px 20px;font-size:13px;}
+  /* Nav dropdown constrain */
+  .nav-dd{max-width:calc(100vw - 40px);}
+  /* HW CTA */
+  .hw-cta{padding:clamp(24px,4vw,40px) 0;}
+  .hw-cta-text{font-size:clamp(18px,5vw,24px)!important;}
+  /* Sec-nav — below nav without overlap */
+  .sec-nav{
+    top:calc(var(--nav-gap) + 52px);
+    gap:6px;
+    z-index:999;
+  }
+  .sec-nav.open{
+    padding:5px 12px;
+  }
+  .sec-pill{font-size:10px;padding:4px 10px;}
+}
+
+/* xs — küçük telefon */
+@media(max-width:479px){
+  :root{--nav-gap:6px;--nav-side:8px;}
+  .nav-i{gap:4px;padding-inline:10px!important;}
+  .nav{border-radius:10px;}
+  .t-display{font-size:clamp(28px,7.5vw,36px);}
+  .t-hero{font-size:clamp(24px,7vw,32px);}
+  .btn-xl{padding:11px 18px;font-size:12px;}
+  .btn-lg{padding:9px 16px;font-size:12px;}
+  /* stage inner padding küçült */
+  .stage-inner{padding:20px!important;}
+  /* footer */
+  [class*="ft-"] > div[style*="grid"]{grid-template-columns:1fr!important;}
+  /* Typography reduce */
+  .t-display{font-size:clamp(24px,7vw,32px)!important;}
+  .t-hero{font-size:clamp(22px,6vw,28px)!important;}
+  .t-h1{font-size:clamp(20px,5vw,24px)!important;}
+  .hero-line-grad{font-size:clamp(26px,7vw,38px)!important;}
+  .hero-line-sub{font-size:clamp(20px,5.5vw,28px)!important;}
+  /* HW image smaller */
+  .hw-img{height:160px;}
+  /* Hero Teams — xs */
+  .hero-teams{padding-top:calc(var(--nav-gap) + 52px + 36px)!important;}
+  .hero-teams h1{font-size:clamp(22px,6.5vw,32px)!important;}
+  /* Visual card tighter */
+  .hero-teams-visual > div{padding:20px!important;border-radius:20px!important;}
+}
+
+/* ── SECTION PILL NAV ────────────────────────────────────── */
+.sec-nav{
+  display:flex;
+  position:sticky;
+  top:calc(var(--nav-gap) + var(--nav-h) + 8px);
+  z-index:900;
+  max-height:0;
+  opacity:0;
+  padding-block:0;
+  overflow:hidden;
+  transition:max-height .35s var(--ease),opacity .3s,padding .3s;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  padding:8px 16px;
+  gap:6px;
+  background:rgba(11,13,22,.85);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd-f);
+  /* flex container */
+  flex-direction:row;
+  flex-wrap:nowrap;
+  align-items:center;
+  overflow-x:auto;
+  overflow-y:visible;
+}
+.sec-nav::-webkit-scrollbar{display:none;}
+[data-theme="light"] .sec-nav{background:rgba(248,250,252,.92);border-bottom-color:rgba(15,23,42,.06);}
+.sec-pill{
+  display:inline-flex;align-items:center;
+  flex-shrink:0;
+  padding:5px 14px;
+  font-size:11px;font-weight:700;letter-spacing:.03em;
+  border-radius:20px;
+  border:1px solid var(--bd-m);
+  color:var(--t2);
+  background:transparent;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:all .15s;
+  text-decoration:none;
+  flex-shrink:0;
+}
+.sec-pill:hover{color:var(--t1);border-color:var(--bd-s);}
+.sec-pill.active{
+  background:var(--grad);
+  border-color:transparent;
+  color:#fff;
+  box-shadow:0 2px 12px rgba(0,184,212,.25);
+}
+.sec-nav.open{
+  max-height:60px;
+  opacity:1;
+  padding-block:8px;
+  overflow-x:auto;
+  overflow-y:visible;
+}
+@media(min-width:1024px){.sec-nav{display:none;}}
+@media(max-width:767px){
+  .sec-nav{
+    top:calc(var(--nav-gap) + var(--nav-h) + 4px);
+  }
+  .sec-nav.open{
+    padding-inline:12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEAMS-STYLE: Bento Grid + Light-First Overrides
+═══════════════════════════════════════════════════════════ */
+
+/* ── Hero — Teams style: centered, pastel gradient bg ────── */
+.hero-teams{
+  background:linear-gradient(135deg,#EFF6FF 0%,#F3E8FF 40%,#FFF7ED 100%);
+  padding:clamp(80px,10vw,140px) 0 clamp(40px,6vw,80px);
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+}
+[data-theme="dark"] .hero-teams{
+  background:linear-gradient(135deg,var(--panel) 0%,var(--panel-2) 100%);
+}
+.hero-teams-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,4vw,60px);
+  align-items:center;
+}
+.hero-teams-text{display:flex;flex-direction:column;gap:20px;}
+.hero-teams-visual{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+@media(max-width:767px){
+  .hero-teams-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-teams-text{align-items:center;}
+  .hero-teams-visual{margin-top:24px;}
+}
+
+/* ── Bento Grid System ───────────────────────────────────── */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+}
+.bento-card{
+  background:#fff;
+  border:1px solid rgba(15,23,42,.06);
+  border-radius:24px;
+  padding:clamp(24px,3vw,36px);
+  position:relative;
+  overflow:hidden;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+[data-theme="dark"] .bento-card{
+  background:var(--panel);
+  border-color:var(--bd-f);
+}
+.bento-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(15,23,42,.08);
+}
+[data-theme="dark"] .bento-card:hover{
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+/* Bento sizes */
+.bento-lg{grid-column:span 5;min-height:320px;}
+.bento-md{grid-column:span 4;}
+.bento-sm{grid-column:span 3;}
+.bento-wide{grid-column:span 8;}
+.bento-full{grid-column:span 12;}
+/* Bento accents — pastel tinted cards */
+.bento-tint-blue{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);}
+.bento-tint-cyan{background:linear-gradient(135deg,#ECFEFF,#CFFAFE);}
+.bento-tint-purple{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);}
+.bento-tint-warm{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);}
+[data-theme="dark"] .bento-tint-blue{background:linear-gradient(135deg,rgba(26,95,180,.18),rgba(26,95,180,.08));}
+[data-theme="dark"] .bento-tint-cyan{background:linear-gradient(135deg,rgba(0,184,212,.18),rgba(0,184,212,.08));}
+[data-theme="dark"] .bento-tint-purple{background:linear-gradient(135deg,rgba(53,132,228,.18),rgba(53,132,228,.08));}
+[data-theme="dark"] .bento-tint-warm{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(251,191,36,.08));}
+
+/* Bento icon — frameless large */
+.bento-icon{
+  width:auto;height:auto;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.bento-icon svg{width:40px;height:40px;stroke-width:1.8;}
+.bento-icon-blue{color:#1A5FB4;}
+.bento-icon-cyan{color:#00B8D4;}
+.bento-icon-purple{color:#3584E4;}
+.bento-icon-neb{color:#1A5FB4;}
+
+/* Bento responsive */
+@media(max-width:1023px){
+  .bento{grid-template-columns:repeat(6,1fr);}
+  .bento-lg{grid-column:span 6;}
+  .bento-md{grid-column:span 3;}
+  .bento-sm{grid-column:span 3;}
+  .bento-wide{grid-column:span 6;}
+}
+@media(max-width:767px){
+  .bento{grid-template-columns:1fr;gap:12px;}
+  .bento-lg,.bento-md,.bento-sm,.bento-wide,.bento-full{grid-column:span 1;min-height:auto;}
+  /* Override inline grid-column spans */
+  .bento-card[style*="grid-column"]{grid-column:span 1!important;}
+  .bento-card{border-radius:18px;padding:20px;}
+}
+
+/* ── Light-first overrides ───────────────────────────────── */
+[data-theme="light"] .stage{
+  background:#fff;
+  border-color:rgba(15,23,42,.06);
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+}
+[data-theme="light"] .stage::before{
+  background:none;
+}
+[data-theme="light"] .stage-mesh{display:none;}
+[data-theme="light"] .stage-glow{display:none;}
+[data-theme="light"] .stage-glow-right{display:none;}
+[data-theme="light"] .fc-card{
+  background:#fff;
+  border-color:rgba(15,23,42,.06);
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+}
+[data-theme="light"] .fc-card:hover{
+  background:#fff;
+  border-color:rgba(15,23,42,.12);
+  box-shadow:0 8px 24px rgba(15,23,42,.08);
+}
+[data-theme="light"] .fc-card::after{display:none;}
+[data-theme="light"] .chk{
+  background:#F8FAFC;
+  border-color:rgba(15,23,42,.06);
+}
+[data-theme="light"] .badge-m{
+  background:rgba(15,23,42,.04);
+  border-color:rgba(15,23,42,.08);
+}
+[data-theme="light"] .nav-travel{display:none;}
+[data-theme="light"] .hw-glow{display:none;}
+[data-theme="light"] .badge-travel-glow{display:none;}
+
+/* ── Clean section backgrounds for light ─────────────────── */
+[data-theme="light"] .sec-dark{background:#F8FAFC;}
+[data-theme="light"] .sec-panel{background:#FFFFFF;}
+[data-theme="light"] .sec-strip{
+  background:#F1F5F9;
+  border-color:rgba(15,23,42,.06);
+}
+
+/* ── Strip grid — responsive 4→2 ────────────────────────── */
+.strip-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--bd-f);
+  border-radius:14px;
+  overflow:hidden;
+}
+.strip-cell{
+  background:var(--panel-2);
+  padding:22px;
+  text-align:center;
+}
+@media(max-width:767px){
+  .strip-grid{grid-template-columns:repeat(2,1fr);}
+  .strip-cell{padding:16px 12px;}
+  .strip-cell .stat-v{font-size:clamp(18px,5vw,24px);}
+}
+
+/* ── Mobile theme toggle in nav ──────────────────────────── */
+.nav-theme-mob{
+  display:none;
+  align-items:center;justify-content:center;
+  width:32px;height:32px;
+  border-radius:8px;
+  background:var(--cyan-dim);
+  color:var(--t2);
+  border:1px solid var(--bd-f);
+  cursor:pointer;
+  transition:background .2s,color .2s;
+  flex-shrink:0;
+}
+.nav-theme-mob:hover{background:var(--cyan-glow);color:var(--t1);}
+@media(max-width:767px){
+  .nav-theme-mob{display:flex;}
+}
+
+/* ── Clean nav for light mode ────────────────────────────── */
+[data-theme="light"] .nav{
+  background:rgba(255,255,255,.92);
+  border-color:rgba(15,23,42,.06);
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+}
+[data-theme="light"] .bc{
+  background:rgba(248,250,252,.95);
+  border-color:rgba(15,23,42,.06);
+}
+</style>
+</head>
+<body>
+<!-- ── ÜST ŞERİT: breadcrumb (static — scroll'da kaybolur) ── -->
+<div class="top-bar">
+  <ol class="bc" aria-label="Sayfa yolu">
+    <li class="bc-item">
+      <a href="https://nebim.com.tr" class="bc-link">nebim.com.tr</a>
+    </li>
+    <li class="bc-item">
+      <span class="bc-sep" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2.5l3.5 3.5L4 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </li>
+    <li class="bc-item">
+      <a href="index.html" class="bc-link">Nebim ERA</a>
+    </li>
+    <li class="bc-item">
+      <span class="bc-sep" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2.5l3.5 3.5L4 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </li>
+    <li class="bc-item active">
+      <span class="bc-dot"></span>
+      <span class="bc-link">Nebim Certified</span>
+    </li>
+  </ol>
+  <div class="bc-act"></div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="nav-travel"></div>
+  <!-- ── ANA ŞERİT: logo + menü + CTA ────────────── -->
+  <div class="nav-i">
+    <a href="index.html" class="nav-logo" aria-label="Nebim ERA">
+      <img src="img/era_logo_final.svg" alt="Nebim ERA" class="nav-wordmark">
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-lnk">GENEL BAKIŞ</a></li>
+      <li class="nav-item"><a href="features.html" class="nav-lnk">NEBİM ERA'YI KEŞFEDİN</a></li>
+      <li class="nav-item"><a href="paas.html" class="nav-lnk">PLATFORM (PaaS)</a></li>
+      <li class="nav-item">
+        <a href="#" class="nav-lnk" onclick="return false;">PAKETLER</a>
+        <div class="nav-dd">
+          <a href="paket-1.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 1</a>
+          <a href="paket-2.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 2</a>
+          <a href="paket-3.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 3</a>
+          <div class="nav-dd-div"></div>
+          <a href="paket-custom.html" class="nav-dd-i"><span class="dd-dot"></span>Custom</a>
+        </div>
+      </li>
+      <li class="nav-item"><a href="certified.html" class="nav-lnk">NEBİM CERTIFIED</a></li>
+    </ul>
+
+    <div class="nav-act">
+      <button class="theme-ico" onclick="toggleTheme()" aria-label="Tema">
+        <svg class="ico-moon" width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="ico-sun" width="22" height="22" viewBox="0 0 16 16" fill="none" style="display:none;"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <button class="nav-mob" aria-label="Menü">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5.5h16M3 11h16M3 16.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+</nav>
+<!-- SECTION PILL NAV — mobile/tablet -->
+<div class="sec-nav" id="sec-nav">
+  <a href="#s1" class="sec-pill active">Genel Bakış</a>
+  <a href="#s3" class="sec-pill">ERA Özellikleri</a>
+  <a href="#s4" class="sec-pill">ERP Entegrasyonu</a>
+  <a href="#s5" class="sec-pill">PaaS Platform</a>
+  <a href="#s6" class="sec-pill">Nebim Certified</a>
+  <a href="#s7" class="sec-pill">Demo Talep Et</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     CERTIFIED — Donanım Ekosistemi Detay Sayfası
+═══════════════════════════════════════════════════ -->
+<main style="padding-top:clamp(100px,11vw,160px);padding-bottom:clamp(48px,5vw,80px);">
+
+  <!-- Page header -->
+  <section class="sec sec-panel" style="padding-top:clamp(16px,2vw,28px);">
+    <div class="wrap">
+      <div class="text-c sr" style="max-width:780px;margin-inline:auto;margin-bottom:clamp(36px,4vw,56px);padding-top:15px;">
+        <h1 class="t-h1 mb4" style="font-family:var(--font-display);">Nebim ERA'nın <span class="grad-text">Yazılım Çevikliğini,</span> Donanımın Gücüyle Buluşturun</h1>
+        <p class="t-body" style="margin-inline:auto;max-width:820px;">Nebim ERA ile kasa noktalarından reyon ortasına, <span style="display:inline-flex;align-items:center;font-size:10px;font-weight:600;letter-spacing:.03em;color:var(--t3);background:var(--bd-f);border:1px solid var(--bd-m);border-radius:20px;padding:2px 10px;vertical-align:middle;margin:0 4px;">Yakında</span> self-servis alanlarından mobil ödeme süreçlerine kadar tüm mağaza operasyonunuzu Nebim-Certified donanım ekosistemi ile destekleyin</p>
+      </div>
+
+      <!-- 3 Ana Donanım Kartı -->
+      <div class="g3 sr d1" style="gap:16px;margin-bottom:clamp(36px,5vw,64px);">
+
+        <!-- PAX Elys Serisi -->
+        <div class="hw hw--cyan">
+          <div class="hw-glow"></div>
+          <div class="hw-img">
+            <img src="img/pax-elys.png" alt="PAX Elys POS Workstation" loading="lazy">
+            <div class="hw-sub">YN ÖKC Muafiyetli Perakendeciler İçin Mükemmel Android Kasa Çözümü</div>
+          </div>
+          <div class="hw-body">
+            <div class="t-h3 mb2">PAX Elys Serisi ve Nebim ERA</div>
+            <div class="hw-desc">YN ÖKC muafiyeti kapsamında olan perakendeciler için, <strong>Red Dot Tasarım Ödüllü</strong>, <strong>PAX Elys</strong> donanım grubu ile <strong>Nebim ERA Perakende Satış</strong> yazılımını tam entegre çalıştırarak kasa işlemlerini hızlandırın.</div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="var(--cyan)" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Bütünleşik EFT-POS ile interaktif müşteri terminali</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="var(--cyan)" stroke-width="1.5"/><circle cx="12" cy="18" r="1" fill="var(--cyan)"/><path d="M9 5h6" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Android üzerinde native Nebim ERA POS</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--cyan)" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Terminal Server maliyetlerine son</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- YN ÖKC / EFT-POS Entegre Cihazlar -->
+        <div class="hw hw--purple sr d1">
+          <div class="hw-glow"></div>
+          <div class="hw-img">
+            <img src="img/newland-nft10-front.png" alt="YN ÖKC ve EFT-POS Entegre Cihazlar" loading="lazy">
+            <div class="hw-sub">Nebim ERA Perakende Satış ile Entegre</div>
+          </div>
+          <div class="hw-body">
+            <div class="t-h3 mb2">YN ÖKC'ler ve EFT-POS'lar</div>
+            <div class="hw-desc">Kasalarınızdaki mevcut notebook, PC ya da cihazlarınızda; Google Chrome gibi Web tarayıcıları üzerinde veya Android üzerinde native çalışan Nebim ERA Perakende Satış Uygulaması'nın desteklediği, YN ÖKC veya EFT-POS cihazlarını kullanın.</div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7M4 7l8 6 8-6" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">GMP-3 protokolü üzerinden tam entegrasyon</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="var(--purple)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Hugin, Ingenico, PAX modelleri</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="var(--purple)" stroke-width="1.5"/><path d="M2 10h20" stroke="var(--purple)" stroke-width="1.5"/><path d="M6 15h4" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Mevcut donanım yatırımını koruyun</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobil Cihazlar — Newland / Zebra -->
+        <div class="hw hw--neb sr d2">
+          <div class="hw-glow"></div>
+          <div class="hw-img">
+            <img src="img/zebra-tc21.jpg" alt="Zebra TC21 Mobil Bilgisayar" loading="lazy">
+            <div class="hw-sub">Newland &amp; Zebra</div>
+          </div>
+          <div class="hw-body">
+            <div class="t-h3 mb2">Mağaza Arka Ofis Operasyonları için Mobil Cihazlar</div>
+            <div class="hw-desc">Üzerinde Nebim ERA Mağaza Envanter Yönetimi (Store Inventory Management, SIM) çalıştırarak ürün kabul, sayım, etiket dökümü gibi işlemleri hızla gerçekleştirebileceğiniz Android cihazları kullanın.</div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 7H4a1 1 0 00-1 1v8a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="var(--neb)" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="var(--neb)" stroke-width="1.5"/><path d="M12 11v4M10 13h4" stroke="var(--neb)" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Ürün kabul, sayım, etiket dökümü</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="var(--neb)" stroke-width="1.5"/><path d="M15 2v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V2" stroke="var(--neb)" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="var(--neb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Reyonda gerçek zamanlı stok sorgulama</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v6m0 0H3m6 0h12M3 9v10a2 2 0 002 2h14a2 2 0 002-2V9" stroke="var(--neb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="hw-feat-txt">Android native SIM uygulaması</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════
+           PAX ELYS SERİSİ — Detay alt bileşenleri
+      ═══════════════════════════════════════════════════ -->
+      <div class="cert-tab-card sr d1" style="margin-bottom:0;">
+        <div class="cert-tab-glow"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="cert-tab-title">PAX Elys Serisi · Bütünleşik Donanım Bileşenleri</div>
+            <div class="cert-tab-desc">YN ÖKC muafiyetli perakendeciler için mükemmel Android kasa çözümü bileşenleri</div>
+          </div>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:#0F172A;transition:color .4s var(--ease);">
+            <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cert-tab-body">
+        <div class="g3" style="gap:14px;">
+          <div class="fc-card">
+            <div class="fc-icon fc-icon-c"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div class="t-h4 mb2">PAX Elys Station L1400</div>
+            <div class="t-xs t2" style="line-height:1.7;">Elys Station'ın yüksek çözünürlüklü geniş dokunmatik ekranı ile <strong>kasadaki satış danışmanınızın</strong> Nebim ERA uygulamasını en verimli şekilde kullanmasını sağlayın. <strong>Android üzerinde native çalışan</strong> Nebim ERA Perakende Satış uygulaması sayesinde hem hızlı kullanım kolaylığı elde edin, hem de <strong>Terminal Server maliyetlerinden kurtulun</strong>.</div>
+            <div class="fc-card-sub">Yüksek Performanslı Ana Terminal</div>
+          </div>
+          <div class="fc-card">
+            <div class="fc-icon fc-icon-c"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="12" y1="18" x2="12.01" y2="18" stroke="currentColor" stroke-width="1.6"/></svg></div>
+            <div class="t-h4 mb2">PAX Elys Tablet A3700</div>
+            <div class="t-xs t2" style="line-height:1.7;">Tabletin <strong>bütünleşik (yerleşik) EFT-POS cihazı</strong> ile kredi kartı ödemelerini alın. Müşterinizin kredi kartını kullanarak ödeme yaptığı tablette ödeme almanın yanı sıra, ayrıca müşterinin <strong>sepetindeki ürünleri ve uygulanan indirimleri</strong> de gösterin. Nebim ERA uygulamasının bu tablet üzerinde native çalışan ve kasadaki perakende satış uygulaması ile anlık haberleşen uygulaması sayesinde; müşterinin ödeme anında aynı tablet üzerinden <strong>OTP şifre girmesini, KVKK/ETK onayını işaretlemesini, adres ve e-posta gibi bilgilerini güncellemesini</strong> de sağlayın. Kasadaki satış danışmanınızın manuel veri giriş yükünü azaltın, hataları önleyin, müşterinize interaktif bir kasada ödeme deneyimi sunun.</div>
+            <div class="fc-card-sub">Bütünleşik EFT-POS ve İnteraktif Müşteri Deneyimi Tableti</div>
+          </div>
+          <div class="fc-card">
+            <div class="fc-icon fc-icon-c"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><polyline points="6 9 6 2 18 2 18 9" stroke="currentColor" stroke-width="1.6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.6"/><rect x="6" y="14" width="12" height="8" stroke="currentColor" stroke-width="1.6"/></svg></div>
+            <div class="t-h4 mb2">PAX Elys Printer T3180</div>
+            <div class="t-xs t2" style="line-height:1.7;">Nebim ERA üzerinden özelleştirilebilen yapısı sayesinde; fiş, fatura, iade çeki, değişim kartı belgelerini yüksek çözünürlükle basın. 260mm/s baskı hızıyla baskı süresini minimize edin.</div>
+            <div class="fc-card-sub">Yüksek Hızlı Termal Yazıcı</div>
+          </div>
+          <div class="fc-card">
+            <div class="fc-icon fc-icon-c"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="2" height="12" stroke="currentColor" stroke-width="1.6"/><rect x="6" y="6" width="1" height="12" stroke="currentColor" stroke-width="1.6"/><rect x="9" y="6" width="2" height="12" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="6" width="1" height="12" stroke="currentColor" stroke-width="1.6"/><rect x="15" y="6" width="3" height="12" stroke="currentColor" stroke-width="1.6"/><rect x="20" y="6" width="2" height="12" stroke="currentColor" stroke-width="1.6"/></svg></div>
+            <div class="t-h4 mb2">PAX Elys Eye T3320 / T3300</div>
+            <div class="t-xs t2" style="line-height:1.7;">Kablosuz ve ergonomik yapısıyla ürün barkodlarını her açıda hızla tarayın. Kasa üzerindeki hareket alanını kısıtlamadan ürün okutma hızını artırın.</div>
+            <div class="fc-card-sub">Barkod Okuyucu</div>
+          </div>
+          <div class="fc-card">
+            <div class="fc-icon fc-icon-c"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div class="t-h4 mb2">PAX Elys Hub 3400</div>
+            <div class="t-xs t2" style="line-height:1.7;">Tüm donanım bileşenlerini (ana terminal, EFT-POS interaktif tablet, yazıcı ve barkod okuyucu) tek bir merkezde toplayın; kablo karmaşasını engelleyerek kasa alanında operasyonel düzen ve kesintisiz veri iletişimi sağlayın.</div>
+            <div class="fc-card-sub">Kompakt Bağlantı Yönetimi</div>
+          </div>
+          <div class="fc-card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#fff;border-color:#e0e0e0;">
+            <div class="t-lbl" style="color:var(--cyan);margin-bottom:8px;">Daha Fazla Bilgi</div>
+            <div class="t-h4 mb3" style="color:#1a1a1a;">PAX Elys ile tanışın</div>
+            <a href="https://paramtech.com.tr" target="_blank" rel="noopener" class="btn btn-grad btn-sm">ParamTech Satış'a Git →</a>
+          </div>
+        </div>
+        </div><!-- /cert-tab-body -->
+      </div><!-- /cert-tab-card PAX Elys -->
+
+      <!-- separator -->
+      <hr class="cert-tab-sep" style="margin:clamp(24px,3vw,40px) 0;">
+
+      <!-- ═══════════════════════════════════════════════════
+           YN ÖKC ve EFT-POS Entegre Modeller
+      ═══════════════════════════════════════════════════ -->
+      <div class="cert-tab-card sr d1">
+        <div class="cert-tab-glow"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="cert-tab-title">Nebim ERA Perakende Satış ile Entegre · YN ÖKC'ler ve EFT-POS'lar</div>
+            <div class="cert-tab-desc">Kasalarınızdaki mevcut cihazlarınızda YN ÖKC veya EFT-POS ile tam entegrasyon</div>
+          </div>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:#0F172A;transition:color .4s var(--ease);">
+            <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M2 10h20" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M6 15h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cert-tab-body">
+        <p class="t-body mb4" style="max-width:780px;">Kasalarınızdaki mevcut notebook, PC ya da cihazlarınızda; Google Chrome gibi Web tarayıcıları üzerinde veya Android üzerinde native çalışan Nebim ERA Perakende Satış Uygulaması'nın desteklediği, YN ÖKC veya EFT-POS cihazlarını kullanın.</p>
+        <div class="split split-eq" style="grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="stage" style="padding:24px 26px;">
+            <div class="t-lbl" style="color:var(--purple);margin-bottom:14px;">GMP-3 Üzerinden Entegre YN ÖKC Modelleri</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="chk"><div class="chk-dot chk-p">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">HUGIN Tiger T300</strong><span class="t-xs t2">TSM üzerinden bağlantı</span></div></div>
+              <div class="chk"><div class="chk-dot chk-p">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">HUGIN S1 Yeni Nesil Android Yazarkasa POS</strong><span class="t-xs t2">Nebim ERA Device Bridge kurarak Wi-Fi ya da Ethernet kablosu üzerinden ağa bağlantı</span></div></div>
+              <div class="chk"><div class="chk-dot chk-p">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">Ingenico Move 5000F Yazarkasa POS</strong><span class="t-xs t2">TSM üzerinden bağlantı</span></div></div>
+              <div class="chk"><div class="chk-dot chk-p">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">Ingenico iDE 280 ve Ingenico iWE 280 Yazarkasa POS</strong><span class="t-xs t2">TSM üzerinden bağlantı</span></div></div>
+              <div class="chk"><div class="chk-dot chk-p">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">PAX Worldline A910SF Yeni Nesil Android Pos Yazarkasa</strong><span class="t-xs t2">TSM üzerinden bağlantı</span></div></div>
+            </div>
+          </div>
+          <div class="stage" style="padding:24px 26px;">
+            <div class="t-lbl" style="color:var(--cyan);margin-bottom:14px;">Entegre EFT-POS Modelleri</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="chk"><div class="chk-dot chk-c">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">PAX A80 EFT-POS</strong><span class="t-xs t2">Nebim ERA Device Bridge kurarak Wi-Fi ya da Ethernet kablosu üzerinden ağa bağlantı</span></div></div>
+              <div class="chk"><div class="chk-dot chk-c">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">PAX Elys Tablet A3700</strong><span class="t-xs t2">PAX Elys çözümü bünyesinde</span></div></div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /cert-tab-body -->
+      </div><!-- /cert-tab-card YN ÖKC -->
+
+      <!-- separator -->
+      <hr class="cert-tab-sep" style="margin:clamp(24px,3vw,40px) 0;">
+
+      <!-- ═══════════════════════════════════════════════════
+           Mobil Cihazlar — Newland & Zebra
+      ═══════════════════════════════════════════════════ -->
+      <div class="cert-tab-card sr d1">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="cert-tab-title">Mağaza Arka Ofis Operasyonları için Mobil Cihazlar</div>
+            <div class="cert-tab-desc">Üzerinde Nebim ERA Mağaza Envanter Yönetimi (SIM) çalıştırabileceğiniz Android cihazlar</div>
+          </div>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:#0F172A;transition:color .4s var(--ease);">
+            <rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M15 2v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V2" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="cert-tab-body">
+        <p class="t-body mb4" style="max-width:780px;">Üzerinde Nebim ERA Mağaza Envanter Yönetimi (Store Inventory Management, SIM) çalıştırarak ürün kabul, sayım, etiket dökümü gibi işlemleri hızla gerçekleştirebileceğiniz Android cihazları kullanın.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:480px;">
+          <div class="chk"><div class="chk-dot chk-n">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">Newland</strong><span class="t-xs t2">Android mobil bilgisayar</span></div></div>
+          <div class="chk"><div class="chk-dot chk-n">●</div><div><strong class="t-h4" style="display:block;margin-bottom:2px;">Zebra</strong><span class="t-xs t2">Android mobil bilgisayar</span></div></div>
+        </div>
+        </div><!-- /cert-tab-body -->
+      </div><!-- /cert-tab-card Mobil Cihazlar -->
+
+    </div>
+  </section>
+
+  <!-- CTA — İletişim -->
+  <section class="sec" style="padding-top:0;">
+    <div class="wrap">
+      <div class="hw-cta sr text-c" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="hw-cta-text t-h2" style="text-align:center;">İletişime geçmek için tıklayın</div>
+        <a href="https://www.nebim.com.tr/iletisim" target="_blank" rel="noopener" class="btn btn-grad btn-lg">İletişime Geçin →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+
+  <div class="ft-grid">
+    <!-- Marka -->
+    <div>
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;">
+        <img src="img/era_logo_final.svg" alt="Nebim ERA" class="ft-era-logo">
+      </div>
+      <p class="t-xs t2" style="max-width:240px;line-height:1.8;">Türkiye'nin ilk yerel bütünleşik perakende platformu. Fiziksel mağaza, e-ticaret ve pazaryeri tek platformda.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="badge badge-m badge-travel">1966'dan Bu Yana<span class="badge-travel-glow"></span></span>
+          <img src="img/nebim_logo.svg" alt="Nebim" class="ft-param">
+          <span style="width:1px;height:14px;background:var(--bd-m);flex-shrink:0;"></span>
+          <a href="https://param.com.tr" target="_blank" rel="noopener" aria-label="Param Grubu"><img src="img/param-logo.svg" alt="Param Grubu" class="ft-param"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEBİM ERA -->
+    <div>
+      <div class="ft-col-title">NEBİM ERA</div>
+      <div class="ft-links">
+        <a href="index.html" class="t-xs t2 ft-link">Genel Bakış</a>
+        <a href="features.html" class="t-xs t2 ft-link">Tüm Özellikler</a>
+        <a href="paas.html" class="t-xs t2 ft-link">Platform (PaaS)</a>
+        <a href="certified.html" class="t-xs t2 ft-link">Certified</a>
+      </div>
+    </div>
+
+    <!-- PAKETLER -->
+    <div>
+      <div class="ft-col-title">PAKETLER</div>
+      <div class="ft-links">
+        <a href="paket-1.html" class="t-xs t2 ft-link">Paket 1</a>
+        <a href="paket-2.html" class="t-xs t2 ft-link">Paket 2</a>
+        <a href="paket-3.html" class="t-xs t2 ft-link">Paket 3</a>
+        <a href="paket-custom.html" class="t-xs t2 ft-link">Custom</a>
+      </div>
+    </div>
+
+    <!-- NEBİM -->
+    <div>
+      <div class="ft-col-title">NEBİM</div>
+      <div class="ft-links">
+        <a href="#" class="t-xs t2 ft-link">Nebim Hakkında</a>
+        <a href="#" class="t-xs t2 ft-link">İş Ortakları</a>
+        <a href="#" class="t-xs t2 ft-link">Kariyer</a>
+        <a href="#" class="t-xs t2 ft-link">İletişim</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-divider"></div>
+  <div class="ft-bottom">
+    <span class="t-xs t3">© 2026 Nebim Neyir Bilgisayar Sanayii ve Hizmetleri A.Ş. Tüm hakları saklıdır.</span>
+    <div class="flex gap4">
+      <a href="gizlilik-politikasi.html" class="t-xs t3 ft-link">Gizlilik Politikası</a>
+      <a href="kvkk-aydinlatma.html" class="t-xs t3 ft-link">KVKK Aydınlatma</a>
+      <a href="cerez-politikasi.html" class="t-xs t3 ft-link">Çerez Politikası</a>
+    </div>
+  </div>
+
+</footer>
+<style>
+/* ── FOOTER — floating glass ──────────────────────────── */
+.site-footer{
+  margin:0 var(--nav-side) clamp(16px,2vw,24px);
+  background:rgba(11,13,22,.42);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  padding:clamp(32px,4vw,48px) clamp(24px,3vw,40px) clamp(20px,2vw,28px);
+}
+/* ambient glow — sağ üst */
+.site-footer::after{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(ellipse at 85% 20%,rgba(0,184,212,.14) 0%,rgba(26,95,180,.08) 35%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.site-footer{position:relative;overflow:hidden;}
+.site-footer > *{position:relative;z-index:1;}
+[data-theme="light"] .site-footer::after{
+  background:radial-gradient(ellipse at 85% 20%,rgba(0,151,167,.10) 0%,rgba(13,59,130,.06) 35%,transparent 65%);
+}
+[data-theme="light"] .site-footer{
+  background:rgba(255,255,255,.62);
+  border-color:rgba(15,23,42,.08);
+  box-shadow:
+    0 8px 32px rgba(15,23,42,.08),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+.ft-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:clamp(24px,4vw,48px);
+  margin-bottom:clamp(24px,3vw,36px);
+}
+.ft-col-title{
+  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t1);margin-bottom:14px;
+}
+.ft-links{display:flex;flex-direction:column;gap:10px;}
+.ft-link{
+  position:relative;display:inline-block;width:fit-content;
+  transition:color .15s;
+  font-variation-settings:"wght" 400;
+}
+.ft-link::after{
+  content:'';position:absolute;
+  left:0;bottom:-2px;width:100%;height:1.5px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+/* bold without layout shift — text-shadow trick */
+.ft-link:hover{color:var(--cyan)!important;text-shadow:0 0 .5px currentColor,0 0 .5px currentColor;}
+.ft-link:hover::after{transform:scaleX(1);}
+.ft-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:18px;}
+[data-theme="light"] .ft-divider{background:rgba(15,23,42,.08);}
+.ft-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--t1);}
+.ft-bottom .t-xs{color:var(--t1)!important;}
+.ft-param{height:12px;width:auto;opacity:.5;filter:brightness(0) invert(1);transition:opacity .2s;}
+[data-theme="light"] .ft-param{filter:none;opacity:.4;}
+.ft-param:hover{opacity:.8;}
+@media(max-width:767px){
+  .site-footer{margin-inline:12px;}
+  .ft-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:479px){
+  .site-footer{margin-inline:8px;border-radius:12px;}
+  .ft-grid{grid-template-columns:1fr;}
+}
+/* Segment radio opts hover */
+.segment-opt:has(input:checked){
+  border-color:var(--bd-s);
+  background:var(--cyan-dim);
+}
+/* Footer grid — artık .site-footer CSS'te yönetiliyor */
+</style>
+<script>
+/* ── Nav scroll — hide on scroll down, show on scroll up, stick to top ── */
+const nav = document.getElementById('nav');
+const topBar = document.querySelector('.top-bar');
+let lastY = 0;
+let scrollAcc = 0;
+const hideThreshold = 75;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const bcBottom = topBar ? topBar.offsetTop + topBar.offsetHeight : 0;
+  nav.classList.toggle('sc', y > 10);
+  nav.classList.toggle('nav-top', y > bcBottom);
+  const delta = y - lastY;
+  if (delta > 0) { scrollAcc += delta; } else { scrollAcc = 0; nav.classList.remove('hide'); }
+  if (scrollAcc > hideThreshold) { nav.classList.add('hide'); }
+  lastY = y;
+}, {passive:true});
+
+/* ── Scroll reveal ── */
+const srEls = document.querySelectorAll('.sr:not(.on)');
+const srObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); srObs.unobserve(e.target); }});
+}, {threshold:.08, rootMargin:'0px 0px -28px 0px'});
+srEls.forEach(el => srObs.observe(el));
+</script>
+
+<script>
+/* ── THEME TOGGLE ── */
+var _eraTheme = 'dark';
+applyTheme(_eraTheme);
+function applyTheme(t){
+  _eraTheme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  document.querySelectorAll('.ico-moon').forEach(function(el){ el.style.display = t === 'dark'  ? 'block' : 'none'; });
+  document.querySelectorAll('.ico-sun').forEach(function(el){  el.style.display = t === 'light' ? 'block' : 'none'; });
+}
+function toggleTheme(){
+  applyTheme(_eraTheme === 'dark' ? 'light' : 'dark');
+}
+
+/* ── LANG TOGGLE ── */
+var _eraLang = 'tr';
+function setLang(lang){
+  _eraLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+}
+</script>
+
+<script>
+/* cert-tab-card: mobile touch toggle */
+if('ontouchstart' in window){
+  document.querySelectorAll('.cert-tab-card').forEach(function(c){
+    c.addEventListener('click',function(){c.classList.toggle('cert-open');});
+  });
+}
+</script>
+
+</body>
+</html>

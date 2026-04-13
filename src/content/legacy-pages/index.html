@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nebim ERA — Bütünleşik Perakende Ticaretinin Geleceği</title>
+<meta name="description" content="Perakendede çok kanallı dönem bitti, bütünleşik dönem başladı. Nebim ERA ile fiziksel mağaza, e-ticaret ve pazaryeri süreçlerinizi tek platformdan yönetin."/>
+<link rel="preconnect" href="https://fonts.bunny.net"/>
+<link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&family=jetbrains-mono:400,500,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="design-tokens.css"/>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   NEBIM ERA — FINAL DESIGN
+   Dayflow Dark Design System
+   Blueprint: Onaylı (04.04.2026)
+═══════════════════════════════════════════════════════════ */
+
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --black:     #0B0D16;
+  --panel:     #0E1523;
+  --panel-2:   #141F33;
+  --panel-3:   #1C2A46;
+  --panel-4:   #0A1020;
+
+  --cyan:      #00B8D4;
+  --cyan-dim:  rgba(0,184,212,.1);
+  --cyan-glow: rgba(0,184,212,.18);
+  --purple:    #3584E4;
+  --purple-dim:rgba(53,132,228,.1);
+  --grad:      linear-gradient(90deg, #1A5FB4 0%, #00B8D4 100%);
+  --grad-d:    linear-gradient(135deg, #1A5FB4 0%, #00B8D4 100%);
+
+  --neb:       #1A5FB4;
+  --neb-dk:    #0D3B82;
+  --neb-dim:   rgba(26,95,180,.1);
+
+  --t1:  #EEF2FF;
+  --t2:  #7B8FAF;
+  --t3:  #3E506B;
+
+  --bd-f: rgba(0,140,200,.07);
+  --bd-m: rgba(0,140,200,.18);
+  --bd-s: rgba(0,184,212,.32);
+  --bd-h: rgba(0,184,212,.5);
+
+  --font-display: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-code: 'JetBrains Mono', 'Courier New', monospace;
+  --font: var(--font-body);
+  --nav-h: 68px;
+  --r-sm: 4px; --r-md: 8px; --r-lg: 12px;
+  --r-xl: 16px; --r-2xl: 20px; --r-card: 18px;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --dur: 0.28s;
+  /* section ritim — dark */
+  --sec-a: var(--black);
+  --sec-b: var(--panel);
+  --sec-c: var(--panel-2);
+  --nav-bg: rgba(11,13,22,.92);
+  --nav-blur: blur(20px);
+}
+
+/* ── LIGHT MODE TOKENS — ERA ────────────────────────────── */
+[data-theme="light"] {
+  /* zemin — cool gray-blue palette */
+  --black:     #F8FAFC;
+  --panel:     #FFFFFF;
+  --panel-2:   #F1F5F9;
+  --panel-3:   #E2E8F0;
+  --panel-4:   #EFF6FF;
+  /* aksanlar — koyu varyant */
+  --cyan:      #0097A7;
+  --cyan-dim:  rgba(0,151,167,.10);
+  --cyan-glow: rgba(0,151,167,.16);
+  --purple:    #0D3B82;
+  --purple-dim:rgba(13,59,130,.10);
+  --neb:       #0D3B82;
+  --neb-dk:    #092A5E;
+  --neb-dim:   rgba(13,59,130,.10);
+  --grad:      linear-gradient(90deg,#0D3B82 0%,#0097A7 100%);
+  --grad-d:    linear-gradient(135deg,#0D3B82 0%,#0097A7 100%);
+  /* metin */
+  --t1: #0F172A;
+  --t2: #475569;
+  --t3: #94A3B8;
+  /* border */
+  --bd-f: rgba(15,23,42,.07);
+  --bd-m: rgba(15,23,42,.14);
+  --bd-s: rgba(2,132,199,.35);
+  --bd-h: rgba(2,132,199,.55);
+  /* nav */
+  --nav-bg: rgba(248,250,252,.92);
+  --nav-blur: blur(20px);
+  /* section ritim — light */
+  --sec-a: #F8FAFC;
+  --sec-b: #FFFFFF;
+  --sec-c: #F1F5F9;
+}
+
+/* ── RESET ──────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;overflow-x:clip;}
+body{font-family:var(--font);background:var(--black);color:var(--t1);font-size:14px;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;border:none;background:none;font:inherit;}
+img,svg{display:block;max-width:100%;}
+
+/* ── CONTAINER ──────────────────────────────────────────── */
+.wrap,.hero-wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,3vw,40px);}
+
+/* ── SPLIT SYSTEM ───────────────────────────────────────── */
+.split{display:grid;gap:16px;align-items:stretch;}
+.split-57{grid-template-columns:57fr 43fr;}
+.split-60{grid-template-columns:60fr 40fr;}
+.split-rev{grid-template-columns:43fr 57fr;}
+/* split responsive — handled by main breakpoint system below */
+
+/* ── STAGE CARD ─────────────────────────────────────────── */
+.stage{
+  background:var(--panel);border:1px solid var(--bd-m);
+  border-radius:var(--r-card);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.stage::before{
+  content:'';position:absolute;inset:0;border-radius:var(--r-card);padding:1px;
+  background:linear-gradient(135deg,rgba(0,184,212,.3) 0%,rgba(26,95,180,.1) 40%,transparent 70%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.stage-mesh{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,140,200,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,140,200,.03) 1px,transparent 1px);
+  background-size:44px 44px;
+}
+.stage-glow{
+  position:absolute;top:-100px;left:-100px;width:420px;height:420px;
+  background:radial-gradient(circle,rgba(0,184,212,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.stage-glow-right{
+  position:absolute;top:-80px;right:-80px;width:320px;height:320px;
+  background:radial-gradient(circle,rgba(26,95,180,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.stage-inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:28px 32px;}
+/* ── STAGE GLASS — luminous glass identity variant ─────
+   Pairs with .has-travel + <div class="travel-border">.
+   Disables the static gradient ::before so the conic
+   traveling border is the only edge treatment.            */
+.stage-glass{
+  background:rgba(11,13,22,.55);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  backdrop-filter:blur(28px) saturate(180%);
+  border-color:rgba(255,255,255,.06);
+  box-shadow:
+    0 24px 64px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+.stage-glass::before{display:none;}
+.stage-glass .stage-glow{
+  width:520px;height:520px;top:-140px;left:-140px;
+  background:radial-gradient(circle,rgba(0,184,212,.12) 0%,rgba(26,95,180,.05) 45%,transparent 70%);
+}
+[data-theme="light"] .stage-glass{
+  background:rgba(255,255,255,.55);
+  border-color:rgba(15,23,42,.08);
+  box-shadow:
+    0 24px 64px rgba(15,23,42,.10),
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+.stage-footer{margin-top:auto;padding-top:18px;border-top:1px solid var(--bd-f);}
+
+/* ── PANEL ──────────────────────────────────────────────── */
+.panel{display:flex;flex-direction:column;justify-content:center;padding:28px 36px;gap:24px;}
+
+/* ── SECTION ────────────────────────────────────────────── */
+.sec{padding:clamp(56px,7vw,96px) 0;}
+.sec-dark  {background:var(--black);}
+.sec-panel {background:var(--panel);}
+.sec-strip {background:var(--panel-2);border-top:1px solid var(--bd-f);border-bottom:1px solid var(--bd-f);padding:clamp(28px,3vw,44px) 0;}
+
+/* ── NAV ────────────────────────────────────────────────── */
+:root { --nav-h: 84px; --bc-h: 36px; --nav-gap: 12px; --nav-side: 20px; }
+
+/* ── Top Bar: breadcrumb (static — scroll'da kaybolur) ── */
+.top-bar{
+  position:relative;
+  z-index:1001;
+  width:100%;max-width:1240px;margin-inline:auto;
+  display:flex;align-items:center;
+  margin-top:5px;
+  padding:8px clamp(16px,3vw,40px);
+  background:transparent;
+  border-bottom:none;
+  transition:background var(--dur);
+}
+[data-theme="light"] .top-bar{
+  background:rgba(241,245,249,.95);
+  border-bottom-color:rgba(15,23,42,.08);
+}
+
+.nav{
+  position:fixed;
+  top:calc(var(--bc-h) + var(--nav-gap));
+  left:var(--nav-side);
+  right:var(--nav-side);
+  z-index:1000;
+  background:rgba(11,13,22,.42);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  display:flex;align-items:center;
+  overflow:visible;
+  transition:background .3s,box-shadow .3s,border-color .3s,transform .4s var(--ease),opacity .4s var(--ease),top .3s var(--ease);
+}
+.nav.nav-top{top:var(--nav-gap);}
+/* ambient glow — sağda yoğun, sola kaybolan */
+.nav::after{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(circle at 92% 50%,rgba(0,184,212,.15) 0%,rgba(26,95,180,.08) 40%,transparent 75%);
+  pointer-events:none;z-index:0;
+}
+[data-theme="light"] .nav::after{
+  background:radial-gradient(circle at 92% 50%,rgba(0,151,167,.10) 0%,rgba(13,59,130,.05) 40%,transparent 75%);
+}
+.nav.hide{
+  transform:translateY(-120%);
+  opacity:0;
+  pointer-events:none;
+}
+.nav.sc{
+  background:rgba(11,13,22,.72);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.11);
+}
+[data-theme="light"] .nav{
+  background:rgba(255,255,255,.62);
+  border-color:rgba(15,23,42,.08);
+  box-shadow:
+    0 8px 32px rgba(15,23,42,.08),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+[data-theme="light"] .nav.sc{
+  background:rgba(255,255,255,.85);
+  box-shadow:0 16px 48px rgba(15,23,42,.12),inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* ── Üst şerit: breadcrumb (artık .top-bar içinde) ── */
+.bc{display:flex;align-items:center;gap:0;list-style:none;}
+.bc-item{display:flex;align-items:center;gap:0;}
+.bc-link{
+  font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--t3);
+  text-transform:uppercase;transition:color .15s;white-space:nowrap;
+  padding:0 4px;
+}
+.bc-link:hover{color:var(--t2);}
+.bc-sep{
+  width:14px;height:14px;flex-shrink:0;
+  color:var(--t3);opacity:.5;
+  display:flex;align-items:center;justify-content:center;
+}
+/* aktif breadcrumb segment — pulse dot + grad text */
+.bc-item.active .bc-link{
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-weight:800;
+}
+.bc-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 5px var(--cyan);
+  animation:sp 2s ease-in-out infinite;
+  margin-right:5px;flex-shrink:0;
+}
+/* sag: TR/EN + tema toggle — breadcrumb bar'da */
+.bc-act{margin-left:auto;display:flex;align-items:center;gap:8px;}
+
+/* ── Alt şerit: logo + menü + CTA ───────────────────── */
+.nav-i{
+  display:flex;align-items:center;height:var(--nav-h);gap:8px;
+  width:100%;max-width:1240px;margin-inline:auto;
+  padding-inline:clamp(16px,3vw,40px);position:relative;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:8px;min-width:120px;}
+.nav-wordmark{height:28px;width:auto;transition:color .2s,filter .2s;}.ft-era-logo{height:26px;width:auto;opacity:.85;}
+@media(hover:hover){.nav-logo:hover .nav-wordmark{color:var(--neb);filter:drop-shadow(0 0 6px rgba(26,95,180,.3));}}
+.nav-sep{width:1px;height:14px;background:var(--bd-m);flex-shrink:0;}
+.nav-tag{
+  font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--neb);padding:3px 8px;border-radius:var(--r-sm);
+  background:var(--neb-dim);border:1px solid rgba(26,95,180,.2);
+  cursor:default;transition:color .2s,background .2s,border-color .2s;
+}
+.nav-tag:hover{color:var(--cyan);background:var(--cyan-dim);border-color:var(--cyan);}
+[data-theme="light"] .nav-tag{background:rgba(3,105,161,.08);border-color:rgba(3,105,161,.2);}
+
+/* ── ERA hover → navbar traveling border ────────── */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-travel{to{--angle:360deg;}}
+.nav-travel{
+  position:absolute;inset:-1px;
+  border-radius:calc(16px + 1px);
+  padding:3px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 0%,
+    rgba(0,184,212,.95) 0deg,
+    rgba(26,95,180,.75) 45deg,
+    transparent 120deg,
+    transparent 300deg,
+    rgba(0,184,212,.95) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:3;
+  animation:border-travel 3s linear 1 forwards;
+  opacity:0;
+  transition:opacity .4s;
+}
+.nav:has(.nav-tag:hover) .nav-travel{
+  opacity:1;
+}
+
+/* ── TRAVEL BORDER — reusable luminous identity ─────────
+   Same conic-gradient mechanism as .nav-travel, but as a
+   reusable utility for content cards. Idle: very faint slow
+   rotation. Hover (on parent .has-travel): full brightness.   */
+.travel-border{
+  position:absolute;inset:-1px;
+  border-radius:inherit;
+  padding:2px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 100%,
+    rgba(0,184,212,.95) 0deg,
+    rgba(26,95,180,.75) 60deg,
+    transparent 140deg,
+    transparent 290deg,
+    rgba(0,184,212,.95) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:3;
+  opacity:.18;
+  animation:border-travel 14s linear 1 forwards;
+  transition:opacity .5s var(--ease), animation-duration .5s;
+}
+.has-travel{position:relative;}
+.has-travel:hover .travel-border{
+  opacity:1;
+  animation-duration:3s;
+}
+[data-theme="light"] .travel-border{
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 100%,
+    rgba(0,151,167,.85) 0deg,
+    rgba(13,59,130,.65) 60deg,
+    transparent 140deg,
+    transparent 290deg,
+    rgba(0,151,167,.85) 360deg
+  );
+  opacity:.12;
+}
+[data-theme="light"] .has-travel:hover .travel-border{opacity:.9;}
+
+/* menü */
+.nav-menu{display:flex;align-items:center;gap:0;flex:1 1 auto;list-style:none;justify-content:center;padding-right:80px;}
+.nav-item{position:relative;display:flex;align-items:center;}
+.nav-item + .nav-item::before{
+  content:'';width:1px;height:14px;background:var(--bd-m);
+  margin:0 4px;flex-shrink:0;
+}
+.nav-lnk{
+  position:relative;
+  display:inline-flex;align-items:center;gap:3px;
+  padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:var(--t2);
+  background:none;border:none;font-family:var(--font);cursor:pointer;
+  transition:color .2s;
+}
+.nav-lnk::after{
+  content:'';position:absolute;left:16px;right:16px;bottom:2px;height:1.5px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+.nav-lnk:hover{color:var(--t1);}
+.nav-lnk:hover::after{transform:scaleX(1);}
+
+/* dropdown */
+.nav-dd{
+  position:absolute;top:calc(100% + 8px);left:0;min-width:220px;
+  background:var(--panel-2);border:1px solid var(--bd-m);
+  border-radius:var(--r-lg);padding:6px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45),0 0 0 1px var(--bd-f);
+  opacity:0;visibility:hidden;
+  transform:translateY(-8px) scale(.98);
+  transition:all .2s var(--ease);z-index:1100;
+  transform-origin:top left;
+}
+[data-theme="light"] .nav-dd{box-shadow:0 16px 48px rgba(15,23,42,.12),0 0 0 1px var(--bd-f);}
+.nav-item:hover .nav-dd{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+.nav-dd-i{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;font-size:13px;font-weight:500;color:var(--t2);
+  border-radius:var(--r-md);transition:all .12s;
+}
+.nav-dd-i:hover{color:var(--t1);background:var(--bd-f);}
+.nav-dd-i .dd-dot{width:5px;height:5px;border-radius:50%;background:var(--bd-m);flex-shrink:0;transition:background .12s;}
+.nav-dd-i:hover .dd-dot{background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+.nav-dd-div{height:1px;background:var(--bd-f);margin:4px 0;}
+
+/* sağ CTA alanı */
+.nav-act{display:flex;align-items:center;gap:14px;margin-left:auto;flex-shrink:0;}
+.nav-i > .theme-ico{display:flex!important;padding:8px;border-radius:10px;}
+.nav-ctrls{display:flex;align-items:center;gap:4px;margin-left:auto;flex-shrink:0;z-index:10;}
+
+/* ── Nav Controls (bigger, in nav bar) ──────────── */
+.nav-act .lang-sw{padding:3px;border-radius:8px;}
+.nav-act .lang-btn{padding:4px 10px;font-size:12px;border-radius:6px;}
+.nav-i > .theme-ico svg{width:22px;height:22px;}
+.nav-act .theme-sw{width:38px;height:22px;border-radius:11px;}
+.nav-act .theme-sw::after{top:3px;left:3px;width:14px;height:14px;}
+[data-theme="light"] .nav-act .theme-sw::after{transform:translateX(16px);}
+.nav-back{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--t2);border:1px solid var(--bd-m);border-radius:8px;background:none;cursor:pointer;transition:color .15s,border-color .15s;text-decoration:none;font-family:var(--font);white-space:nowrap;}
+.nav-back:hover{color:var(--t1);border-color:var(--t3);}
+.nav-back svg{flex-shrink:0;}
+.nav-sep{width:1px;height:24px;background:var(--bd-m);flex-shrink:0;}
+
+/* TR/EN lang toggle */
+.lang-sw{display:flex;align-items:center;gap:1px;padding:2px;background:var(--bd-f);border:1px solid var(--bd-m);border-radius:6px;}
+.lang-btn{padding:2px 7px;font-size:10px;font-weight:800;letter-spacing:.05em;border-radius:4px;color:var(--t3);transition:all .15s;cursor:pointer;background:none;border:none;font-family:var(--font);}
+.lang-btn.active{background:var(--panel-2);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.2);}
+[data-theme="light"] .lang-btn.active{background:rgba(255,255,255,.9);color:var(--t1);}
+
+/* Dark/Light toggle */
+.theme-sw{width:32px;height:18px;border-radius:9px;background:var(--bd-m);border:1px solid var(--bd-m);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.theme-sw::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--t3);transition:transform .2s var(--ease),background .2s;}
+[data-theme="light"] .theme-sw{background:linear-gradient(90deg,#BAE6FD,#BFDBFE);border-color:rgba(0,151,167,.3);}
+[data-theme="light"] .theme-sw::after{transform:translateX(14px);background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.theme-ico{display:flex;align-items:center;gap:5px;cursor:pointer;color:var(--t2);transition:color .15s;background:none;border:none;}
+.theme-ico:hover{color:var(--t1);}
+.theme-ico svg{flex-shrink:0;}
+
+/* mob */
+.nav-mob{display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--r-md);color:var(--t1);background:none;border:none;cursor:pointer;position:relative;}
+.nav-mob svg path{transition:all .3s var(--ease);transform-origin:center;}
+.nav-mob.open svg path:nth-child(1){transform:rotate(45deg) translate(3px,-2px);}
+.nav-mob.open svg path:nth-child(2){opacity:0;}
+.nav-mob.open svg path:nth-child(3){transform:rotate(-45deg) translate(-6px,2px);}
+/* nav responsive — handled by main breakpoint system below */
+
+/* ── TYPOGRAPHY — Atomic Scale (Inter) ──────────────────── */
+/*  Atom: t-display  |  60→38px  |  Hero başlık, tek kullanım       */
+/*  Atom: t-hero     |  50→32px  |  Section hero başlık              */
+/*  Atom: t-h1       |  34→24px  |  Section başlık                   */
+/*  Atom: t-h2       |  27→20px  |  Alt bölüm başlık                 */
+/*  Atom: t-h3       |  17px     |  Kart başlık                      */
+/*  Atom: t-h4       |  14px     |  Checklist / küçük başlık         */
+/*  Atom: t-body     |  15px     |  Paragraf gövde                   */
+/*  Atom: t-sm       |  13px     |  Kart açıklama, yardımcı metin    */
+/*  Atom: t-xs       |  12px     |  Dipnot, badge içi metin          */
+/*  Atom: t-lbl      |  10px     |  Eyebrow etiket                   */
+.t-display{font-size:clamp(38px,5vw,60px);font-weight:800;line-height:1.05;letter-spacing:-.03em;}
+.t-hero   {font-size:clamp(32px,4.2vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.025em;}
+.t-h1     {font-size:clamp(24px,3vw,34px);font-weight:700;line-height:1.18;letter-spacing:-.02em;}
+.t-h2     {font-size:clamp(20px,2.5vw,27px);font-weight:700;line-height:1.22;letter-spacing:-.015em;}
+.t-h3     {font-size:17px;font-weight:600;line-height:1.35;}
+.t-h4     {font-size:14px;font-weight:600;line-height:1.4;}
+.t-body   {font-size:15px;font-weight:400;line-height:1.72;color:var(--t2);}
+.t-sm     {font-size:13px;font-weight:400;line-height:1.65;color:var(--t2);}
+.t-xs     {font-size:12px;font-weight:400;line-height:1.55;color:var(--t2);}
+.t-lbl    {font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.neb-text {color:var(--neb);}
+.cyan-text{color:var(--cyan);}
+.t2{color:var(--t2);}.t3{color:var(--t3);}
+
+/* ── WORD REVEAL ANIMATION ──────────────────────────────── */
+/*
+  H1 yapısı:
+  Line 1: "Nebim ERA:"            → beyaz, normal
+  Line 2: "Bütünleşik Perakende"  → gradient, büyük vurgu
+  Line 3: "Ticaretinin Geleceği"  → beyaz, %65 opacity
+
+  Her .wr-word opacity:0, translateY(20px) ile başlar.
+  JS IntersectionObserver tetikler, 80ms stagger.
+*/
+.wr-line{display:block;overflow:hidden;}
+.wr-word{
+  display:inline-block;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.wr-word.in{opacity:1;transform:translateY(0);}
+
+/* ── ERA Hero Slider ── */
+.era-hero-slide{}
+.era-dot.active{width:24px!important;background:var(--cyan)!important;}
+
+/* Hero H1 gradient line — gradient sadece ikinci satırda */
+.hero-line-grad{
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-size:clamp(38px,5.5vw,62px);
+}
+.hero-line-sub{
+  color:rgba(238,242,255,.55);
+  font-size:clamp(26px,3.5vw,42px);
+  font-weight:700;
+}
+
+/* ── BUTTON SYSTEM ──────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:var(--r-md);font-size:13px;font-weight:700;line-height:1;white-space:nowrap;transition:all var(--dur) var(--ease);cursor:pointer;}
+.btn-sm{padding:7px 14px;font-size:12px;}
+.btn-md{padding:11px 22px;}
+.btn-lg{padding:14px 28px;font-size:14px;border-radius:var(--r-lg);}
+.btn-xl{padding:16px 34px;font-size:15px;border-radius:var(--r-lg);}
+
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 2px 16px rgba(26,95,180,.22);}
+.btn-grad:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 24px rgba(26,95,180,.36);}
+
+.btn-ghost{border:1px solid var(--bd-m);color:var(--t2);background:transparent;}
+.btn-ghost:hover{border-color:var(--bd-s);color:var(--cyan);background:var(--cyan-dim);}
+
+.btn-ghost-w{border:1px solid rgba(0,184,212,.22);color:rgba(238,242,255,.8);background:transparent;}
+.btn-ghost-w:hover{border-color:var(--cyan);color:#fff;background:rgba(0,184,212,.08);}
+
+/* ── STAGE TAG ──────────────────────────────────────────── */
+.stag{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:var(--r-sm);
+  background:var(--cyan-dim);border:1px solid rgba(0,184,212,.18);
+  font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--cyan);
+  width:fit-content;margin-bottom:16px;
+}
+.stag-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);flex-shrink:0;animation:stag-pulse 2s ease-in-out infinite;}
+@keyframes stag-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.stag-p{background:var(--purple-dim);border-color:rgba(26,95,180,.2);color:var(--purple);}
+.stag-p .stag-dot{background:var(--purple);box-shadow:0 0 6px var(--purple);}
+.stag-n{background:var(--neb-dim);border-color:rgba(26,95,180,.2);color:var(--neb);}
+.stag-n .stag-dot{background:var(--neb);box-shadow:0 0 6px var(--neb);}
+
+/* ── BADGE ──────────────────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.03em;}
+.badge-c{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,184,212,.18);}
+.badge-p{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(26,95,180,.18);}
+.badge-n{background:var(--neb-dim);color:var(--neb);border:1px solid rgba(26,95,180,.18);}
+.badge-m{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--bd-f);}
+.badge-travel{position:relative;overflow:visible;border-color:transparent;}
+.badge-travel-glow{
+  position:absolute;inset:-1px;
+  border-radius:inherit;padding:2px;
+  background:conic-gradient(
+    from var(--angle,0deg) at 0% 0%,
+    rgba(0,184,212,.8) 0deg,rgba(26,95,180,.6) 45deg,
+    transparent 120deg,transparent 300deg,rgba(0,184,212,.8) 360deg
+  );
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+  animation:border-travel 3s linear 1 forwards;
+}
+
+/* ── FEATURE CARD ───────────────────────────────────────── */
+.fc-card{
+  background:var(--panel);border:1px solid var(--bd-f);
+  border-radius:var(--r-xl);padding:22px;
+  transition:all var(--dur) var(--ease);position:relative;overflow:hidden;
+}
+.fc-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,184,212,.5),transparent);
+  opacity:0;transition:opacity var(--dur);
+}
+.fc-card:hover{border-color:var(--bd-s);background:var(--panel-2);box-shadow:0 0 24px var(--cyan-glow);}
+.fc-card:hover::after{opacity:1;}
+
+.fc-icon{width:36px;height:36px;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:13px;flex-shrink:0;}
+.fc-icon-c{background:var(--cyan-dim);color:var(--cyan);}
+.fc-icon-p{background:var(--purple-dim);color:var(--purple);}
+.fc-icon-n{background:var(--neb-dim);color:var(--neb);}
+
+/* ── CHECK ITEM ─────────────────────────────────────────── */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--panel-2);border:1px solid var(--bd-f);border-radius:var(--r-lg);}
+.chk-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.chk-c{background:var(--cyan-dim);color:var(--cyan);}
+.chk-p{background:var(--purple-dim);color:var(--purple);}
+.chk-n{background:var(--neb-dim);color:var(--neb);}
+
+/* ── STAT CHIP ──────────────────────────────────────────── */
+.stat{background:var(--panel-2);border:1px solid var(--bd-f);border-radius:var(--r-lg);padding:16px;text-align:center;flex:1;}
+.stat-v{font-size:24px;font-weight:800;line-height:1;}
+.stat-l{font-size:10px;font-weight:500;color:var(--t2);margin-top:5px;line-height:1.3;}
+
+/* ── MACH STRIP ─────────────────────────────────────────── */
+.mach{display:flex;border:1px solid var(--bd-m);border-radius:var(--r-xl);overflow:hidden;background:var(--panel);}
+.mach-i{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 10px;border-right:1px solid var(--bd-f);gap:5px;}
+.mach-i:last-child{border-right:none;}
+.mach-l{font-size:28px;font-weight:800;line-height:1;}
+.mach-w{font-size:10px;font-weight:500;color:var(--t2);}
+
+/* ── FLOW DIAGRAM ───────────────────────────────────────── */
+.flow-row{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--panel-2);border:1px solid var(--bd-f);border-radius:11px;}
+.flow-icon{width:30px;height:30px;border-radius:8px;background:var(--panel-3);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.flow-arr{text-align:center;color:var(--t3);font-size:18px;margin:4px 0 4px 10px;}
+
+/* ── SECTION HEADER ─────────────────────────────────────── */
+.sec-eyebrow{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.sec-eyebrow-p{color:var(--purple);}
+.sec-eyebrow-n{color:var(--neb);}
+
+/* ── Section forced-light (dark mode'da bile açık) ──────── */
+.sec-light{
+  background:#F8FAFC!important;
+  color:#0F172A;
+}
+.sec-light .sec-eyebrow{color:#0097A7;}
+.sec-light .sec-head-ico{color:#0F172A;}
+.sec-light .t-h1,.sec-light .t-h2,.sec-light .t-h3,.sec-light .t-h4,
+.sec-light h2,.sec-light h3,.sec-light strong{color:#0F172A;}
+.sec-light .t-body,.sec-light .t-sm,.sec-light p{color:#475569;}
+.sec-light .t-lbl{color:#0097A7;}
+/* ERP accordion tabs — koyu leke */
+.sec-light .bento-acc{background:#0E1523;border-color:rgba(255,255,255,.08);}
+.sec-light .bento-acc-title{color:#EEF2FF;}
+.sec-light .bento-acc-arrow{border-color:#7B8FAF;}
+.sec-light .bento-acc-arrow svg path{stroke:#7B8FAF;}
+.sec-light .bento-acc-inner{color:#7B8FAF;}
+.sec-light .bento-acc-inner strong{color:#EEF2FF;}
+/* ERP detail panel — koyu */
+.sec-light .erp-acc-detail{background:#0E1523;border-color:rgba(255,255,255,.08);}
+.sec-light .erp-acc-detail-inner{color:#7B8FAF;}
+.sec-light .erp-acc-detail-inner strong{color:#EEF2FF;}
+/* CTA text */
+.sec-light .t2{color:#475569!important;}
+.sec-light .btn-grad{box-shadow:0 4px 16px rgba(0,151,167,.25);}
+
+/* ── Section Header — left-aligned + right icon ────────── */
+.sec-head{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:clamp(24px,4vw,48px);
+  margin-bottom:clamp(28px,4vw,52px);
+}
+.sec-head-text{flex:1;min-width:0;text-align:left;}
+.sec-head-ico{
+  flex-shrink:0;width:clamp(56px,6vw,80px);height:clamp(56px,6vw,80px);
+  opacity:.2;color:var(--t1);
+  display:flex;align-items:center;justify-content:center;
+  margin-top:8px;
+}
+.sec-head-ico svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;}
+@media(max-width:767px){
+  .sec-head-ico{width:48px;height:48px;}
+}
+
+/* ── HW CARD ────────────────────────────────────────────── */
+/* ── HW PRODUCT CARDS ──────────────────────────────────── */
+.hw{
+  background:var(--panel);border:1px solid var(--bd-f);border-radius:var(--r-xl);
+  padding:0;overflow:visible;position:relative;
+  transition:transform .6s var(--ease),border-color .3s;
+  display:flex;flex-direction:column;
+}
+.hw:hover{border-color:var(--bd-s);}
+.hw.hw-open{border-color:var(--bd-h);}
+/* traveling border */
+.hw-glow{
+  position:absolute;inset:-1px;border-radius:calc(var(--r-xl) + 1px);
+  padding:3px;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;z-index:3;
+  animation:border-travel 3s linear 1 forwards;
+  opacity:0;transition:opacity .4s;
+}
+.hw--cyan .hw-glow{background:conic-gradient(from var(--angle,0deg) at 0% 0%,rgba(0,184,212,.95) 0deg,rgba(26,95,180,.75) 45deg,transparent 120deg,transparent 300deg,rgba(0,184,212,.95) 360deg);}
+.hw--purple .hw-glow{background:conic-gradient(from var(--angle,0deg) at 0% 0%,rgba(26,95,180,.95) 0deg,rgba(0,184,212,.75) 45deg,transparent 120deg,transparent 300deg,rgba(26,95,180,.95) 360deg);}
+.hw--neb .hw-glow{background:conic-gradient(from var(--angle,0deg) at 0% 0%,rgba(26,95,180,.95) 0deg,rgba(0,184,212,.75) 45deg,transparent 120deg,transparent 300deg,rgba(26,95,180,.95) 360deg);}
+.hw.hw-open .hw-glow{opacity:1;}
+/* image area */
+.hw-img{
+  height:220px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;background:#fff;
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+}
+.hw-img img{
+  height:180px;width:auto;object-fit:contain;
+  position:relative;z-index:2;
+  transition:transform .6s var(--ease);
+}
+.hw:hover .hw-img img{transform:none;}
+/* body */
+.hw-body{padding:22px 24px;flex:1;display:flex;flex-direction:column;}
+.hw-sub{
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:6px;
+}
+.hw--cyan .hw-sub{color:rgba(0,184,212,.65);}
+.hw--purple .hw-sub{color:rgba(26,95,180,.65);}
+.hw--neb .hw-sub{color:rgba(26,95,180,.65);}
+.hw-desc{font-size:14px;font-weight:400;line-height:1.55;color:var(--t2);margin-bottom:16px;}
+/* feature list */
+.hw-feat{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.hw-feat:last-child{margin-bottom:0;}
+.hw-feat-ico{
+  width:24px;height:24px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:.55;
+}
+.hw-feat-txt{font-size:13px;font-weight:400;color:var(--t2);line-height:1.45;}
+
+/* HW card expand/collapse */
+.hw-feats{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);}
+.hw.hw-open .hw-feats{max-height:400px;}
+.hw-toggle{
+  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--t3);cursor:pointer;border:none;background:none;
+  padding:0;font-family:var(--font);transition:color .2s;
+}
+.hw-toggle:hover{color:var(--cyan);}
+.hw-toggle svg{transition:transform .3s var(--ease);}
+.hw.hw-open .hw-toggle svg{transform:rotate(180deg);}
+
+/* ── HW CTA — parallax text section ────────────────────── */
+.hw-cta{
+  text-align:center;
+  padding:clamp(40px,6vw,80px) 0;
+}
+.hw-cta-text{
+  font-size:clamp(22px,3vw,32px);
+  font-weight:600;line-height:1.35;
+  color:var(--t1);
+  max-width:640px;margin-inline:auto;
+  margin-bottom:28px;
+  overflow:hidden;
+}
+.hw-cta-text .wr-word{
+  display:inline-block;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.hw-cta-text .wr-word.in{opacity:1;transform:translateY(0);}
+
+/* ── CTA link ── */
+.btn-arrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 0;
+  font-size:15px;font-weight:700;
+  color:var(--t1);
+  border:none;background:none;
+  position:relative;
+  transition:all .3s var(--ease);
+  cursor:pointer;
+}
+/* KEŞFET underline — soldan sağa */
+.btn-arrow .kesfet{
+  position:relative;display:inline;
+  text-transform:uppercase;letter-spacing:.06em;font-weight:800;
+}
+.btn-arrow .kesfet::after{
+  content:'';position:absolute;
+  left:0;bottom:-3px;width:100%;height:2px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+.btn-arrow:hover .kesfet::after{transform:scaleX(1);}
+/* ok — soldan sağa fade in */
+.btn-arrow svg{
+  opacity:0;transform:translateX(-8px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+.btn-arrow:hover svg{
+  opacity:1;transform:translateX(0);
+}
+
+/* ── FORM ───────────────────────────────────────────────── */
+.df-inp{width:100%;padding:11px 14px;background:var(--panel-2);border:1px solid var(--bd-f);border-radius:var(--r-md);font-size:13px;font-weight:500;color:var(--t1);font-family:var(--font);outline:none;transition:border-color .15s,box-shadow .15s;}
+.df-inp::placeholder{color:var(--t3);}
+.df-inp:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,184,212,.12);}
+.df-lbl{display:block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* form responsive — handled by main breakpoint system below */
+
+/* ── SCROLL REVEAL ──────────────────────────────────────── */
+.sr{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.sr.on{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
+
+/* ── UTILS ──────────────────────────────────────────────── */
+.flex{display:flex;}.fc{display:flex;align-items:center;justify-content:center;}
+.fb{display:flex;align-items:center;justify-content:space-between;}
+.col{flex-direction:column;}.items-c{align-items:center;}.wrap{flex-wrap:wrap;}
+.gap2{gap:8px;}.gap3{gap:12px;}.gap4{gap:16px;}.gap5{gap:20px;}.gap6{gap:24px;}
+.mt2{margin-top:8px;}.mt3{margin-top:12px;}.mt4{margin-top:16px;}.mt5{margin-top:20px;}.mt6{margin-top:24px;}.mt8{margin-top:32px;}.mt10{margin-top:40px;}
+.mb2{margin-bottom:8px;}.mb3{margin-bottom:12px;}.mb4{margin-bottom:16px;}.mb6{margin-bottom:24px;}
+.w-full{width:100%;}.text-c{text-align:center;}.rel{position:relative;}.oh{overflow:hidden;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;}
+/* grid responsive — handled by main breakpoint system below */
+
+/* ── BREAKPOINTS ─────────────────────────────────────────
+   xs  < 480   iPhone SE
+   sm  480-767 iPhone 14/15
+   md  768-1023 iPad / küçük laptop
+   lg  1024-1439 laptop (default tasarım buraya göre)
+   xl  1440+   geniş monitör
+──────────────────────────────────────────────────────── */
+
+/* xl — geniş ekran */
+@media(min-width:1440px){
+  .wrap{max-width:1400px;}
+  .t-display{font-size:72px;}
+  .t-hero{font-size:56px;}
+  .t-h1{font-size:38px;}
+}
+
+/* md — tablet / küçük laptop */
+@media(max-width:1023px){
+  /* nav */
+  .nav-menu{display:none;}
+  .nav-act .lang-sw,.nav-act .nav-back,.nav-act .nav-sep{display:none;}
+  .nav-act .btn:not(:last-child){display:none;}
+  /* section pills görünür */
+  .sec-nav{display:flex;}
+  /* split → tek kolon */
+  .split,.split-57,.split-60,.split-rev,.split-eq{
+    grid-template-columns:1fr;
+  }
+  .split-rev > *:first-child{order:2;}
+  .split-rev > *:last-child{order:1;}
+  /* grids */
+  .g3{grid-template-columns:1fr 1fr;}
+  .g4{grid-template-columns:1fr 1fr;}
+  .g-auto3,.g-auto4{grid-template-columns:1fr 1fr;}
+}
+
+/* sm — büyük telefon */
+@media(max-width:767px){
+  :root{--nav-h:56px;--bc-h:0px;--nav-gap:8px;--nav-side:12px;}
+  .top-bar{display:none;}
+  .wrap{padding-inline:16px;}
+  .sec{padding:clamp(40px,6vw,64px) 0;}
+  /* grids tek kolon */
+  .g2,.g3,.g4,.g-auto3,.g-auto4{grid-template-columns:1fr;}
+  /* split tek kolon */
+  .split,.split-57,.split-60,.split-rev,.split-eq{
+    grid-template-columns:1fr;gap:16px;
+  }
+  .split-rev > *:first-child{order:2;}
+  .split-rev > *:last-child{order:1;}
+  /* typography */
+  .t-display{font-size:clamp(32px,8vw,44px);}
+  .t-hero{font-size:clamp(28px,7vw,38px);}
+  .t-h1{font-size:clamp(22px,5.5vw,28px);}
+  .t-h2{font-size:clamp(18px,4.5vw,22px);}
+  /* stage — min-height kaldır */
+  .stage{min-height:auto!important;}
+  /* form */
+  .form-row{grid-template-columns:1fr!important;}
+  /* flex wrap zorla */
+  .flex{flex-wrap:wrap;}
+  /* banner expand kart — split kaldır */
+  .banner-split{grid-template-columns:1fr!important;}
+  .banner-right{display:none;}
+  /* footer */
+  [class*="ft-"] > div[style*="grid"]{grid-template-columns:1fr 1fr!important;}
+  /* Hero slider auto height */
+  #era-hero-slider{height:auto!important;}
+  .era-hero-slide{position:relative!important;inset:auto!important;}
+  .era-hero-slide:not(.active-slide){display:none;}
+  /* Nav — mobile sadeleştir */
+  .nav-mob{display:flex;}
+  .nav-menu{display:none;}
+  .nav-act .btn:not(:last-child){display:none;}
+  .nav-i{height:48px;gap:6px;padding-inline:12px!important;}
+  .nav-wordmark{height:22px!important;}
+  .nav-tag{font-size:9px;padding:2px 6px;}
+  .nav-sep{height:10px;}
+  .nav-act .lang-sw,.nav-act .nav-back,.nav-act .nav-sep{display:none;}
+  .nav-i > .theme-ico{margin-left:0;padding:6px;}
+  .nav{border-radius:12px;top:var(--nav-gap)!important;}
+  /* HW image */
+  .hw-img{height:180px;}
+  /* Split reverse order — stage below text */
+  .split-57 > *:first-child{order:2;}
+  .split-57 > *:last-child{order:1;}
+  /* Hero Teams — mobile fix */
+  .hero-teams{padding-top:calc(var(--nav-gap) + 52px + 48px)!important;padding-bottom:40px!important;}
+  .hero-teams h1{font-size:clamp(26px,7vw,38px)!important;}
+  .hero-teams p{font-size:15px!important;}
+  .hero-teams .btn-xl{padding:12px 20px;font-size:13px;}
+  /* Nav dropdown constrain */
+  .nav-dd{max-width:calc(100vw - 40px);}
+  /* HW CTA */
+  .hw-cta{padding:clamp(24px,4vw,40px) 0;}
+  .hw-cta-text{font-size:clamp(18px,5vw,24px)!important;}
+  /* Sec-nav — below nav without overlap */
+  .sec-nav{
+    top:calc(var(--nav-gap) + 52px);
+    gap:6px;
+    z-index:999;
+  }
+  .sec-nav.open{
+    padding:5px 12px;
+  }
+  .sec-pill{font-size:10px;padding:4px 10px;}
+}
+
+/* xs — küçük telefon */
+@media(max-width:479px){
+  :root{--nav-gap:6px;--nav-side:8px;}
+  .nav-i{gap:4px;padding-inline:10px!important;}
+  .nav{border-radius:10px;}
+  .t-display{font-size:clamp(28px,7.5vw,36px);}
+  .t-hero{font-size:clamp(24px,7vw,32px);}
+  .btn-xl{padding:11px 18px;font-size:12px;}
+  .btn-lg{padding:9px 16px;font-size:12px;}
+  /* stage inner padding küçült */
+  .stage-inner{padding:20px!important;}
+  /* footer */
+  [class*="ft-"] > div[style*="grid"]{grid-template-columns:1fr!important;}
+  /* Typography reduce */
+  .t-display{font-size:clamp(24px,7vw,32px)!important;}
+  .t-hero{font-size:clamp(22px,6vw,28px)!important;}
+  .t-h1{font-size:clamp(20px,5vw,24px)!important;}
+  .hero-line-grad{font-size:clamp(26px,7vw,38px)!important;}
+  .hero-line-sub{font-size:clamp(20px,5.5vw,28px)!important;}
+  /* HW image smaller */
+  .hw-img{height:160px;}
+  /* Hero Teams — xs */
+  .hero-teams{padding-top:calc(var(--nav-gap) + 52px + 36px)!important;}
+  .hero-teams h1{font-size:clamp(22px,6.5vw,32px)!important;}
+  /* Visual card tighter */
+  .hero-teams-visual > div{padding:20px!important;border-radius:20px!important;}
+}
+
+/* ── SECTION PILL NAV ────────────────────────────────────── */
+.sec-nav{
+  display:flex;
+  position:sticky;
+  top:calc(var(--nav-gap) + var(--nav-h) + 8px);
+  z-index:900;
+  max-height:0;
+  opacity:0;
+  padding-block:0;
+  overflow:hidden;
+  transition:max-height .35s var(--ease),opacity .3s,padding .3s;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  padding:8px 16px;
+  gap:6px;
+  background:rgba(11,13,22,.85);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd-f);
+  /* flex container */
+  flex-direction:row;
+  flex-wrap:nowrap;
+  align-items:center;
+  overflow-x:auto;
+  overflow-y:visible;
+}
+.sec-nav::-webkit-scrollbar{display:none;}
+[data-theme="light"] .sec-nav{background:rgba(248,250,252,.92);border-bottom-color:rgba(15,23,42,.06);}
+.sec-pill{
+  display:inline-flex;align-items:center;
+  flex-shrink:0;
+  padding:5px 14px;
+  font-size:11px;font-weight:700;letter-spacing:.03em;
+  border-radius:20px;
+  border:1px solid var(--bd-m);
+  color:var(--t2);
+  background:transparent;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:all .15s;
+  text-decoration:none;
+  flex-shrink:0;
+}
+.sec-pill:hover{color:var(--t1);border-color:var(--bd-s);}
+.sec-pill.active{
+  background:var(--grad);
+  border-color:transparent;
+  color:#fff;
+  box-shadow:0 2px 12px rgba(0,184,212,.25);
+}
+.sec-nav.open{
+  max-height:60px;
+  opacity:1;
+  padding-block:8px;
+  overflow-x:auto;
+  overflow-y:visible;
+}
+@media(min-width:1024px){.sec-nav{display:none;}}
+@media(max-width:767px){
+  .sec-nav{
+    top:calc(var(--nav-gap) + var(--nav-h) + 4px);
+  }
+  .sec-nav.open{
+    padding-inline:12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEAMS-STYLE: Bento Grid + Light-First Overrides
+═══════════════════════════════════════════════════════════ */
+
+
+/* ── Hero — Left-aligned with BG image ────── */
+.hero-teams{
+  background:var(--black);
+  padding:clamp(100px,12vw,160px) 0 clamp(60px,8vw,100px);
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+  min-height:clamp(500px,70vh,720px);
+  display:flex;
+  align-items:center;
+}
+.hero-teams{--hero-bg:url('assets/hero-bg-5-4y-ulTK6.jpg');}
+.hero-teams::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:var(--hero-bg) center right / cover no-repeat;
+  opacity:.45;
+  pointer-events:none;
+  transition:opacity .4s ease;
+}
+.hero-teams::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, var(--black) 35%, transparent 75%),
+             linear-gradient(180deg, transparent 60%, var(--black) 100%);
+  pointer-events:none;
+}
+[data-theme="dark"] .hero-teams{
+  background:var(--black);
+}
+.hero-teams-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  text-align:left;
+  gap:clamp(16px,2.5vw,24px);
+  width:100%;
+  max-width:680px;
+  position:relative;
+  z-index:2;
+}
+.hero-teams-text{display:flex;flex-direction:column;align-items:flex-start;gap:20px;}
+@media(max-width:767px){
+  .hero-teams-text{align-items:flex-start;}
+  .hero-teams::before{opacity:.25;}
+  .hero-teams::after{background:linear-gradient(90deg, var(--black) 20%, transparent 90%),
+                                 linear-gradient(180deg, transparent 40%, var(--black) 100%);}
+}
+
+/* ── Bento Grid System ───────────────────────────────────── */
+.bento{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+}
+.bento-card{
+  background:#fff;
+  border:1px solid rgba(15,23,42,.08);
+  border-radius:24px;
+  padding:clamp(24px,3vw,36px);
+  position:relative;
+  overflow:hidden;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  color:#0f172a;
+}
+.bento-card .t2,.bento-card .t-sm{color:#475569!important;}
+.bento-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(15,23,42,.10);
+}
+/* Bento sizes */
+.bento-lg{grid-column:span 5;min-height:280px;}
+.bento-md{grid-column:span 4;}
+.bento-sm{grid-column:span 3;}
+.bento-wide{grid-column:span 8;}
+.bento-full{grid-column:span 12;}
+/* Bento accents — all white */
+.bento-tint-blue,.bento-tint-cyan,.bento-tint-purple,.bento-tint-warm{background:#fff;}
+
+/* Bento icon — frameless, gradient SVG, top-left, large */
+.bento-icon{
+  display:flex;align-items:center;justify-content:flex-start;
+  margin-bottom:16px;
+}
+.bento-icon svg{width:48px;height:48px;stroke-width:1.5;}
+/* Bento headings — large */
+.bento-card .t-h3{font-size:clamp(24px,2.8vw,30px);font-weight:700;color:#0f172a;}
+.bento-card .t-h4{color:#0f172a;}
+.bento-card .t-lbl{color:#1A5FB4;}
+/* Bento checklist — light bg inside white cards */
+.bento-card .chk{background:#F1F5F9;border-color:rgba(15,23,42,.08);}
+.bento-card .chk .t-h4{color:#0f172a;}
+.bento-card .chk .t-xs{color:#475569;}
+
+/* Bento responsive */
+@media(max-width:1023px){
+  .bento{grid-template-columns:repeat(6,1fr);}
+  .bento-lg{grid-column:span 6;}
+  .bento-md{grid-column:span 3;}
+  .bento-sm{grid-column:span 3;}
+  .bento-wide{grid-column:span 6;}
+}
+@media(max-width:767px){
+  .bento{grid-template-columns:1fr;gap:12px;}
+  .bento-lg,.bento-md,.bento-sm,.bento-wide,.bento-full{grid-column:span 1;min-height:auto;}
+  /* Override inline grid-column spans */
+  .bento-card[style*="grid-column"]{grid-column:span 1!important;}
+  .bento-card{border-radius:18px;padding:20px;}
+  .bento-icon svg{width:40px;height:40px;}
+  .bento-card .t-h3{font-size:22px;}
+}
+
+/* ── Bento Interaction Patterns ─────────────────────────── */
+
+/* SHARED: read-more trigger */
+.bento-more{
+  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+  font-size:13px;font-weight:600;color:#1A5FB4;cursor:pointer;
+  border:none;background:none;padding:0;font-family:var(--font);
+  transition:color .2s;
+}
+.bento-more:hover{color:#00B8D4;}
+.bento-more svg{transition:transform .3s var(--ease);}
+
+/* 1. EXPAND — smooth height expand */
+.bento-expand-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s var(--ease),opacity .4s;
+  opacity:0;
+}
+.bento-card.expanded .bento-expand-body{max-height:600px;opacity:1;}
+.bento-card.expanded .bento-more svg{transform:rotate(180deg);}
+
+/* 2. MODAL */
+.bento-modal-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+}
+.bento-modal-overlay.open{opacity:1;visibility:visible;}
+.bento-modal-box{
+  background:#fff;border-radius:24px;padding:clamp(28px,4vw,48px);
+  max-width:640px;width:100%;max-height:80vh;overflow-y:auto;
+  transform:translateY(20px) scale(.97);transition:transform .35s var(--ease);
+  color:#0f172a;
+}
+.bento-modal-overlay.open .bento-modal-box{transform:translateY(0) scale(1);}
+.bento-modal-close{
+  position:absolute;top:16px;right:16px;width:36px;height:36px;
+  border-radius:50%;background:rgba(15,23,42,.06);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s;
+}
+.bento-modal-close:hover{background:rgba(15,23,42,.12);}
+.bento-modal-box{position:relative;}
+
+/* 3. CARD FLIP */
+.bento-flip{perspective:1200px;}
+.bento-flip-inner{
+  position:relative;transition:transform .7s var(--ease);transform-style:preserve-3d;
+}
+.bento-flip.flipped .bento-flip-inner{transform:rotateY(180deg);}
+.bento-flip-front,.bento-flip-back{backface-visibility:hidden;}
+.bento-flip-back{
+  transform:rotateY(180deg);
+  position:absolute;inset:0;
+  padding:clamp(24px,3vw,36px);
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+.bento-flip-back .t-sm{color:#475569;}
+
+/* 4. DRAWER — slides up from bottom of card */
+.bento-drawer-wrap{position:relative;overflow:hidden;}
+.bento-drawer{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(0deg,#fff 85%,rgba(255,255,255,0));
+  padding:clamp(24px,3vw,36px);padding-top:48px;
+  transform:translateY(100%);transition:transform .45s var(--ease);
+  max-height:80%;overflow-y:auto;z-index:3;
+  border-top:1px solid rgba(15,23,42,.06);
+}
+.bento-drawer-wrap.drawer-open .bento-drawer{transform:translateY(0);}
+.bento-drawer-close{
+  position:absolute;top:12px;right:12px;width:28px;height:28px;
+  border-radius:50%;background:rgba(15,23,42,.06);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:16px;color:#475569;
+}
+
+/* 5. TYPEWRITER */
+.bento-typewriter-body{
+  margin-top:12px;display:none;
+}
+.bento-typewriter-body.typing{display:block;}
+.bento-typewriter-body .t-sm{
+  color:#475569;
+  border-right:2px solid #1A5FB4;
+  animation:blink-caret .75s step-end infinite;
+  white-space:pre-wrap;
+}
+.bento-typewriter-body.done .t-sm{border-right:none;animation:none;}
+@keyframes blink-caret{from,to{border-color:transparent}50%{border-color:#1A5FB4}}
+
+/* 6. SCROLL REVEAL */
+.bento-scroll-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s var(--ease);
+  position:relative;
+}
+.bento-scroll-body.revealed{max-height:200px;overflow-y:auto;}
+.bento-scroll-body.revealed::-webkit-scrollbar{width:4px;}
+.bento-scroll-body.revealed::-webkit-scrollbar-thumb{background:rgba(26,95,180,.3);border-radius:4px;}
+.bento-scroll-fade{
+  position:sticky;bottom:0;left:0;right:0;height:40px;
+  background:linear-gradient(transparent,#fff);pointer-events:none;
+}
+
+/* ── Bento Accordion (features-style) ──────────────────── */
+.bento-acc{
+  border:1px solid rgba(15,23,42,.08);border-radius:14px;
+  margin-bottom:8px;overflow:hidden;transition:border-color .2s;background:#fff;
+}
+.bento-acc:last-child{margin-bottom:0;}
+.bento-acc:hover,.bento-acc.open{border-color:rgba(15,23,42,.16);}
+.bento-acc-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;background:transparent;cursor:pointer;border:none;
+  font-family:var(--font);gap:12px;transition:background .2s;
+}
+.bento-acc-btn:hover{background:rgba(15,23,42,.02);}
+.bento-acc-title{font-size:14px;font-weight:700;color:#0f172a;text-align:left;flex:1;}
+.bento-acc-arrow{
+  width:24px;height:24px;border-radius:50%;border:1.5px solid #475569;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .25s var(--ease);flex-shrink:0;
+}
+.bento-acc-arrow svg{stroke-width:2;}
+.bento-acc.open .bento-acc-arrow{transform:rotate(180deg);}
+.bento-acc-body{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);}
+.bento-acc-inner{padding:0 20px 18px;color:#475569;font-size:13px;line-height:1.8;}
+.bento-acc-inner strong{color:#0f172a;}
+
+/* ERP accordion — grid dışı detay paneli */
+.erp-acc-grid{position:relative;}
+.erp-acc-detail{
+  grid-column:1/-1;
+  max-height:0;overflow:hidden;
+  transition:max-height .4s var(--ease);
+  background:var(--panel);border:1px solid var(--bd-m);border-radius:14px;
+  margin-top:-8px;
+}
+.erp-acc-detail.open{margin-top:0;}
+.erp-acc-detail-inner{padding:20px 24px;color:var(--t2);font-size:14px;line-height:1.8;}
+.erp-acc-detail-inner strong{color:var(--t1);}
+
+@media(max-width:767px){
+  .erp-acc-grid{grid-template-columns:1fr!important;}
+}
+
+/* ── Light-first overrides ───────────────────────────────── */
+[data-theme="light"] .stage{
+  background:#fff;
+  border-color:rgba(15,23,42,.06);
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+}
+[data-theme="light"] .stage::before{
+  background:none;
+}
+[data-theme="light"] .stage-mesh{display:none;}
+[data-theme="light"] .stage-glow{display:none;}
+[data-theme="light"] .stage-glow-right{display:none;}
+[data-theme="light"] .fc-card{
+  background:#fff;
+  border-color:rgba(15,23,42,.06);
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+}
+[data-theme="light"] .fc-card:hover{
+  background:#fff;
+  border-color:rgba(15,23,42,.12);
+  box-shadow:0 8px 24px rgba(15,23,42,.08);
+}
+[data-theme="light"] .fc-card::after{display:none;}
+[data-theme="light"] .chk{
+  background:#F8FAFC;
+  border-color:rgba(15,23,42,.06);
+}
+[data-theme="light"] .badge-m{
+  background:rgba(15,23,42,.04);
+  border-color:rgba(15,23,42,.08);
+}
+[data-theme="light"] .nav-travel{display:none;}
+[data-theme="light"] .hw-glow{display:none;}
+[data-theme="light"] .badge-travel-glow{display:none;}
+
+/* ── Clean section backgrounds for light ─────────────────── */
+[data-theme="light"] .sec-dark{background:#F8FAFC;}
+[data-theme="light"] .sec-panel{background:#FFFFFF;}
+[data-theme="light"] .sec-strip{
+  background:#F1F5F9;
+  border-color:rgba(15,23,42,.06);
+}
+
+/* ── Strip grid — responsive 4→2 ────────────────────────── */
+.strip-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--bd-f);
+  border-radius:14px;
+  overflow:hidden;
+}
+.strip-cell{
+  background:var(--panel-2);
+  padding:22px;
+  text-align:center;
+}
+@media(max-width:767px){
+  .strip-grid{grid-template-columns:repeat(2,1fr);}
+  .strip-cell{padding:16px 12px;}
+  .strip-cell .stat-v{font-size:clamp(18px,5vw,24px);}
+}
+
+/* ── Mobile theme toggle in nav ──────────────────────────── */
+.nav-theme-mob{
+  display:none;
+  align-items:center;justify-content:center;
+  width:32px;height:32px;
+  border-radius:8px;
+  background:var(--cyan-dim);
+  color:var(--t2);
+  border:1px solid var(--bd-f);
+  cursor:pointer;
+  transition:background .2s,color .2s;
+  flex-shrink:0;
+}
+.nav-theme-mob:hover{background:var(--cyan-glow);color:var(--t1);}
+@media(max-width:767px){
+  .nav-theme-mob{display:flex;}
+}
+
+/* ── Clean nav for light mode ────────────────────────────── */
+[data-theme="light"] .nav{
+  background:rgba(255,255,255,.92);
+  border-color:rgba(15,23,42,.06);
+  box-shadow:0 1px 3px rgba(15,23,42,.04);
+}
+[data-theme="light"] .bc{
+  background:rgba(248,250,252,.95);
+  border-color:rgba(15,23,42,.06);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════ -->
+<!-- ── ÜST ŞERİT: breadcrumb — hero içine taşındı ── -->
+<div class="top-bar" id="top-bar">
+  <ol class="bc" aria-label="Sayfa yolu">
+    <li class="bc-item">
+      <a href="https://nebim.com.tr" class="bc-link">nebim.com.tr</a>
+    </li>
+    <li class="bc-item">
+      <span class="bc-sep" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2.5l3.5 3.5L4 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </li>
+    <li class="bc-item active">
+      <span class="bc-dot"></span>
+      <span class="bc-link">Nebim ERA</span>
+    </li>
+  </ol>
+  <div class="bc-act"></div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="nav-travel"></div>
+  <!-- ── ANA ŞERİT: logo + menü + CTA ────────────── -->
+  <div class="nav-i">
+    <a href="index.html" class="nav-logo" aria-label="Nebim ERA">
+      <img src="img/era_logo_final.svg" alt="Nebim ERA" class="nav-wordmark">
+    </a>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#s1" class="nav-lnk">GENEL BAKIŞ</a></li>
+      <li class="nav-item"><a href="features.html" class="nav-lnk">NEBİM ERA'YI KEŞFEDİN</a></li>
+      <li class="nav-item"><a href="paas.html" class="nav-lnk">PLATFORM (PaaS)</a></li>
+      <li class="nav-item">
+        <a href="#" class="nav-lnk" onclick="return false;">PAKETLER</a>
+        <div class="nav-dd">
+          <a href="paket-1.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 1</a>
+          <a href="paket-2.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 2</a>
+          <a href="paket-3.html" class="nav-dd-i"><span class="dd-dot"></span>Paket 3</a>
+          <div class="nav-dd-div"></div>
+          <a href="paket-custom.html" class="nav-dd-i"><span class="dd-dot"></span>Custom</a>
+        </div>
+      </li>
+      <li class="nav-item"><a href="certified.html" class="nav-lnk">NEBİM CERTIFIED</a></li>
+    </ul>
+
+    <button class="nav-mob" aria-label="Menü">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5.5h16M3 11h16M3 16.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="nav-ctrls">
+      <button class="theme-ico" onclick="toggleTheme()" aria-label="Tema">
+        <svg class="ico-moon" width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="ico-sun" width="22" height="22" viewBox="0 0 16 16" fill="none" style="display:none;"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+      <button class="theme-ico" onclick="cycleHeroBg()" aria-label="Arka plan değiştir" title="Hero arka planını değiştir">
+        <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 11l3.5-4 2.5 3 2-2.5L14.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10.5" cy="5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<!-- SECTION PILL NAV — mobile/tablet -->
+<div class="sec-nav" id="sec-nav">
+  <a href="#s1" class="sec-pill active">Genel Bakış</a>
+  <a href="#s3" class="sec-pill">ERA Özellikleri</a>
+  <a href="#s4" class="sec-pill">ERP Entegrasyonu</a>
+  <a href="#s5" class="sec-pill">PaaS Platform</a>
+  <a href="#s6" class="sec-pill">Nebim Certified</a>
+  <a href="#s7" class="sec-pill">Demo Talep Et</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     S1 — HERO (Teams-style)
+═══════════════════════════════════════════════════ -->
+<section class="hero-teams" id="s1">
+  <div class="hero-wrap">
+    <div class="hero-teams-inner">
+
+      <!-- HERO COPY -->
+      <div class="hero-teams-text sr on">
+        <div style="font-size:clamp(11px,1.1vw,13px);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:20px;">BÜTÜNLEŞİK PERAKENDE PLATFORMU</div>
+        <h1 style="font-family:var(--font-display);font-size:clamp(32px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--t1);">
+          Nebim ERA: <span class="grad-text">Bütünleşik Perakende Ticaretinin Geleceği</span>
+        </h1>
+        <div class="t-lbl" style="font-size:14px;color:var(--t2);max-width:600px;">
+          <span style="color:var(--t3);">Perakendede</span>
+          <span> &ldquo;Çok Kanallı&rdquo; Dönem Bitti,</span><br>
+          <span class="grad-text">&ldquo;Bütünleşik&rdquo; Dönem Başladı</span>
+        </div>
+        <p style="font-size:16px;line-height:1.75;color:var(--t2);max-width:580px;">
+          Günümüz tüketicisi için online veya fiziksel mağaza ayrımı yoktur; sadece <strong style="color:var(--t1);">&ldquo;alışveriş deneyimi&rdquo;</strong> vardır. Nebim ERA ile perakende operasyonlarınızın kalbine <strong style="color:var(--t1);">Bütünleşik Perakende</strong> yeteneklerini yerleştirin; <strong style="color:var(--t1);">fiziksel mağaza, online mağaza (e-ticaret) ve pazaryeri</strong> süreçlerinizi tek bir platformdan, <strong style="color:var(--t1);">gerçek zamanlı ve kesintisiz</strong> yönetmeye başlayın.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     S3 — NEDEN BÜTÜNLEŞİK — Bento Grid Layout
+═══════════════════════════════════════════════════ -->
+<section class="sec sec-dark" id="s3">
+  <div class="wrap">
+
+    <!-- Section header -->
+    <div class="sec-head sr">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow t-lbl mb3">Neden Bütünleşik Perakende, Neden Nebim ERA?</div>
+        <h2 class="t-h1" style="font-family:var(--font-display);">"Tek Ürün, Tek Müşteri, Tek İndirim,<br>Tek Envanter, Tek Sepet, Tek Sipariş"</h2>
+        <p class="t-body mt4" style="max-width:640px;">Perakendede veriyi kanallar arasında kopyalama ve senkronize etme dönemi sona erdirin; artık verinin tüm temas noktalarında tekil, anlık ve bütünleşik olmasını sağlayın.</p>
+      </div>
+      <div class="sec-head-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+    </div>
+
+    <!-- Hidden SVG gradient defs -->
+    <svg width="0" height="0" style="position:absolute;"><defs>
+      <linearGradient id="ico-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A5FB4"/><stop offset="100%" stop-color="#00B8D4"/></linearGradient>
+    </defs></svg>
+
+    <!-- BENTO GRID -->
+    <div class="bento" style="margin-bottom:clamp(28px,4vw,52px);">
+
+      <!-- 1. Tüm Satış Kanalları — EXPAND -->
+      <div class="bento-card bento-tint-blue sr" style="grid-column:span 6;" data-interact="expand">
+        <div class="bento-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="2" y="9" width="20" height="12" rx="2" stroke="url(#ico-grad)" stroke-width="1.5"/><path d="M2 9l3-6h14l3 6" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linejoin="round"/><rect x="9" y="13" width="6" height="8" rx="1" fill="rgba(26,95,180,.1)" stroke="url(#ico-grad)" stroke-width="1.2"/></svg>
+        </div>
+        <div class="t-h3 mb3">Tüm Satış Kanalları ve Uygulamalar</div>
+        <p class="t-sm t2">Fiziksel ve dijital kanallarınızın hepsinde müşterilerinize <strong>bir kanalda başlayıp diğer kanalda devam edebilen kesintisiz alışveriş deneyimi</strong> sunun.</p>
+        <div class="bento-expand-body">
+          <p class="t-sm t2" style="margin-top:12px;">Hem fiziksel mağazalarınızda (<strong>kasa, reyonda mobil satış, kasiyersiz kasa</strong>), hem online mağazanızda, hem stok yönettiğiniz lokasyonlarda, hem de <strong>chatbot-destekli, conversational AI asistanları</strong> örnek olmak üzere, fiziksel ve dijital kanallarınızın hepsinde, müşterilerinize <strong>bir kanalda başlayıp diğer kanalda devam edebilen kesintisiz alışveriş deneyimi</strong> sunun.</p>
+        </div>
+        <button class="bento-more" onclick="toggleExpand(this)">Devamını oku <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <!-- 2. Tekil Müşteri — MODAL -->
+      <div class="bento-card bento-tint-purple sr d1" style="grid-column:span 6;" data-interact="modal">
+        <div class="bento-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="url(#ico-grad)" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="t-h3 mb3">Tekil Müşteri Kimliği</div>
+        <p class="t-sm t2">Müşterinizi tüm temas noktalarında <strong>tekil bir dijital kimlikle</strong> tanıyın. Puanlar, sepet, kampanyalar ve izinler her kanalda <strong>aynı anda güncel</strong> kalsın.</p>
+        <button class="bento-more" onclick="openBentoModal('modal-musteri')">Detayları gör <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <!-- Modal 2 -->
+      <div class="bento-modal-overlay" id="modal-musteri" onclick="if(event.target===this)closeBentoModal(this)">
+        <div class="bento-modal-box">
+          <button class="bento-modal-close" onclick="closeBentoModal(this.closest('.bento-modal-overlay'))"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <div class="t-h3 mb3" style="color:#0f172a;">Tekil Müşteri Kimliği</div>
+          <p class="t-sm" style="color:#475569;line-height:1.8;">Nebim ERA ile müşterinizi fiziksel mağaza kasasında, self-servis kioskta veya mobil uygulamada <strong>tekil bir dijital kimlikle</strong> karşılayın. Müşteriniz, artık demode olmuş 'omnichannel' dünyasındaki gibi her kanalda yeniden tanınmaya çalışılan "yeni birisi" değil; tüm temas noktalarında verisi, tercihleri ve izinleriyle yaşayan <strong>"aynı ve tekil" kişiye</strong> dönüşsün. Müşterinizin; mağazanızdayken bile kendi kullandığı online mağaza uygulamasından <strong>puanlarını görmesini</strong>, kampanya ve indirimlerin otomatik uygulandığı <strong>güncel sepetine erişebilmesini</strong>; adres bilgilerini, <strong>KVKK veya ETK izinlerini</strong> anlık olarak güncelleyebilmesini sağlayın. En önemlisi, müşterinize hizmet veren mağaza çalışanlarınız da; <strong>aynı tekil bilgilere aynı anda</strong> kendi uygulamalarından erişerek, <strong>kişiselleştirilmiş ve kusursuz bir servis</strong> sunabilsinler.</p>
+        </div>
+      </div>
+
+      <!-- 3. Tekil Ürün Kartı — CARD FLIP -->
+      <div class="bento-card bento-tint-cyan bento-flip sr d1" style="grid-column:span 4;" data-interact="flip">
+        <div class="bento-flip-inner">
+          <div class="bento-flip-front">
+            <div class="bento-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M3 6l9-3 9 3v12l-9 3-9-3V6z" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v13M3 6l9 3 9-3" stroke="url(#ico-grad)" stroke-width="1.2"/></svg>
+            </div>
+            <div class="t-h3 mb3">Tekil Ürün Kartı</div>
+            <p class="t-sm t2">Tüm platformlarda <strong>tekil ürün kartı</strong> kullanın. Her detayı <strong>tek merkezden yönetin</strong>, kanallar arası tutarsızlıkları ortadan kaldırın.</p>
+            <button class="bento-more" onclick="toggleFlip(this)">Kartı çevir <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8a6 6 0 0 1 10.5-4M14 8a6 6 0 0 1-10.5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 1v4h-4M4 15v-4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="bento-flip-back">
+            <div class="t-h3 mb3" style="font-size:18px;">Tekil Ürün Kartı</div>
+            <p class="t-sm" style="color:#475569;line-height:1.7;font-size:13px;">Nebim ERA ile ürün verilerinizi her kanal için ayrı ayrı tanımlama veya senkronize etme zahmetine son verin. Fiziksel mağazanızdaki raftan online mağazanızdaki vitrine, pazaryerlerinden mobil uygulamalara kadar tüm platformlarda <strong>tekil ürün kartı mimarisini</strong> kullanın. Ürün açıklamalarından teknik özelliklere, fiyatlandırmadan dijital varlıklara kadar her detayı <strong>tek bir merkezden yönetin</strong> ve tüm temas noktalarına <strong>anlık olarak yansımasını</strong> sağlayın. Bu bütünleşik yapı sayesinde, <strong>kanallar arası veri tutarsızlıklarını</strong> ortadan kaldırarak <strong>operasyonel hatayı sıfıra indirin</strong> ve müşterinize markanızın her noktasında güven veren, tutarlı bir ürün deneyimi sunun.</p>
+            <button class="bento-more" onclick="toggleFlip(this)" style="margin-top:auto;">Geri dön <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Bütünleşik Envanter — DRAWER -->
+      <div class="bento-card bento-tint-warm bento-drawer-wrap sr d2" style="grid-column:span 4;min-height:260px;" data-interact="drawer">
+        <div class="bento-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="9" height="9" rx="1.5" stroke="url(#ico-grad)" stroke-width="1.5"/><rect x="13" y="3" width="9" height="9" rx="1.5" stroke="url(#ico-grad)" stroke-width="1.5"/><rect x="2" y="13" width="9" height="9" rx="1.5" stroke="url(#ico-grad)" stroke-width="1.5"/><rect x="13" y="13" width="9" height="9" rx="1.5" stroke="url(#ico-grad)" stroke-width="1.5"/></svg>
+        </div>
+        <div class="t-h3 mb3">Bütünleşik Envanter</div>
+        <p class="t-sm t2">Tüm kanallarınız için <strong>tek bir ortak envanter havuzu</strong> oluşturun. "Yok satma" riskini ortadan kaldırın, <strong>stok devir hızınızı</strong> artırın.</p>
+        <button class="bento-more" onclick="toggleDrawer(this)">Detayı aç <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 10l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="bento-drawer">
+          <button class="bento-drawer-close" onclick="toggleDrawer(this)">&times;</button>
+          <p class="t-sm" style="color:#475569;line-height:1.7;">Nebim ERA ile stoklarınızı online veya mağaza gibi yapay kategorilere ayırmayı bırakın; tüm kanallarınız için <strong>tek bir ortak envanter havuzu</strong> oluşturun. Bütünleşik perakende mimarisi sayesinde, bir ürünün fiziksel rafınızda, deponuzda veya yoldaki bir sevkiyatta olması fark etmeksizin, tüm stok verisi tüm uygulamalarda <strong>anlık ve şeffaf bir şekilde</strong> sergilensin. Müşterinize <strong>"mağazada bul"</strong> veya <strong>"online al, istediğin mağazadan teslim al"</strong> gibi esnek seçenekler sunarken, kendi <strong>"yok satma" riskinizi</strong> ortadan kaldırın. Stok maliyetlerinizi azaltan bu yapı sayesinde, elinizdeki her bir birim ürünün <strong>tüm kanallardan satılabilir</strong> olmasını sağlayarak <strong>stok devir hızınızı ve kârlılığınızı</strong> artırın.</p>
+        </div>
+      </div>
+
+      <!-- 5. Merkezi İndirim — TYPEWRITER -->
+      <div class="bento-card bento-tint-purple sr d2" style="grid-column:span 4;" data-interact="typewriter">
+        <div class="bento-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M12.5 2l2.5 2.5H19a1 1 0 0 1 1 1v4l2.5 2.5-2.5 2.5V18a1 1 0 0 1-1 1h-4l-2.5 2.5L10 19H6a1 1 0 0 1-1-1v-4L2.5 12 5 9.5V5.5a1 1 0 0 1 1-1h4l2.5-2.5z" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 15l6-6M9 9h.01M15 15h.01" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="t-h3 mb3">Merkezi İndirim ve Kampanya</div>
+        <p class="t-sm t2">Kampanya ve indirimleri müşteriniz hangi kanalda olursa olsun <strong>aynı akıllı algoritma</strong> ile hatasız ve eş zamanlı sunun.</p>
+        <button class="bento-more" onclick="startTypewriter(this)">Yazıyı başlat <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 13h2l6-6-2-2-6 6v2zM9 3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="bento-typewriter-body" data-fulltext="Nebim ERA ile &quot;3 al 2 öde&quot; gibi kurguları veya kişiye özel tanımlanmış sadakat indirimlerini, müşteriniz hangi kanalda olursa olsun aynı akıllı algoritma ile hatasız ve eş zamanlı sunun. Geleneksel çok kanallı yapıların en büyük sorunu olan; müşteriye mağazada bir fırsatı sunup, online mağazada teknik imkansızlıklar nedeniyle aynı fırsatı sunamama devrini tamamen sona erdirin. Müşteriniz sepetini nerede doldurursa doldursun, hak ettiği indirimlerin tutarlı bir şekilde uygulandığını görerek markanıza olan güveni pekişsin. Siz de kanallar arası kampanya karmaşasını ve manuel müdahale ihtiyacını ortadan kaldırarak operasyonel verimliliğinizi en üst seviyeye taşıyın.">
+          <p class="t-sm"></p>
+        </div>
+      </div>
+
+      <!-- 6. Kesintisiz Sepet — SCROLL REVEAL -->
+      <div class="bento-card bento-tint-blue sr d3" style="grid-column:span 12;" data-interact="scroll">
+        <div class="bento-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M4 8h12l-1.5 7.5H5.5L4 8z" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 8L3 4H1" stroke="url(#ico-grad)" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="18" r="1.5" fill="url(#ico-grad)"/><circle cx="14" cy="18" r="1.5" fill="url(#ico-grad)"/></svg>
+        </div>
+        <div class="t-h3 mb3">Kesintisiz Sepet ve Sipariş</div>
+        <p class="t-sm t2">Dijital ve fiziksel sepetler arasındaki duvarları yıkın. Online'da başlayan alışverişi <strong>mağazada tamamlayın</strong>, mağazadan alınan ürünü <strong>online iade edin</strong>.</p>
+        <button class="bento-more" onclick="toggleScrollReveal(this)">Kaydırarak keşfet <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M5 10l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="bento-scroll-body">
+          <p class="t-sm" style="color:#475569;line-height:1.8;padding:12px 0;">Nebim ERA ile dijital ve fiziksel sepetler arasındaki duvarları yıkın; müşterilerinizin ve mağaza çalışanlarınızın <strong>tüm kanallarda aynı ve güncel sepete erişmesini</strong> sağlayın. Müşteriniz akşam evinde online mağazadan sepetine eklediği ürünleri, ertesi gün fiziksel mağazaya geldiğinde satış danışmanının terminalinde veya kendi mobil uygulamasında <strong>anlık olarak hazır bulsun</strong>. Bu bütünleşik yapı sayesinde, online'da başlayan bir kararsızlığı <strong>mağazada ürüne dokunarak satışla sonuçlandırmayı</strong> mümkün kılın. Sadece satın alma değil, satış sonrası süreçlerde de tam özgürlük sunun; örneğin mağazadan alınan bir ürünün <strong>online mağaza üzerinden kolayca iade edilmesini</strong> veya online'dan verilen bir siparişin <strong>mağazada hızlıca değiştirilmesini</strong> sağlayın. Sipariş yönetimini <strong>tek bir merkezden</strong> yöneterek lojistik karmaşayı bitirin ve müşterinize markanızın her noktasında kesintisiz, akışkan bir alışveriş serüveni yaşatın.</p>
+          <div class="bento-scroll-fade"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- İşletme + Müşteri — Accordion cards -->
+    <div class="bento">
+
+      <!-- İşletme için -->
+      <div class="bento-card bento-tint-blue sr" style="grid-column:span 6;">
+        <div class="t-lbl mb4" style="color:#1A5FB4;">Perakende İşletmeniz için Bütünleşik Perakende</div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Bütünleşik Envanter Görünümü</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Stoklarınızı online veya mağaza gibi yapay kategorilere ayırmak yerine, tüm envanterinizi <strong>gerçek zamanlı ve tek bir havuzda</strong> yönetin. Bu merkezi görünüm sayesinde, bir ürünün nerede olduğundan bağımsız olarak tüm kanallardan satılabilmesini sağlayın; <strong>"yok satma" riskini</strong> azaltırken, stok maliyetlerinizi optimize edin ve <strong>brüt kâr marjınızı</strong> artırın.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Operasyonel Çeviklik ve Verimlilik</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Müşteri talebini en uygun lokasyondan (en yakın mağaza veya ana depo) karşılayacak şekilde süreçlerinizi otomatikleştirin. Mağaza çalışanlarınızın üzerindeki <strong>manuel veri yükünü</strong> kaldırarak onları birer <strong>"satış danışmanına"</strong> dönüştürün; lojistik maliyetlerinizi düşürürken <strong>teslimat hızınızı ve çalışan verimliliğinizi</strong> maksimize edin.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Veriye Dayalı Karar Alma</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Fiziksel ve dijitalden gelen verileri "silolar" (ayrı kutucuklar) olarak görmekten kurtulun. Müşterilerinizin tüm yolculuğunu <strong>tek bir veri modeli</strong> üzerinden analiz ederek, hangi kanalın daha kârlı olduğunu anlık görün; çok daha isabetli <strong>kampanya, fiyatlandırma ve satın alma</strong> kararları verin.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Karmaşıklığın Azalması</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">"Çok Kanal" veya "Omnikanal" modellerindeki kanalları birbirine bağlama ve senkronize etme zahmetini geride bırakın. Bütünleşik modelde tüm kanalları <strong>tek bir platform</strong> (Retail Execution Engine) üzerinde yöneterek teknik karmaşayı bitirin, <strong>çevikliğinizi artırın</strong> ve rekabette fark yaratın.</div></div>
+        </div>
+
+      </div>
+
+      <!-- Müşteriler için -->
+      <div class="bento-card bento-tint-purple sr d1" style="grid-column:span 6;">
+        <div class="t-lbl mb4" style="color:#3584E4;">Müşterileriniz için Bütünleşik Perakende</div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Süreklilik</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Müşterinizin alışverişine online mağazada başlayıp mağazada devam etmesini, satın alımını ise reyonda tamamlamasını sağlayın. Sepetinin, tercihlerinin ve en önemlisi <strong>kampanyalı fiyatlarının</strong> her kanalda onu takip etmesini sağlayarak; güven veren, sürtünmesiz ve <strong>kanal ayrımı olmayan</strong> bir deneyim yaşatın.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Esnek Teslimat ve İade/Değişim Özgürlüğü</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">"Online al, mağazadan teslim al" <strong>(BOPIS)</strong> veya "Online al, mağazaya iade et" <strong>(BORIS)</strong> gibi modelleri hiçbir ek entegrasyona gerek duymaksızın standart hale getirin. Müşteriniz tüm kanallarda geçerli olan <strong>ortak iade çekleri ve hediye kartları</strong> ile özgürce ve markanıza güvenerek alışveriş yapsın.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Hiper-Kişiselleştirilmiş Deneyim</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Müşteriniz mağazaya girdiğinde, satış danışmanınızın onun geçmiş tercihlerini ve hatta <strong>online'da incelediği ürünleri</strong> tekil müşteri kimliği sayesinde görmesini sağlayın. Müşterinize sadece bir "alıcı" gibi değil, her temas noktasında <strong>tanınan ve değer verilen bir misafir</strong> gibi hissettirin.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Şeffaf ve Anlık Bilgi Akışı</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Müşteriniz, aradığı ürünün mağazada olup olmadığını online mağazanızdan <strong>"gerçek ve anlık stok"</strong> verisiyle görsün. Mağazaya gittiğinde ürünle karşılaşamama riskini ortadan kaldırarak hayal kırıklıklarını engelleyin ve <strong>müşteri memnuniyetini</strong> garanti altına alın.</div></div>
+        </div>
+
+        <div class="bento-acc">
+          <button class="bento-acc-btn" onclick="toggleBentoAcc(this)">
+            <span class="bento-acc-title">Sürtünmesiz ve Hızlı Ödeme</span>
+            <div class="bento-acc-arrow"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </button>
+          <div class="bento-acc-body"><div class="bento-acc-inner">Müşteriniz kasada kuyruk beklemeden, satış danışmanının elindeki mobil cihazla (<strong>Native Android POS</strong>) veya kiosklar üzerinden ödemesini saniyeler içinde yapsın. Alışverişin en kritik anı olan ödeme sürecini, <strong>en hızlı ve zahmetsiz aşamaya</strong> dönüştürün.</div></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="fc mt8 sr">
+      <p class="t-body t2 mb4" style="max-width:600px;margin-inline:auto;text-align:center;">Perakendenin yeni standartlarıyla tanışın; Nebim ERA'nın tüm yeteneklerini şimdi inceleyin.</p>
+      <a href="features.html" class="btn btn-grad btn-lg">Tüm Özellikleri İncele →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     S4 — V3 ERP ENTEGRASYONU
+     split-60 · Stage: diyagram sol · Panel: 3 madde + CTA sağ
+═══════════════════════════════════════════════════ -->
+<section class="sec sec-panel sec-light" id="s4">
+  <div class="wrap">
+
+    <!-- Section header -->
+    <div class="sec-head sr">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow t-lbl mb3">Nebim V3 ERP Gücü, Nebim ERA Çevikliğiyle Birleşiyor</div>
+        <h2 class="t-h1 mb3" style="font-family:var(--font-display);">Hibrit Perakende Yönetimi</h2>
+        <p class="t-body mt4" style="max-width:640px;">Piyasadaki diğer çözümlerin aksine; Nebim ERA'yı, Türkiye'nin önde gelen, en kapsamlı perakende ERP'si olan <strong>Nebim V3 ERP</strong> ile "ayrı dünyalar" gibi değil, tek bir organizmanın parçaları gibi çalıştırın.</p>
+      </div>
+      <div class="sec-head-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M6 8h12M6 11h8"/></svg></div>
+    </div>
+
+    <!-- Sub-section header -->
+    <div class="text-c sr" style="margin-bottom:clamp(20px,3vw,32px);max-width:760px;margin-inline:auto;">
+      <h3 class="t-h2 mb3" style="font-family:var(--font-display);">Terminal Server Karmaşasına Son</h3>
+      <p class="t-body">Nebim V3 ERP'nin <strong>derin finansal ve operasyonel tecrübesini</strong> arkasına alan Nebim ERA, fiziksel mağaza ve dijital ticaret verilerinizi <strong>anlık olarak ERP merkezinize aktarır</strong>, ve Nebim V3 ERP'de başlatmayı tercih ettiğiniz süreçleri kendi ortamında devam ettirebilir. Bu <strong>yerleşik entegrasyon</strong> sayesinde:</p>
+    </div>
+
+    <!-- 3 madde — yan yana, detay aşağıda -->
+    <div class="erp-acc-grid" style="max-width:1000px;margin-inline:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+      <button class="bento-acc erp-acc-tab" data-erp="0" onclick="toggleErpAcc(0)" style="background:var(--panel);border-color:var(--bd-m);cursor:pointer;text-align:left;">
+        <div class="bento-acc-btn" style="color:var(--t1);">
+          <span class="bento-acc-title" style="color:var(--t1);">Sıfır Veri Kaybı, Maksimum Doğruluk</span>
+          <div class="bento-acc-arrow" style="border-color:var(--t3);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </button>
+
+      <button class="bento-acc erp-acc-tab" data-erp="1" onclick="toggleErpAcc(1)" style="background:var(--panel);border-color:var(--bd-m);cursor:pointer;text-align:left;">
+        <div class="bento-acc-btn" style="color:var(--t1);">
+          <span class="bento-acc-title" style="color:var(--t1);">Kesintisiz Operasyonel Süreklilik</span>
+          <div class="bento-acc-arrow" style="border-color:var(--t3);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </button>
+
+      <button class="bento-acc erp-acc-tab" data-erp="2" onclick="toggleErpAcc(2)" style="background:var(--panel);border-color:var(--bd-m);cursor:pointer;text-align:left;">
+        <div class="bento-acc-btn" style="color:var(--t1);">
+          <span class="bento-acc-title" style="color:var(--t1);">Düşük Toplam Sahip Olma Maliyeti (TCO)</span>
+          <div class="bento-acc-arrow" style="border-color:var(--t3);"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </button>
+
+      <!-- Detay paneli — grid'in altında full-width -->
+      <div class="erp-acc-detail" id="erp-detail" style="grid-column:1/-1;">
+        <div class="erp-acc-detail-inner" id="erp-detail-text"></div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="fc mt8 sr">
+      <p class="t-body t2 mb4" style="max-width:600px;margin-inline:auto;text-align:center;">Uçtan uca kesintisiz bir perakende yönetimi yapın; ERP gücüyle beslenen bütünleşik ticaretin detaylarına göz atın.</p>
+      <a href="#s7" class="btn btn-grad btn-lg">Sinerjiyi Keşfet →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     S5 — PaaS
+     Centered header + MACH strip + 3 kart + CTA
+═══════════════════════════════════════════════════ -->
+<section class="sec sec-dark" id="s5">
+  <div class="wrap">
+
+    <!-- Section header -->
+    <div class="sec-head sr">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow-p t-lbl mb3">Türkiye'nin İlk Yerel Perakende PaaS'ı</div>
+        <h2 class="t-h1 mb4" style="font-family:var(--font-display);">Nebim ERA PaaS: Sadece Bir Yazılım Değil, Bir Geliştirme Platformu</h2>
+        <p class="t-body" style="max-width:640px;">Türkiye'nin ilk yerel perakende <strong>PaaS (Platform as a Service)</strong> çözümüyle tanışın.</p>
+      </div>
+      <div class="sec-head-ico"><svg viewBox="0 0 24 24"><path d="M8 9l-4 4 4 4M16 9l4 4-4 4"/><path d="M14 5l-4 14"/></svg></div>
+    </div>
+
+    <!-- 3 PaaS kartı -->
+    <div class="g3 sr d1" style="gap:16px;margin-bottom:clamp(28px,4vw,48px);">
+
+      <!-- MACH Mimarisi -->
+      <div class="fc-card" style="display:flex;flex-direction:column;position:relative;padding-right:80px;">
+        <div style="position:absolute;top:22px;right:22px;opacity:.35;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="var(--t1)" stroke-width="1.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M16.9 16.9l2.1 2.1M4.9 19.1l2.1-2.1M16.9 7.1l2.1-2.1" stroke="var(--t1)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="t-h3 mb3">MACH Mimarisi</div>
+        <p class="t-xs t2">Mikroservis tabanlı, <strong>API-first, Cloud-native ve Headless</strong> yapısıyla inşa edilen Nebim ERA servisleri sayesinde perakende operasyonlarınızda <strong>sınırsız ölçeklenin</strong>.</p>
+      </div>
+
+      <!-- Geliştirici Özgürlüğü -->
+      <div class="fc-card sr d1" style="display:flex;flex-direction:column;position:relative;padding-right:80px;">
+        <div style="position:absolute;top:22px;right:22px;opacity:.35;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M8 9l-4 4 4 4M16 9l4 4-4 4" stroke="var(--t1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5l-4 14" stroke="var(--t1)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="t-h3 mb3">Geliştirici Özgürlüğü</div>
+        <p class="t-xs t2">Kendi yazılım ekibiniz veya perakende dünyasının önde gelen Nebim teknoloji iş ortakları, Nebim ERA'nın <strong>hazır servislerini ve API'larını</strong> kullanarak işletmenize özel <strong>"terzi dikimi" çözümler</strong> üretebilsin.</p>
+      </div>
+
+      <!-- Uygulama Mağazası -->
+      <div class="fc-card sr d2" style="display:flex;flex-direction:column;position:relative;padding-right:80px;">
+        <div style="position:absolute;top:22px;right:22px;opacity:.35;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="2" stroke="var(--t1)" stroke-width="1.5"/><rect x="13" y="3" width="8" height="8" rx="2" stroke="var(--t1)" stroke-width="1.5"/><rect x="3" y="13" width="8" height="8" rx="2" stroke="var(--t1)" stroke-width="1.5"/><path d="M17 13v8M13 17h8" stroke="var(--t1)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="t-h3 mb3">Uygulama Mağazası Ekosistemi</div>
+        <p class="t-xs t2">Çok yakında yayına girecek Nebim Uygulama Mağazası ile ihtiyacınız olan <strong>yenilikçi çözüm çeşitliliğine</strong> tek tıkla ulaşın.</p>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="text-c sr d3" style="max-width:620px;margin-inline:auto;">
+      <p class="t-body mb4">Hayal ettiğiniz perakende teknolojisini inşa edin; Nebim ERA PaaS'ın sınırsız geliştirme dünyasını keşfedin.</p>
+      <a href="paas.html" class="btn btn-grad btn-lg">PaaS Yeteneklerini Gör →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     S6 — CERTIFIED DONANIM
+     Centered header + 3 donanım kart + CTA
+═══════════════════════════════════════════════════ -->
+<section class="sec sec-panel" id="s6">
+  <div class="wrap">
+
+    <!-- Section header -->
+    <div class="sec-head sr">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow t-lbl mb3">Pek Yakında</div>
+        <h2 class="t-h1 mb4" style="font-family:var(--font-display);">Nebim ERA'nın Yazılım Çevikliğini, Donanımın Gücüyle Buluşturun</h2>
+        <p class="t-body" style="max-width:640px;">Nebim ERA ile kasa noktalarından reyon ortasına, self-servis alanlarından mobil ödeme süreçlerine kadar tüm mağaza operasyonunuzu <strong>Nebim-Certified donanım ekosistemi</strong> ile destekleyin.</p>
+      </div>
+      <div class="sec-head-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/><path d="M9 5h6"/></svg></div>
+    </div>
+
+    <!-- 3 Donanım Kartı -->
+    <div class="g3 sr d1" style="gap:16px;margin-bottom:clamp(28px,4vw,48px);">
+
+      <!-- PAX Elys Serisi -->
+      <div class="hw hw--cyan">
+        <div class="hw-glow"></div>
+        <div class="hw-img">
+          <img src="img/pax-elys.png" alt="PAX Elys POS Workstation" loading="lazy">
+        </div>
+        <div class="hw-body">
+          <div class="hw-sub">Red Dot Tasarım Ödüllü</div>
+          <div class="t-h3 mb2">PAX Elys Serisi</div>
+          <div class="hw-desc">YN ÖKC muafiyetli perakendeciler için mükemmel Android kasa çözümü. Nebim ERA Perakende Satış yazılımı ile tam entegre çalışarak kasa işlemlerini hızlandırın.</div>
+          <button class="hw-toggle" onclick="toggleHw(this)">Devamını oku <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="hw-feats">
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="var(--cyan)" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <span class="hw-feat-txt">Bütünleşik EFT-POS ile interaktif müşteri terminali</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="var(--cyan)" stroke-width="1.5"/><circle cx="12" cy="18" r="1" fill="var(--cyan)"/><path d="M9 5h6" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <span class="hw-feat-txt">Android üzerinde native Nebim ERA POS</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--cyan)" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="hw-feat-txt">Terminal Server maliyetlerine son</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YN ÖKC / EFT-POS Entegre Cihazlar -->
+      <div class="hw hw--purple sr d1">
+        <div class="hw-glow"></div>
+        <div class="hw-img">
+          <img src="img/newland-nft10-front.png" alt="YN ÖKC ve EFT-POS Entegre Cihazlar" loading="lazy">
+        </div>
+        <div class="hw-body">
+          <div class="hw-sub">Entegre Ödeme Cihazları</div>
+          <div class="t-h3 mb2">YN ÖKC ve EFT-POS</div>
+          <div class="hw-desc">Mevcut notebook, PC ya da Android cihazlarınızda; web tarayıcı veya native uygulama olarak çalışan Nebim ERA Perakende Satış'ın desteklediği YN ÖKC ve EFT-POS modelleri.</div>
+          <button class="hw-toggle" onclick="toggleHw(this)">Devamını oku <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="hw-feats">
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7M4 7l8 6 8-6" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="hw-feat-txt">GMP-3 protokolü üzerinden tam entegrasyon</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="var(--purple)" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+              <span class="hw-feat-txt">Hugin, Ingenico, PAX modelleri</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="var(--purple)" stroke-width="1.5"/><path d="M2 10h20" stroke="var(--purple)" stroke-width="1.5"/><path d="M6 15h4" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <span class="hw-feat-txt">Mevcut donanım yatırımını koruyun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobil Cihazlar — Newland / Zebra -->
+      <div class="hw hw--neb sr d2">
+        <div class="hw-glow"></div>
+        <div class="hw-img">
+          <img src="img/zebra-tc21.jpg" alt="Zebra TC21 Mobil Bilgisayar" loading="lazy">
+        </div>
+        <div class="hw-body">
+          <div class="hw-sub">Newland &amp; Zebra</div>
+          <div class="t-h3 mb2">Mağaza Mobil Cihazları</div>
+          <div class="hw-desc">Üzerinde Nebim ERA Mağaza Envanter Yönetimi (SIM) çalıştırarak mağaza arka ofis operasyonlarınızı reyondan ayrılmadan yürütün.</div>
+          <button class="hw-toggle" onclick="toggleHw(this)">Devamını oku <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="hw-feats">
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 7H4a1 1 0 00-1 1v8a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="var(--neb)" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="var(--neb)" stroke-width="1.5"/><path d="M12 11v4M10 13h4" stroke="var(--neb)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <span class="hw-feat-txt">Ürün kabul, sayım, etiket dökümü</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="var(--neb)" stroke-width="1.5"/><path d="M15 2v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V2" stroke="var(--neb)" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="var(--neb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="hw-feat-txt">Reyonda gerçek zamanlı stok sorgulama</span>
+            </div>
+            <div class="hw-feat">
+              <div class="hw-feat-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v6m0 0H3m6 0h12M3 9v10a2 2 0 002 2h14a2 2 0 002-2V9" stroke="var(--neb)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="hw-feat-txt">Android native SIM uygulaması</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA — parallax word reveal -->
+    <div class="hw-cta">
+      <p class="hw-cta-text" id="hw-cta-wr">
+        <span class="wr-word">Nebim</span>
+        <span class="wr-word">İş</span>
+        <span class="wr-word">Ortaklarının</span>
+        <span class="wr-word">Onaylı</span>
+        <span class="wr-word">Donanım</span>
+        <span class="wr-word">ve</span>
+        <span class="wr-word">Ödeme</span>
+        <span class="wr-word">Çözümlerini</span>
+        <span class="wr-word">İnceleyin</span>
+      </p>
+      <a href="certified.html" class="btn-arrow sr d1">
+        Onaylı Donanımları <span class="kesfet">KEŞFET</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     S7 — CTA / LEAD FORM
+     split-57 · Mesaj + güven sinyali sol · Form + 3 segment sağ
+═══════════════════════════════════════════════════ -->
+<section class="sec sec-dark" id="s7">
+  <div class="wrap">
+
+    <!-- Section header -->
+    <div class="sec-head sr">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow t-lbl mb3">Hemen Başlayın</div>
+        <h2 class="t-h1" style="font-family:var(--font-display);">Perakendede Geleceği <span class="grad-text">Bugün İnşa Edin</span></h2>
+        <p class="t-body mt4" style="max-width:480px;">Çok kanallı karmaşadan kurtulun; Nebim ERA ile gerçek "Bütünleşik Perakende" çağına bugün adım atın.</p>
+      </div>
+      <div class="sec-head-ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 8v4l3 3"/></svg></div>
+    </div>
+
+    <!-- Form — ortalı -->
+    <form onsubmit="handleLead(event)" class="sr d1" style="display:flex;flex-direction:column;gap:14px;max-width:560px;margin-inline:auto;">
+      <div class="form-row">
+        <div><input type="text" class="df-inp" placeholder="Ad Soyad" required/></div>
+        <div><input type="text" class="df-inp" placeholder="Şirket Adı" required/></div>
+      </div>
+      <div class="form-row">
+        <div><input type="email" class="df-inp" placeholder="E-posta" required/></div>
+        <div><input type="tel" class="df-inp" placeholder="Telefon"/></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;" id="segment-group">
+        <label class="segment-opt" style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--panel);border:1px solid var(--bd-f);border-radius:var(--r-md);cursor:pointer;transition:all .15s;">
+          <input type="radio" name="segment" value="v3" style="accent-color:var(--cyan);flex-shrink:0;" required/>
+          <div>
+            <div class="t-h4">Nebim V3 kullanıcısıyım</div>
+            <div class="t-xs t3">V3 ERP ile ERA entegrasyonu</div>
+          </div>
+        </label>
+        <label class="segment-opt" style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--panel);border:1px solid var(--bd-f);border-radius:var(--r-md);cursor:pointer;transition:all .15s;">
+          <input type="radio" name="segment" value="new" style="accent-color:var(--cyan);flex-shrink:0;"/>
+          <div>
+            <div class="t-h4">Yeni markayım</div>
+            <div class="t-xs t3">Bütünleşik perakende'ye sıfırdan başlamak istiyorum</div>
+          </div>
+        </label>
+        <label class="segment-opt" style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--panel);border:1px solid var(--bd-f);border-radius:var(--r-md);cursor:pointer;transition:all .15s;">
+          <input type="radio" name="segment" value="paas" style="accent-color:var(--cyan);flex-shrink:0;"/>
+          <div>
+            <div class="t-h4">PaaS ile ilgileniyorum</div>
+            <div class="t-xs t3">Geliştirici ekibimizle özel çözüm üretmek istiyorum</div>
+          </div>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-grad btn-lg w-full" id="submit-btn" style="justify-content:center;padding:15px;">
+        Satış Ekibiyle Konuş
+      </button>
+      <p class="t-xs t3" style="text-align:center;line-height:1.7;">
+        Formu göndererek <a href="gizlilik-politikasi.html" style="color:var(--neb);">Gizlilik Politikası</a> ve <a href="kvkk-aydinlatma.html" style="color:var(--neb);">KVKK Aydınlatma Metni</a>'ni okuduğunuzu onaylıyorsunuz.
+      </p>
+    </form>
+
+    <!-- Success state -->
+    <div id="form-success" style="display:none;flex-direction:column;align-items:center;gap:14px;padding:24px 0;max-width:560px;margin-inline:auto;">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--cyan-dim);border:2px solid rgba(0,184,212,.3);display:flex;align-items:center;justify-content:center;">
+        <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M5 14l6 6L23 8" stroke="#00B8D4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="t-h2">Talebiniz Alındı!</div>
+      <p class="t-sm t2" style="text-align:center;">Uzmanlarımız en kısa sürede sizinle iletişime geçecek.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER — floating glass (header estetiği)
+═══════════════════════════════════════════════════ -->
+<footer class="site-footer">
+
+  <div class="ft-grid">
+    <!-- Marka -->
+    <div>
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;">
+        <img src="img/era_logo_final.svg" alt="Nebim ERA" class="ft-era-logo">
+      </div>
+      <p class="t-xs t2" style="max-width:240px;line-height:1.8;">Türkiye'nin ilk yerel bütünleşik perakende platformu. Fiziksel mağaza, e-ticaret ve pazaryeri tek platformda.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="img/nebim_logo.svg" alt="Nebim" class="ft-param">
+          <span style="width:1px;height:14px;background:var(--bd-m);flex-shrink:0;"></span>
+          <a href="https://param.com.tr" target="_blank" rel="noopener" aria-label="Param Grubu"><img src="img/param-logo.svg" alt="Param Grubu" class="ft-param"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEBİM ERA -->
+    <div>
+      <div class="ft-col-title">NEBİM ERA</div>
+      <div class="ft-links">
+        <a href="index.html" class="t-xs t2 ft-link">Genel Bakış</a>
+        <a href="features.html" class="t-xs t2 ft-link">Tüm Özellikler</a>
+        <a href="paas.html" class="t-xs t2 ft-link">Platform (PaaS)</a>
+        <a href="certified.html" class="t-xs t2 ft-link">Certified</a>
+      </div>
+    </div>
+
+    <!-- PAKETLER -->
+    <div>
+      <div class="ft-col-title">PAKETLER</div>
+      <div class="ft-links">
+        <a href="paket-1.html" class="t-xs t2 ft-link">Paket 1</a>
+        <a href="paket-2.html" class="t-xs t2 ft-link">Paket 2</a>
+        <a href="paket-3.html" class="t-xs t2 ft-link">Paket 3</a>
+        <a href="paket-custom.html" class="t-xs t2 ft-link">Custom</a>
+      </div>
+    </div>
+
+    <!-- NEBİM -->
+    <div>
+      <div class="ft-col-title">NEBİM</div>
+      <div class="ft-links">
+        <a href="#" class="t-xs t2 ft-link">Nebim Hakkında</a>
+        <a href="#" class="t-xs t2 ft-link">İş Ortakları</a>
+        <a href="#" class="t-xs t2 ft-link">Kariyer</a>
+        <a href="#" class="t-xs t2 ft-link">İletişim</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft-divider"></div>
+  <div class="ft-bottom">
+    <span class="t-xs t3">© 2026 Nebim Neyir Bilgisayar Sanayii ve Hizmetleri A.Ş. Tüm hakları saklıdır.</span>
+    <div class="flex gap4">
+      <a href="gizlilik-politikasi.html" class="t-xs t3 ft-link">Gizlilik Politikası</a>
+      <a href="kvkk-aydinlatma.html" class="t-xs t3 ft-link">KVKK Aydınlatma</a>
+      <a href="cerez-politikasi.html" class="t-xs t3 ft-link">Çerez Politikası</a>
+    </div>
+  </div>
+
+</footer>
+
+<style>
+/* ── FOOTER — floating glass ──────────────────────────── */
+.site-footer{
+  margin:0 var(--nav-side) clamp(16px,2vw,24px);
+  background:rgba(11,13,22,.42);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  padding:clamp(32px,4vw,48px) clamp(24px,3vw,40px) clamp(20px,2vw,28px);
+}
+/* ambient glow — sağ üst */
+.site-footer::after{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:radial-gradient(ellipse at 85% 20%,rgba(0,184,212,.14) 0%,rgba(26,95,180,.08) 35%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.site-footer{position:relative;overflow:hidden;}
+.site-footer > *{position:relative;z-index:1;}
+[data-theme="light"] .site-footer::after{
+  background:radial-gradient(ellipse at 85% 20%,rgba(0,151,167,.10) 0%,rgba(13,59,130,.06) 35%,transparent 65%);
+}
+[data-theme="light"] .site-footer{
+  background:rgba(255,255,255,.62);
+  border-color:rgba(15,23,42,.08);
+  box-shadow:
+    0 8px 32px rgba(15,23,42,.08),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+.ft-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:clamp(24px,4vw,48px);
+  margin-bottom:clamp(24px,3vw,36px);
+  max-width:1240px;margin-inline:auto;
+  padding-inline:clamp(16px,3vw,40px);
+}
+.ft-col-title{
+  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t1);margin-bottom:14px;
+}
+.ft-links{display:flex;flex-direction:column;gap:10px;}
+.ft-link{
+  position:relative;display:inline-block;width:fit-content;
+  transition:color .15s;
+  font-variation-settings:"wght" 400;
+}
+.ft-link::after{
+  content:'';position:absolute;
+  left:0;bottom:-2px;width:100%;height:1.5px;
+  background:var(--grad);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .35s var(--ease);
+}
+/* bold without layout shift — text-shadow trick */
+.ft-link:hover{color:var(--cyan)!important;text-shadow:0 0 .5px currentColor,0 0 .5px currentColor;}
+.ft-link:hover::after{transform:scaleX(1);}
+.ft-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:18px;}
+[data-theme="light"] .ft-divider{background:rgba(15,23,42,.08);}
+.ft-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--t1);max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,3vw,40px);}
+.ft-bottom .t-xs{color:var(--t1)!important;}
+.ft-param{height:12px;width:auto;opacity:.5;filter:brightness(0) invert(1);transition:opacity .2s;}
+[data-theme="light"] .ft-param{filter:none;opacity:.4;}
+.ft-param:hover{opacity:.8;}
+@media(max-width:767px){
+  .site-footer{margin-inline:12px;}
+  .ft-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:479px){
+  .site-footer{margin-inline:8px;border-radius:12px;}
+  .ft-grid{grid-template-columns:1fr;}
+}
+/* Segment radio opts hover */
+.segment-opt:has(input:checked){
+  border-color:var(--bd-s);
+  background:var(--cyan-dim);
+}
+/* Footer grid — artık .site-footer CSS'te yönetiliyor */
+</style>
+
+<script>
+/* ── Hamburger toggle ── */
+const mobBtn = document.querySelector('.nav-mob');
+const secNav = document.getElementById('sec-nav');
+if(mobBtn && secNav){
+  mobBtn.addEventListener('click', function(){
+    mobBtn.classList.toggle('open');
+    secNav.classList.toggle('open');
+  });
+  // Close menu when a pill is tapped
+  secNav.querySelectorAll('.sec-pill').forEach(function(p){
+    p.addEventListener('click', function(){
+      mobBtn.classList.remove('open');
+      secNav.classList.remove('open');
+    });
+  });
+}
+
+/* ── Nav scroll — hide on scroll down, show on scroll up, stick to top ── */
+const nav = document.getElementById('nav');
+const topBar = document.querySelector('.top-bar');
+let lastY = 0;
+let scrollAcc = 0;
+const hideThreshold = 75;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const bcBottom = topBar ? topBar.offsetTop + topBar.offsetHeight : 0;
+  nav.classList.toggle('sc', y > 10);
+  nav.classList.toggle('nav-top', y > bcBottom);
+  const delta = y - lastY;
+  if (delta > 0) { scrollAcc += delta; } else { scrollAcc = 0; nav.classList.remove('hide'); }
+  if (scrollAcc > hideThreshold) { nav.classList.add('hide'); }
+  lastY = y;
+}, {passive:true});
+
+/* ── Scroll reveal ── */
+const srEls = document.querySelectorAll('.sr:not(.on)');
+const srObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); srObs.unobserve(e.target); }});
+}, {threshold:.08, rootMargin:'0px 0px -28px 0px'});
+srEls.forEach(el => srObs.observe(el));
+
+/* ── Word reveal ── */
+(function initWordReveal() {
+  const h1 = document.getElementById('hero-h1');
+  if (!h1) return;
+  const words = h1.querySelectorAll('.wr-word');
+  let delay = 0;
+  words.forEach(w => { w.style.transitionDelay = delay + 'ms'; delay += 80; });
+  const obs = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => { requestAnimationFrame(() => { words.forEach(w => w.classList.add('in')); }); });
+      obs.disconnect();
+    }
+  }, {threshold: 0.3});
+  obs.observe(h1);
+})();
+
+/* ── ERA Hero Slider ── */
+(function initEraSlider() {
+  var slides = document.querySelectorAll('.era-hero-slide');
+  var dots = document.querySelectorAll('.era-dot');
+  if (!slides.length) return;
+  var current = 0;
+  var total = slides.length;
+
+  function goTo(idx) {
+    slides.forEach(function(s, i) {
+      if (i === idx) {
+        s.style.opacity = '1';
+        s.style.transform = 'translateY(0)';
+        s.style.pointerEvents = 'auto';
+        s.style.display = 'flex';
+        s.classList.add('active-slide');
+      } else {
+        s.style.opacity = '0';
+        s.style.transform = 'translateY(24px)';
+        s.style.pointerEvents = 'none';
+        if (window.innerWidth < 768) s.style.display = 'none';
+        s.classList.remove('active-slide');
+      }
+    });
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === idx);
+      d.style.width = (i === idx) ? '24px' : '12px';
+      d.style.background = (i === idx) ? 'var(--cyan)' : 'var(--bd-m)';
+    });
+    current = idx;
+  }
+
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() {
+      goTo(parseInt(d.dataset.slide));
+    });
+  });
+
+  window.addEventListener('resize', function() {
+    slides.forEach(function(s, i) {
+      if (!s.classList.contains('active-slide') && window.innerWidth < 768) {
+        s.style.display = 'none';
+      } else if (window.innerWidth >= 768) {
+        s.style.display = 'flex';
+      }
+    });
+  });
+
+  setInterval(function() {
+    goTo((current + 1) % total);
+  }, 5000);
+})();
+
+/* ── HW CTA word reveal ── */
+(function initHwCtaReveal() {
+  const el = document.getElementById('hw-cta-wr');
+  if (!el) return;
+  const words = el.querySelectorAll('.wr-word');
+  let delay = 0;
+  words.forEach(w => { w.style.transitionDelay = delay + 'ms'; delay += 90; });
+  const obs = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => { requestAnimationFrame(() => { words.forEach(w => w.classList.add('in')); }); });
+      obs.disconnect();
+    }
+  }, {threshold: 0.3});
+  obs.observe(el);
+})();
+
+/* ── Lead form ── */
+function handleLead(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Gönderiliyor...';
+  btn.disabled = true;
+  setTimeout(() => {
+    e.target.style.display = 'none';
+    const s = document.getElementById('form-success');
+    s.style.display = 'flex';
+  }, 900);
+}
+
+/* ── Segment opt highlight ── */
+document.querySelectorAll('.segment-opt input[type=radio]').forEach(function(r){
+  r.addEventListener('change', function(){
+    document.querySelectorAll('.segment-opt').forEach(function(opt){
+      const checked = opt.querySelector('input').checked;
+      opt.style.borderColor = checked ? 'rgba(0,184,212,.45)' : '';
+      opt.style.background = checked ? 'var(--cyan-dim)' : '';
+    });
+  });
+});
+</script>
+
+<script>
+/* ── THEME TOGGLE ── */
+var _eraTheme = 'dark';
+applyTheme(_eraTheme);
+function applyTheme(t){
+  _eraTheme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  document.querySelectorAll('.ico-moon').forEach(function(el){ el.style.display = t === 'dark'  ? 'block' : 'none'; });
+  document.querySelectorAll('.ico-sun').forEach(function(el){  el.style.display = t === 'light' ? 'block' : 'none'; });
+}
+function toggleTheme(){
+  applyTheme(_eraTheme === 'dark' ? 'light' : 'dark');
+}
+
+/* ── HERO BG CYCLE ── */
+var _heroBgs = [
+  'assets/hero-bg-5-4y-ulTK6.jpg',
+  'assets/hero-bg-4-C8D05Lrt.jpg',
+  'assets/hero-bg-6-aYEJ3kJ3.jpg',
+  'assets/hero-bg-7-VK1-adSZ.jpg',
+  'assets/hero-bg-8-COkiJGCV.jpg',
+  'assets/hero-bg-9-CpY9ERRj.jpg',
+  'assets/hero-bg-10-BEjcwZQ5.jpg',
+  'assets/hero-bg-11-BsKdDTyG.jpg',
+  'assets/hero-bg-3-DY7nlTUD.jpg'
+];
+var _heroBgIdx = 0;
+function cycleHeroBg(){
+  _heroBgIdx = (_heroBgIdx + 1) % _heroBgs.length;
+  var hero = document.querySelector('.hero-teams');
+  if(!hero) return;
+  hero.style.setProperty('--hero-bg','url(' + _heroBgs[_heroBgIdx] + ')');
+}
+
+/* ── BENTO INTERACTIONS ── */
+
+/* 1. Expand */
+function toggleExpand(btn){
+  var card = btn.closest('.bento-card');
+  card.classList.toggle('expanded');
+  btn.textContent = card.classList.contains('expanded') ? 'Kapat' : 'Devamını oku';
+  var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('width','14');svg.setAttribute('height','14');svg.setAttribute('viewBox','0 0 16 16');svg.setAttribute('fill','none');
+  var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d','M4 6l4 4 4-4');path.setAttribute('stroke','currentColor');path.setAttribute('stroke-width','1.5');path.setAttribute('stroke-linecap','round');path.setAttribute('stroke-linejoin','round');
+  svg.appendChild(path);btn.appendChild(document.createTextNode(' '));btn.appendChild(svg);
+}
+
+/* 2. Modal */
+function openBentoModal(id){
+  var el = document.getElementById(id);
+  if(el) el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBentoModal(overlay){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* 3. Card Flip */
+function toggleFlip(btn){
+  var card = btn.closest('.bento-flip');
+  card.classList.toggle('flipped');
+}
+
+/* 4. Drawer */
+function toggleDrawer(btn){
+  var card = btn.closest('.bento-drawer-wrap');
+  card.classList.toggle('drawer-open');
+}
+
+/* 5. Typewriter */
+function startTypewriter(btn){
+  var card = btn.closest('.bento-card');
+  var body = card.querySelector('.bento-typewriter-body');
+  var textEl = body.querySelector('.t-sm');
+  var fullText = body.dataset.fulltext;
+  if(body.classList.contains('typing')){return;}
+  body.classList.add('typing');
+  btn.style.display = 'none';
+  textEl.textContent = '';
+  var i = 0;
+  var speed = 12;
+  function type(){
+    if(i < fullText.length){
+      textEl.textContent += fullText.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    } else {
+      body.classList.add('done');
+    }
+  }
+  type();
+}
+
+/* 6. Scroll Reveal */
+function toggleScrollReveal(btn){
+  var card = btn.closest('.bento-card');
+  var body = card.querySelector('.bento-scroll-body');
+  var isOpen = body.classList.contains('revealed');
+  body.classList.toggle('revealed');
+  btn.textContent = isOpen ? 'Kaydırarak keşfet' : 'Kapat';
+  var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('width','14');svg.setAttribute('height','14');svg.setAttribute('viewBox','0 0 16 16');svg.setAttribute('fill','none');
+  var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d', isOpen ? 'M8 3v10M5 10l3 3 3-3' : 'M4 10l4-4 4 4');
+  path.setAttribute('stroke','currentColor');path.setAttribute('stroke-width','1.5');path.setAttribute('stroke-linecap','round');path.setAttribute('stroke-linejoin','round');
+  svg.appendChild(path);btn.appendChild(document.createTextNode(' '));btn.appendChild(svg);
+}
+
+/* 7. Bento Accordion */
+function toggleBentoAcc(btn){
+  var acc = btn.closest('.bento-acc');
+  var body = acc.querySelector('.bento-acc-body');
+  var parent = acc.parentElement;
+  var isOpen = acc.classList.contains('open');
+  // close siblings in same parent
+  parent.querySelectorAll('.bento-acc.open').forEach(function(s){
+    if(s !== acc){
+      s.classList.remove('open');
+      var sb = s.querySelector('.bento-acc-body');
+      sb.style.maxHeight = sb.scrollHeight + 'px';
+      requestAnimationFrame(function(){ sb.style.maxHeight = '0'; });
+    }
+  });
+  if(isOpen){
+    body.style.maxHeight = body.scrollHeight + 'px';
+    requestAnimationFrame(function(){ body.style.maxHeight = '0'; });
+    acc.classList.remove('open');
+  } else {
+    acc.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    setTimeout(function(){ body.style.maxHeight = 'none'; }, 420);
+  }
+}
+
+/* 9. HW card toggle */
+function toggleHw(btn){
+  var card = btn.closest('.hw');
+  card.classList.toggle('hw-open');
+  btn.firstChild.textContent = card.classList.contains('hw-open') ? 'Kapat ' : 'Devamını oku ';
+}
+
+/* 8. ERP Accordion — tab + detail panel */
+var _erpTexts = [
+  'Satışlar, stok hareketleri ve müşteri verileri kanallar arasında kopyalanmaz; <strong>anlık olarak (gerçek zamanlı)</strong> olarak senkronize edilir. Online ve fiziksel mağazalarınızdaki satış ve iadeleri, anlık olarak Nebim V3 ERP\'nize aktarın; ya da mağazanızda satılan son ürün, <strong>aynı anda ERP stoklarınızdan</strong> düşsün.',
+  'Arka ofiste, bir ERP olarak, <strong>Nebim V3\'ün mevzuata tam uyumlu</strong>, güçlü finansal altyapısını kullanmaya devam ederken; perakende mağazalarınızda Nebim ERA\'nın bulutta çalışan, <strong>Terminal Server gerektirmeyen</strong>, hızlı ve esnek satış deneyimini yaşayın.',
+  'Dışarıdan bir e-ticaret veya alternatif perakende satış çözümü alıp Nebim V3 ERP\'nize bağlamak için harcayacağınız <strong>aylar süren entegrasyon maliyetlerinden</strong> ve <strong>"iki farklı tedarikçi" yönetme karmaşasından</strong> kurtulun.'
+];
+var _erpActive = -1;
+function toggleErpAcc(idx){
+  var tabs = document.querySelectorAll('.erp-acc-tab');
+  var detail = document.getElementById('erp-detail');
+  var textEl = document.getElementById('erp-detail-text');
+  if(_erpActive === idx){
+    // close
+    tabs[idx].classList.remove('open');
+    detail.style.maxHeight = detail.scrollHeight + 'px';
+    requestAnimationFrame(function(){ detail.style.maxHeight = '0'; });
+    detail.classList.remove('open');
+    _erpActive = -1;
+  } else {
+    // close previous
+    tabs.forEach(function(t){ t.classList.remove('open'); });
+    // open new
+    tabs[idx].classList.add('open');
+    textEl.innerHTML = _erpTexts[idx];
+    if(_erpActive === -1){
+      detail.classList.add('open');
+      detail.style.maxHeight = '0';
+      requestAnimationFrame(function(){
+        detail.style.maxHeight = detail.scrollHeight + 'px';
+        setTimeout(function(){ detail.style.maxHeight = 'none'; }, 420);
+      });
+    } else {
+      // already open, just swap text
+      detail.style.maxHeight = 'none';
+    }
+    _erpActive = idx;
+  }
+}
+
+/* ── LANG TOGGLE ── */
+var _eraLang = 'tr';
+function setLang(lang){
+  _eraLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+}
+
+/* ── Section pill active state ── */
+(function(){
+  var pills = document.querySelectorAll('.sec-pill[href^="#"]');
+  if(!pills.length) return;
+  var sections = Array.from(pills).map(function(p){
+    return document.querySelector(p.getAttribute('href'));
+  }).filter(Boolean);
+  function update(){
+    var scrollY = window.scrollY + 140;
+    var active = sections[0];
+    sections.forEach(function(s){if(s.offsetTop <= scrollY) active = s;});
+    pills.forEach(function(p){
+      var isActive = p.getAttribute('href') === '#' + active.id;
+      p.classList.toggle('active', isActive);
+      if(isActive){ p.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
+    });
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+</script>
+
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script>
+
+<!-- ══════════ COOKIE CONSENT WIDGET ══════════ -->
+<style>
+.cookie-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:10000;
+  background:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  backdrop-filter:blur(32px) saturate(180%);
+  border-top:1px solid rgba(15,23,42,.10);
+  box-shadow:
+    0 -8px 32px rgba(15,23,42,.08),
+    inset 0 1px 0 rgba(255,255,255,.6);
+  padding:20px clamp(20px,4vw,48px);
+  display:flex;align-items:center;gap:clamp(16px,3vw,32px);
+  font-family:var(--font-body,Inter,system-ui,sans-serif);
+  transform:translateY(100%);opacity:0;
+  transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s;
+}
+.cookie-bar.show{transform:translateY(0);opacity:1;}
+[data-theme="dark"] .cookie-bar{
+  background:rgba(11,13,22,.55);
+  border-top-color:rgba(255,255,255,.08);
+  box-shadow:
+    0 -8px 32px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.cookie-bar-text{flex:1;min-width:0;}
+.cookie-bar-title{font-size:14px;font-weight:700;margin-bottom:4px;color:#0f172a;}
+.cookie-bar-desc{font-size:13px;line-height:1.5;color:#475569;}
+.cookie-bar-desc a{color:#1A5FB4;text-decoration:underline;}
+[data-theme="dark"] .cookie-bar-title{color:#EEF2FF;}
+[data-theme="dark"] .cookie-bar-desc{color:#9DB1D0;}
+[data-theme="dark"] .cookie-bar-desc a{color:#5FC5DD;}
+.cookie-bar-btns{display:flex;gap:10px;flex-shrink:0;}
+.cookie-btn{
+  padding:10px 22px;border-radius:12px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;transition:background .2s,color .2s,box-shadow .2s;
+}
+.cookie-btn-reject{
+  background:rgba(15,23,42,.06);color:var(--fg,#0f172a);
+}
+.cookie-btn-reject:hover{background:rgba(15,23,42,.12);}
+[data-theme="dark"] .cookie-btn-reject{background:rgba(255,255,255,.08);color:#fff;}
+[data-theme="dark"] .cookie-btn-reject:hover{background:rgba(255,255,255,.14);}
+.cookie-btn-accept{
+  background:var(--neb,#1A5FB4);color:#fff;
+  box-shadow:0 2px 8px rgba(26,95,180,.25);
+}
+.cookie-btn-accept:hover{background:#1550a0;box-shadow:0 4px 16px rgba(26,95,180,.35);}
+@media(max-width:640px){
+  .cookie-bar{flex-direction:column;align-items:stretch;gap:14px;padding:18px 20px;}
+  .cookie-bar-btns{justify-content:stretch;}
+  .cookie-btn{flex:1;text-align:center;}
+}
+</style>
+
+<div class="cookie-bar" id="cookieBar">
+  <div class="cookie-bar-text">
+    <div class="cookie-bar-title">Çerezler ve Kişisel Verilerin Saklanması</div>
+    <div class="cookie-bar-desc">
+      İnternet sitemizden en verimli şekilde faydalanabilmeniz ve kullanıcı deneyiminizi iyileştirmek için çerezler kullanıyoruz. Detaylı bilgi için <a href="cerez-politikasi.html">Çerez Politikası</a> metnini okuyabilirsiniz.
+    </div>
+  </div>
+  <div class="cookie-bar-btns">
+    <button class="cookie-btn cookie-btn-reject" id="cookieReject">Tümünü Reddet</button>
+    <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Tümünü Kabul Et</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var bar=document.getElementById('cookieBar');
+  if(!bar)return;
+  var consent=localStorage.getItem('cookie_consent');
+  if(consent)return;
+  requestAnimationFrame(function(){bar.classList.add('show');});
+  function hide(val){
+    localStorage.setItem('cookie_consent',val);
+    bar.classList.remove('show');
+    setTimeout(function(){bar.style.display='none';},500);
+  }
+  document.getElementById('cookieAccept').addEventListener('click',function(){hide('accepted');});
+  document.getElementById('cookieReject').addEventListener('click',function(){hide('rejected');});
+})();
+</script>
+
+</body>
+</html>

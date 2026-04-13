@@ -1,0 +1,145 @@
+html {
+  --era-site-bg: url('/assets/hero-bg-5-4y-ulTK6.jpg');
+  --era-bg-base: #0b0d16;
+  --era-hero-surface: #0b0d16;
+  --era-hero-mask-left: rgba(11, 13, 22, 0.94);
+  --era-hero-mask-bottom: rgba(11, 13, 22, 0.94);
+  --era-stage-shell-top: rgba(11, 13, 22, 0.985);
+  --era-stage-shell-mid: rgba(11, 13, 22, 0.92);
+  --era-stage-shell-bottom: rgba(11, 13, 22, 0.8);
+  --era-stage-side-mask: rgba(11, 13, 22, 0.95);
+  --era-stage-center-mask: rgba(11, 13, 22, 0.78);
+  --era-stage-fade-start: 74%;
+  --era-stage-fade-end: 100%;
+}
+
+[data-theme="light"] {
+  --era-bg-base: #f8fafb;
+  --era-hero-surface: #f8fafb;
+  --era-hero-mask-left: rgba(248, 250, 252, 0.96);
+  --era-hero-mask-bottom: rgba(248, 250, 252, 0.92);
+  --era-stage-shell-top: rgba(248, 250, 252, 0.82);
+  --era-stage-shell-mid: rgba(248, 250, 252, 0.74);
+  --era-stage-shell-bottom: rgba(248, 250, 252, 0.62);
+  --era-stage-side-mask: rgba(248, 250, 252, 0.9);
+  --era-stage-center-mask: rgba(248, 250, 252, 0.45);
+  --era-stage-fade-start: 86%;
+  --era-stage-fade-end: 100%;
+}
+
+html[data-era-bg-scope="hero"] body,
+html[data-era-bg-scope="header-stage"] body {
+  background: var(--black) !important;
+}
+
+.legacy-page-shell {
+  --era-stage-band-height: clamp(420px, 46vw, 560px);
+  --era-stage-fade-start: 74%;
+  --era-stage-fade-end: 100%;
+}
+
+.legacy-page-shell[data-legacy-page="features"] {
+  --era-stage-band-height: clamp(250px, 28vw, 320px);
+  --era-stage-fade-start: 58%;
+  --era-stage-fade-end: 92%;
+}
+
+.legacy-page-shell[data-legacy-page="paas"] {
+  --era-stage-band-height: clamp(360px, 78vw, 860px);
+  --era-stage-fade-start: 86%;
+  --era-stage-fade-end: 100%;
+}
+
+.legacy-page-shell[data-legacy-page="paas-sss"] {
+  --era-stage-band-height: clamp(360px, 40vw, 520px);
+  --era-stage-fade-start: 74%;
+  --era-stage-fade-end: 100%;
+}
+
+.legacy-page-shell[data-legacy-page="certified"] {
+  --era-stage-band-height: clamp(420px, 60vw, 760px);
+  --era-stage-fade-start: 72%;
+  --era-stage-fade-end: 98%;
+}
+
+.legacy-page-shell[data-legacy-page="paket-1"],
+.legacy-page-shell[data-legacy-page="paket-2"],
+.legacy-page-shell[data-legacy-page="paket-3"],
+.legacy-page-shell[data-legacy-page="paket-custom"] {
+  --era-stage-band-height: clamp(420px, 50vw, 620px);
+  --era-stage-fade-start: 76%;
+  --era-stage-fade-end: 100%;
+}
+
+.legacy-page-shell[data-legacy-page="gizlilik-politikasi"],
+.legacy-page-shell[data-legacy-page="kvkk-aydinlatma"],
+.legacy-page-shell[data-legacy-page="cerez-politikasi"] {
+  --era-stage-band-height: clamp(240px, 26vw, 320px);
+  --era-stage-fade-start: 66%;
+  --era-stage-fade-end: 94%;
+}
+
+.hero-teams {
+  --hero-bg: var(--era-site-bg);
+  background: var(--era-hero-surface) !important;
+}
+
+.hero-teams::after {
+  background:
+    linear-gradient(90deg, var(--era-hero-mask-left) 35%, transparent 75%) !important,
+    linear-gradient(180deg, transparent 60%, var(--era-hero-mask-bottom) 100%) !important;
+}
+
+html[data-era-bg-scope="header-stage"] .era-top-band {
+  display: block;
+  height: var(--era-stage-band-height);
+  background:
+    linear-gradient(
+      180deg,
+      var(--era-stage-shell-top) 0,
+      var(--era-stage-shell-top) calc(var(--bc-h) + var(--nav-gap) + var(--nav-h) + 18px),
+      var(--era-stage-shell-mid) calc(var(--bc-h) + var(--nav-gap) + var(--nav-h) + 88px),
+      var(--era-stage-shell-bottom) 100%
+    ),
+    linear-gradient(
+      90deg,
+      var(--era-stage-side-mask) 0,
+      var(--era-stage-center-mask) 46%,
+      var(--era-stage-side-mask) 100%
+    ),
+    var(--era-site-bg) center top / cover no-repeat,
+    var(--era-hero-surface);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0,
+    #000 var(--era-stage-fade-start),
+    transparent var(--era-stage-fade-end)
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0,
+    #000 var(--era-stage-fade-start),
+    transparent var(--era-stage-fade-end)
+  );
+}
+
+html[data-era-bg-scope="header-stage"] .era-header-stage {
+  position: relative;
+  background: transparent !important;
+}
+
+html[data-era-bg-scope="header-stage"] .feat-page-header::before,
+html[data-era-bg-scope="header-stage"] .pkgf-hero-glow,
+html[data-era-bg-scope="header-stage"] .hero-particles,
+html[data-era-bg-scope="header-stage"] .nav-travel,
+html[data-era-bg-scope="header-stage"] #hero > div[style*="background:linear-gradient"] {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .hero-teams::after {
+    background:
+      linear-gradient(90deg, var(--era-hero-mask-left) 20%, transparent 90%) !important,
+      linear-gradient(180deg, transparent 40%, var(--era-hero-mask-bottom) 100%) !important;
+  }
+}

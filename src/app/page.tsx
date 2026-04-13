@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { HomePageClient } from './HomePageClient';
+import { LegacyHtmlPage } from '@/components/legacy/LegacyHtmlPage';
+import { getLegacyPageMetadata } from '@/lib/legacySite';
 
-export const metadata: Metadata = {
-  title: 'Nebim ERA — Bütünleşik Perakende Ticaretinin Geleceği',
-  description:
-    'Perakendede çok kanallı dönem bitti, bütünleşik dönem başladı. Nebim ERA ile fiziksel mağaza, e-ticaret ve pazaryeri süreçlerinizi tek platformdan yönetin.',
-};
+export const metadata: Metadata = getLegacyPageMetadata('');
 
 export default function HomePage() {
-  return <HomePageClient />;
+  return <LegacyHtmlPage pageSlug="" />;
 }

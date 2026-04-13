@@ -1,36 +1,180 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 13nbm Handoff Snapshot
 
-## Getting Started
+Bu repo, Nebim ERA sitesinin mevcut çalışma durumunu yeni bir bilgisayarda veya yeni bir oturumda aynı kaliteyle sürdürebilmek için hazırlanmış continuation snapshot'tır.
 
-First, run the development server:
+Ana amaç iki şeyi birlikte korumaktır:
+
+1. mevcut çalışan kod ve içerik düzeni
+2. bu projede oluşan karar hafızası
+
+Bu snapshot, mevcut `nebim-era-nextjs` çalışmasının devamıdır; fakat handoff ve continuity odaklı bir repo olarak ele alınmalıdır.
+
+## Proje Özeti
+
+Bu proje, müşteri onaylı HTML içerik ve yerleşimleri Next.js App Router içinde legacy adapter yaklaşımıyla çalıştıran statik bir Nebim ERA sitesidir.
+
+Temel karar:
+
+- müşteri onaylı layout ve content korunur
+- içerik birebir taşınır, ezbere yeniden yazılmaz
+- shared header/footer/runtime ile tüm site tutarlı hale getirilir
+- ana sayfa görsel referanstır
+
+## Mimari
+
+En kritik yapı şu üç katmandır:
+
+- `src/content/legacy-pages`
+  - müşteri içerikleri, layout kompozisyonu ve onaylı HTML kaynakları
+- `src/lib/legacySite.ts`
+  - legacy HTML dosyalarını route, metadata, shared asset ve shared chrome ile bağlayan adaptör
+- `src/app/[slug]`
+  - legacy route resolver
+
+İlgili destekleyici parçalar:
+
+- `src/app/page.tsx`
+  - ana sayfayı legacy kaynak üzerinden render eder
+- `src/components/legacy/LegacyHtmlPage.tsx`
+  - legacy wrapper
+- `public/design-tokens.css`
+  - ortak token seti
+- `public/site-header.css`
+  - shared header shell
+- `public/site-footer.css`
+  - shared footer
+- `public/site-background.css`
+  - shared hero/header-stage background davranışı
+- `public/site-theme-runtime.js`
+  - `theme` + `backgroundVariant` state runtime'ı
+- `public/site-mobile-nav.css`
+  - mobil drawer davranışı
+
+## Route Envanteri
+
+- `/`
+- `/features`
+- `/paas`
+- `/paas-sss`
+- `/certified`
+- `/paket-1`
+- `/paket-2`
+- `/paket-3`
+- `/paket-custom`
+- `/gizlilik-politikasi`
+- `/kvkk-aydinlatma`
+- `/cerez-politikasi`
+- `/vitrin`
+
+## Çalıştırma
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Local dev server tipik olarak:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `http://localhost:3000`
+- gerekirse `http://127.0.0.1:3000`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`next.config.ts` içinde:
 
-## Learn More
+- `allowedDevOrigins: ['127.0.0.1', 'localhost']`
+- `output: 'export'`
 
-To learn more about Next.js, take a look at the following resources:
+## Tasarım ve İçerik Kararları
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Bu projede korunması gereken en önemli kararlar:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Müşteri içerikleri ve kompozisyonu hassas.
+  - metinler keyfi değiştirilmeyecek
+  - section yapıları bozulmayacak
+  - layout “yaklaşık” değil, mümkün olduğunca birebir korunacak
+- Ana sayfa görsel referanstır.
+  - iç sayfa header shell'i ana sayfaya yaklaşır
+  - tersi yapılmaz; ana sayfa iç sayfalara göre bozulmaz
+- Shared header/footer mantığı var.
+  - legal, paket, features, paas, certified sayfaları ortak chrome kullanır
+- Dark theme header shell sabit tutulur.
+  - background varyantı dark header rengini kaydırmaz
+- Background variant sınırsız yayılmaz.
+  - ana sayfada hero alanında
+  - iç sayfalarda yalnızca `header-stage` alanında görünür
+  - alt içerik tekrar koyu standart yüzey akışına döner
+- Mobil menü ortak drawer davranışıyla çalışır.
+  - tema değiştir
+  - arka plan değiştir
+  - aynı mantıkla tüm legacy sayfalarda görünür
 
-## Deploy on Vercel
+## Çalışma Tarzı ve Hassasiyetler
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Bu repo üzerinde çalışırken özellikle kaçınılacak şeyler:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ezbere UI kararı vermek
+- “güzel görünür” diye ekstra glow, mavi overlay, yeni ton ailesi uydurmak
+- müşteri onaylı HTML içinde içerik kompozisyonunu bozmak
+- page-specific hack ile shared sistemi dağıtmak
+- ana sayfayı referans olmaktan çıkarmak
+
+Doğru yaklaşım:
+
+- önce mevcut davranışı oku
+- sonra shared sistem üzerinden düzelt
+- mümkün olan her yerde tek kaynak kullan
+- iç sayfalarda drift oluşturan yerel stilleri bastır ama içeriği bozma
+
+## Şu Anki Repo Gerçeği
+
+Bu snapshot, eski component tabanlı Next migration yapısından legacy HTML adapter modeline dönmüş durumda.
+
+Özetle:
+
+- eski App Router page/component ağacının büyük kısmı kaldırıldı
+- yerine `src/content/legacy-pages` + adapter mimarisi geldi
+- worktree büyük bir geçiş snapshot'ı içeriyor; bu normal
+
+Bu yüzden değişiklik okurken “neden çok sayıda delete var” diye panik yapılmamalı. Bu, bilinçli mimari dönüşümün parçası.
+
+## Açık / Aktif Dikkat Alanları
+
+En güncel dikkat başlıkları:
+
+- dark theme header shell kararlılığı
+- `theme + backgroundVariant` state’in sayfalar arası tutarlılığı
+- iç sayfalarda `header-stage` etkisinin fazla aşağı sarkmaması
+- footer ve legal sayfaların ana sistemden kopmaması
+- paket/fatures/legal iç sayfalarının home referansından uzaklaşmaması
+
+## Yeni Oturum İçin Okuma Sırası
+
+Yeni biri repo’ya geldiğinde şu sırayla bakmalı:
+
+1. `README.md`
+2. `SESSION_TRANSFER_PROMPT.md`
+3. `src/lib/legacySite.ts`
+4. `public/site-header.css`
+5. `public/site-background.css`
+6. `src/app/layout.tsx`
+7. gerekli legacy HTML kaynağı
+
+## Handoff Notu
+
+Bu repo, yeni GitHub hedefi olarak `LabJanus/13nbm` altında saklanmak üzere hazırlanmıştır.
+
+Kurallar:
+
+- mevcut `origin` korunur
+- yeni hedef remote adı `handoff` olmalıdır
+- bu repo docs-only değil, tam çalışma snapshot'ıdır
+
+Yeni bir makinede devam ederken ilk yapılacak şey:
+
+```bash
+npm install
+npm run lint
+npm run build
+```
+
+Sonra ilgili sayfayı tarayıcıda açıp mevcut davranışı görmeden hiçbir görsel karar verilmemelidir.
